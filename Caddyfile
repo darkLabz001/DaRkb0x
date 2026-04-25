@@ -1,4 +1,4 @@
-# RaspyJack HTTPS reverse proxy template (self-signed).
+# DaRkb0x HTTPS reverse proxy template (self-signed).
 # Installer writes a runtime copy to /etc/caddy/Caddyfile using detected IPs.
 # Binds to local IP only — Tailscale serve handles its own port 443.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Norse Recon Suite
+DaRkb0x Payload -- Norse Recon Suite
 =======================================
 Author: 7h30th3r0n3
 
@@ -15,7 +15,7 @@ Controls:
   KEY2         -- Export all tabs to loot
   KEY3         -- Exit
 
-Loot: /root/Raspyjack/loot/NorseRecon/<timestamp>.json
+Loot: /root/DaRkb0x/loot/NorseRecon/<timestamp>.json
 """
 
 import os
@@ -46,7 +46,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-LOOT_DIR = "/root/Raspyjack/loot/NorseRecon"
+LOOT_DIR = "/root/DaRkb0x/loot/NorseRecon"
 ROW_H = 12
 ROWS_VISIBLE = 6
 TAB_NAMES = ["WiFi", "BLE", "Net"]

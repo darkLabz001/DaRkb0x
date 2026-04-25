@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Network Printer Prank
+DaRkb0x Payload -- Network Printer Prank
 ============================================
 Author: 7h30th3r0n3
 
@@ -234,7 +234,7 @@ def main():
     cursor = 0
     scroll = 0
     view = "list"  # list | text_input
-    text_chars = list("Hello from RaspyJack!")
+    text_chars = list("Hello from DaRkb0x!")
     char_idx = 0
     selected_printer = None
     last_press = 0.0
@@ -287,7 +287,7 @@ def main():
                         threading.Thread(
                             target=_send_text,
                             args=(selected_printer["ip"], selected_printer["port"],
-                                  "=== RaspyJack Test Page ===\n\nPrinter is accessible.\n"),
+                                  "=== DaRkb0x Test Page ===\n\nPrinter is accessible.\n"),
                             daemon=True,
                         ).start()
                     else:
@@ -295,7 +295,7 @@ def main():
                             _status_msg = "Select printer first"
                 elif btn == "KEY2":
                     if selected_printer:
-                        text_chars = list("Hello from RaspyJack!")
+                        text_chars = list("Hello from DaRkb0x!")
                         char_idx = 0
                         view = "text_input"
                     else:

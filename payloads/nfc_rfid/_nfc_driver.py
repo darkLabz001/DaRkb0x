@@ -1,5 +1,5 @@
 """
-Shared PN532 NFC driver for RaspyJack NFC suite.
+Shared PN532 NFC driver for DaRkb0x NFC suite.
 Supports UART (CH340/CP2102), I2C, and nfcpy USB readers.
 """
 

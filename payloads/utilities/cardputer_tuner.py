@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Cardputer Tuner
+DaRkb0x Payload -- Cardputer Tuner
 ==========================================
 
-Adjust the Cardputer frame generation settings used by raspyjack.py.
-Settings are persisted as a systemd override for raspyjack.service and
+Adjust the Cardputer frame generation settings used by darkbox.py.
+Settings are persisted as a systemd override for darkbox.service and
 take effect after the service is restarted.
 
 Controls:
@@ -38,14 +38,14 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 DEBOUNCE = 0.18
 
-SERVICE_NAME = "raspyjack.service"
-OVERRIDE_DIR = "/etc/systemd/system/raspyjack.service.d"
+SERVICE_NAME = "darkbox.service"
+OVERRIDE_DIR = "/etc/systemd/system/darkbox.service.d"
 OVERRIDE_PATH = os.path.join(OVERRIDE_DIR, "cardputer-frame.conf")
 
-ENV_MODE = "RJ_CARDPUTER_FRAME_MODE"
-ENV_QUALITY = "RJ_CARDPUTER_FRAME_QUALITY"
-ENV_SUBSAMPLING = "RJ_CARDPUTER_FRAME_SUBSAMPLING"
-ENV_FPS = "RJ_CARDPUTER_FRAME_FPS"
+ENV_MODE = "DB_CARDPUTER_FRAME_MODE"
+ENV_QUALITY = "DB_CARDPUTER_FRAME_QUALITY"
+ENV_SUBSAMPLING = "DB_CARDPUTER_FRAME_SUBSAMPLING"
+ENV_FPS = "DB_CARDPUTER_FRAME_FPS"
 
 MODE_OPTIONS = ["stretch", "contain", "fit"]
 FPS_MIN = 1.0

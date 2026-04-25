@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple BLE extension tester for RaspyJack.
+Simple BLE extension tester for DaRkb0x.
 Author: m0usem0use
 
 Waits for a BLE advertiser named TestRJ, then launches the marker payload so

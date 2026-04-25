@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BloodHound Collector
+DaRkb0x Payload -- BloodHound Collector
 Collects AD data in BloodHound-compatible JSON format.
 Primary: bloodhound-python (pip).  Fallback: ldapsearch + manual JSON.
 Controls: OK=start, KEY1=toggle method, KEY3=exit
@@ -28,8 +28,8 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 # -- Constants ---------------------------------------------------------------
-LOOT_BASE = "/root/Raspyjack/loot/BloodHound"
-CREDS_PATH = "/root/Raspyjack/config/bloodhound/creds.json"
+LOOT_BASE = "/root/DaRkb0x/loot/BloodHound"
+CREDS_PATH = "/root/DaRkb0x/config/bloodhound/creds.json"
 CONFIG_DIR = os.path.dirname(CREDS_PATH)
 LDAP_PORT = 389
 DEBOUNCE = 0.22
@@ -122,7 +122,7 @@ def _run_bloodhound_python(out_dir):
            "-u", _get("username"), "-p", _get("password"),
            "-d", _get("domain"), "-c", "All",
            "-ns", _get("dc_ip"), "--zip",
-           "--output-prefix", "raspyjack"]
+           "--output-prefix", "darkbox"]
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True,
                               timeout=300, cwd=out_dir)

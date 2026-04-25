@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-RaspyJack *payload* example – **Show Buttons**
+DaRkb0x *payload* example – **Show Buttons**
 =============================================
-This script lives in the ``payloads/`` folder of the RaspyJack project.
+This script lives in the ``payloads/`` folder of the DaRkb0x project.
 It demonstrates how to:
 
 1. **Read** the on‑board joystick (UP / DOWN / LEFT / RIGHT / OK) **and** the
@@ -13,7 +13,7 @@ It demonstrates how to:
 3. **Exit cleanly** when:
    * the user presses **KEY3** (bottom‑right button) – *new feature*;
    * the user hits *Ctrl‑C* in the terminal;
-   * RaspyJack UI sends a *SIGTERM* signal when the payload is stopped from the
+   * DaRkb0x UI sends a *SIGTERM* signal when the payload is stopped from the
      menu.
 
 The code is **heavily commented** so that an absolute Python beginner can read
@@ -24,7 +24,7 @@ and understand every step.
 # 0) Make sure we can import local helper modules when launched directly
 # ---------------------------------------------------------------------------
 import os, sys
-# «…/Raspyjack/» is two directories up from this script. Add it to sys.path so
+# «…/DaRkb0x/» is two directories up from this script. Add it to sys.path so
 # that `import LCD_1in44` works even when we run the script manually from
 # inside the “payloads” folder.
 sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', '..')))
@@ -35,7 +35,7 @@ import signal         # capture Ctrl‑C (SIGINT) & termination (SIGTERM)
 import sys            # print exceptions to stderr
 
 # ----------------------------- Third‑party libs ---------------------------
-# These come pre‑installed on RaspyJack; on a vanilla Pi OS you’d need:
+# These come pre‑installed on DaRkb0x; on a vanilla Pi OS you’d need:
 #   sudo apt install python3-pil python3-rpi.gpio
 import RPi.GPIO as GPIO               # Raspberry Pi GPIO access
 import LCD_1in44, LCD_Config          # Waveshare driver helpers for the LCD
@@ -128,7 +128,7 @@ try:
 
         # 6.2 – act on the result
         if pressed:
-            if pressed == "KEY3":  # ← user wants to go back to RaspyJack
+            if pressed == "KEY3":  # ← user wants to go back to DaRkb0x
                 running = False    # leave the main loop → exit script
                 break
 

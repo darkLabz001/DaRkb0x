@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack *payload* – **Breakout**
+DaRkb0x *payload* – **Breakout**
 ================================
 Classic arcade Break-out clone for the Waveshare 1.44-inch LCD HAT on Raspberry Pi.
 

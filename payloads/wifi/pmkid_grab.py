@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- PMKID Hash Grabber
+DaRkb0x Payload -- PMKID Hash Grabber
 ========================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2       -- Export hash to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/PMKID/pmkid_YYYYMMDD_HHMMSS.txt
+Loot: /root/DaRkb0x/loot/PMKID/pmkid_YYYYMMDD_HHMMSS.txt
 """
 
 import os
@@ -62,7 +62,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 6
 ROW_H = 12
-LOOT_DIR = "/root/Raspyjack/loot/PMKID"
+LOOT_DIR = "/root/DaRkb0x/loot/PMKID"
 CHANNELS_24 = list(range(1, 14))
 
 # ---------------------------------------------------------------------------

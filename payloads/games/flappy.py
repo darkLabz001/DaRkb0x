@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Flappy Bird Clone
+DaRkb0x Payload -- Flappy Bird Clone
 ----------------------------------------
 Author: 7h30th3r0n3
 

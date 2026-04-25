@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-LAN Speed Test (Ethernet-only) – RaspyJack payload
+LAN Speed Test (Ethernet-only) – DaRkb0x payload
 ==================================================
 Measures LAN throughput using iperf3 against a chosen server. Enforces
 Ethernet by requiring the default route device to be an Ethernet interface.

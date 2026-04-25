@@ -77,10 +77,10 @@ method=auto
 EOF
 chmod 600 /mnt/rpi_root/etc/NetworkManager/system-connections/WentzATTNetwork.nmconnection
 
-echo "Copying Raspyjack repository to the Pi..."
-mkdir -p /mnt/rpi_root/home/kali/Raspyjack
-rsync -av --exclude='*.img.xz' /home/sinxneo/projects/pizero/ /mnt/rpi_root/home/kali/Raspyjack/
-chown -R 1000:1000 /mnt/rpi_root/home/kali/Raspyjack
+echo "Copying DaRkb0x repository to the Pi..."
+mkdir -p /mnt/rpi_root/home/kali/DaRkb0x
+rsync -av --exclude='*.img.xz' /home/sinxneo/projects/pizero/ /mnt/rpi_root/home/kali/DaRkb0x/
+chown -R 1000:1000 /mnt/rpi_root/home/kali/DaRkb0x
 
 echo "Ensuring USB Host Mode is active (NO gadget mode)..."
 sed -i 's/modules-load=dwc2,g_ether //g' /mnt/rpi_boot/cmdline.txt || true

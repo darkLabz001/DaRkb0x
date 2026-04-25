@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload – Interface Status (eth0/eth1)
+DaRkb0x Payload – Interface Status (eth0/eth1)
 ------------------------------------------------
 Split screen: left = eth0, right = eth1
 Live status: operstate, IP, RX/TX bytes

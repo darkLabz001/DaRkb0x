@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BLE Skimmer Scanner
+DaRkb0x Payload -- BLE Skimmer Scanner
 ==========================================
 Author: 7h30th3r0n3
 
@@ -42,7 +42,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 DEBOUNCE = 0.22
-LOOT_DIR = "/root/Raspyjack/loot/SkimmerScan"
+LOOT_DIR = "/root/DaRkb0x/loot/SkimmerScan"
 
 # Known skimmer module name patterns (case-insensitive substrings)
 SKIMMER_PATTERNS = [

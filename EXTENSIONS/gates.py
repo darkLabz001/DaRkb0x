@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared gate helpers for RaspyJack extensions. Author: m0usem0use"""
+"""Shared gate helpers for DaRkb0x extensions. Author: m0usem0use"""
 from __future__ import annotations
 
 try:

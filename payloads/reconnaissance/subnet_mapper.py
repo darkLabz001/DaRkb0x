@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Subnet Mapper
+DaRkb0x Payload -- Subnet Mapper
 ====================================
 Author: 7h30th3r0n3
 
@@ -61,7 +61,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/SubnetMap"
+LOOT_DIR = "/root/DaRkb0x/loot/SubnetMap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 TOP20_PORTS = "21,22,23,25,53,80,110,111,135,139,143,443,445,993,995,1723,3306,3389,5900,8080"

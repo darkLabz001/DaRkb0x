@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BLE Flood
+DaRkb0x Payload -- BLE Flood
 ================================
 Author: 7h30th3r0n3
 
@@ -51,7 +51,7 @@ PRESET_NAMES = [
     "Beats Solo", "Beats Fit Pro", "Pixel Buds", "Nothing Ear",
     "Echo Dot", "HomePod mini", "Apple Watch", "Tile Pro",
     "Mi Band 8", "Fitbit Versa", "Chromecast",
-    # RaspyJack / Hacking tools
+    # DaRkb0x / Hacking tools
     "\U0001F480 pwned lol", "\U0001F525 ur hacked", "\U00002620 oopsie",
     "\U0001F916 beep boop", "\U0001F47E game over", "\U0001F47B boo!",
     "\U0001F4A9 oh no", "\U0001F608 hehehe", "\U0001F92F mind blown",

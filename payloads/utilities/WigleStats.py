@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WiGLE Stats 
+DaRkb0x Payload -- WiGLE Stats 
 ================================
 Author: h0ss310s
 
@@ -675,8 +675,8 @@ def _start_refresh() -> None:
 # WiGLE upload toolkit
 # ---------------------------------------------------------------------------
 
-WIGLE_UPLOAD_CONFIG = Path("/root/Raspyjack/loot/WiGLE/config.json")
-WARDRIVING_LOOT_DIR = Path("/root/Raspyjack/loot/wardriving")
+WIGLE_UPLOAD_CONFIG = Path("/root/DaRkb0x/loot/WiGLE/config.json")
+WARDRIVING_LOOT_DIR = Path("/root/DaRkb0x/loot/wardriving")
 WIGLE_UPLOAD_URL = f"{API_BASE}/file/upload"
 
 upload_state_lock = threading.Lock()
@@ -707,7 +707,7 @@ def _read_upload_credentials() -> Tuple[str, str]:
 def _find_csv_files() -> List[Path]:
     """Find .csv files in the wardriving loot directory."""
     csv_files: List[Path] = []
-    for search_dir in [WARDRIVING_LOOT_DIR, Path("/root/Raspyjack/loot/WiGLE")]:
+    for search_dir in [WARDRIVING_LOOT_DIR, Path("/root/DaRkb0x/loot/WiGLE")]:
         if search_dir.is_dir():
             csv_files.extend(sorted(search_dir.glob("*.csv")))
     return csv_files

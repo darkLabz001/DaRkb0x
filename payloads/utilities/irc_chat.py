@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Minimal IRC Client
+DaRkb0x Payload -- Minimal IRC Client
 =========================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Controls:
   KEY2         -- Show / hide user list
   KEY3         -- Exit
 
-Config: /root/Raspyjack/loot/IRC/config.json
+Config: /root/DaRkb0x/loot/IRC/config.json
 """
 
 import os
@@ -47,14 +47,14 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
-CONFIG_DIR = "/root/Raspyjack/loot/IRC"
+CONFIG_DIR = "/root/DaRkb0x/loot/IRC"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 MAX_MESSAGES = 100
 DEFAULT_CONFIG = {
     "server": "irc.libera.chat",
     "port": 6667,
     "nick": None,  # Generated at runtime
-    "channels": ["#raspyjack"],
+    "channels": ["#darkbox"],
 }
 
 # ---------------------------------------------------------------------------
@@ -67,7 +67,7 @@ sock_lock = threading.Lock()
 server = "irc.libera.chat"
 port = 6667
 nick = ""
-channels = ["#raspyjack"]
+channels = ["#darkbox"]
 channel_idx = 0
 
 # Per-channel message buffers: {channel: [{"nick": str, "text": str}]}
@@ -95,9 +95,9 @@ signal.signal(signal.SIGTERM, cleanup)
 
 
 def generate_nick():
-    """Generate a random nick like RaspyJack_1234."""
+    """Generate a random nick like DaRkb0x_1234."""
     digits = random.randint(1000, 9999)
-    return f"RaspyJack_{digits}"
+    return f"DaRkb0x_{digits}"
 
 
 def load_config():
@@ -108,7 +108,7 @@ def load_config():
         server = cfg.get("server", "irc.libera.chat")
         port = cfg.get("port", 6667)
         nick = cfg.get("nick", "") or generate_nick()
-        loaded_channels = cfg.get("channels", ["#raspyjack"])
+        loaded_channels = cfg.get("channels", ["#darkbox"])
         if isinstance(loaded_channels, list) and loaded_channels:
             channels = loaded_channels
     except Exception:
@@ -158,7 +158,7 @@ def add_message(channel, nick_name, text):
 def current_channel():
     """Return the currently selected channel name."""
     if not channels:
-        return "#raspyjack"
+        return "#darkbox"
     return channels[channel_idx % len(channels)]
 
 
@@ -407,7 +407,7 @@ def connect_irc():
 
     # Send registration
     irc_send(f"NICK {nick}")
-    irc_send(f"USER {nick} 0 * :RaspyJack IRC")
+    irc_send(f"USER {nick} 0 * :DaRkb0x IRC")
 
     # Start receive thread
     recv_thread = threading.Thread(target=irc_receive_thread, daemon=True)
@@ -419,7 +419,7 @@ def connect_irc():
 def disconnect_irc():
     """Cleanly disconnect from IRC."""
     global irc_sock, connected
-    irc_send("QUIT :RaspyJack signing off")
+    irc_send("QUIT :DaRkb0x signing off")
     time.sleep(0.3)
     with sock_lock:
         if irc_sock is not None:

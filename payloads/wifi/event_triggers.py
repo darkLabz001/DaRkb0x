@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Event Triggers
+DaRkb0x Payload -- Event Triggers
 =====================================
 Author: 7h30th3r0n3
 
@@ -38,11 +38,11 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 ROW_H = 12
-CONFIG_DIR = "/root/Raspyjack/loot/Triggers"
+CONFIG_DIR = "/root/DaRkb0x/loot/Triggers"
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 ALERT_LOG_FILE = os.path.join(CONFIG_DIR, "alerts.log")
-RESPONDER_LOG_DIR = "/root/Raspyjack/Responder/logs"
-LOOT_DIR = "/root/Raspyjack/loot"
+RESPONDER_LOG_DIR = "/root/DaRkb0x/Responder/logs"
+LOOT_DIR = "/root/DaRkb0x/loot"
 TRIGGER_NAMES = ["deauth_flood", "client_connected", "mac_trigger", "auth_capture"]
 TRIGGER_LABELS = ["Deauth Flood", "Client Conn", "MAC Trigger", "Auth Capture"]
 

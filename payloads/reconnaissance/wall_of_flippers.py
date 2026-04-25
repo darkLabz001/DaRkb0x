@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload - Wall of Flippers
+DaRkb0x payload - Wall of Flippers
 ------------------------------------------------
-A RaspyJack-native version of Wall of Flippers
+A DaRkb0x-native version of Wall of Flippers
 - Live BLE scanning
 - Threat summaries, nearby WoF detection, history persistence, settings
 - Credits: https://github.com/K3YOMI/Wall-of-Flippers
@@ -24,7 +24,7 @@ from collections import deque
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
-# Allow imports from RaspyJack root
+# Allow imports from DaRkb0x root
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
 
 try:

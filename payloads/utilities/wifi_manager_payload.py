@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-RaspyJack WiFi Manager Payload
+DaRkb0x WiFi Manager Payload
 =============================
-Launch the WiFi management interface in RaspyJack
+Launch the WiFi management interface in DaRkb0x
 
 BUTTON LAYOUT:
 - Automatic launch of WiFi LCD interface
@@ -17,7 +17,7 @@ FEATURES:
 - Interface selection for tools
 - Connection status monitoring
 
-This payload provides complete WiFi management for RaspyJack
+This payload provides complete WiFi management for DaRkb0x
 while maintaining full ethernet compatibility.
 """
 
@@ -26,16 +26,16 @@ import sys
 import subprocess
 
 # Add WiFi system to path
-sys.path.append('/root/Raspyjack/wifi/')
+sys.path.append('/root/DaRkb0x/wifi/')
 
 def main():
     """Launch the WiFi management interface."""
     try:
-        print("🌐 Launching RaspyJack WiFi Manager...")
+        print("🌐 Launching DaRkb0x WiFi Manager...")
         print("="*50)
         
         # Check if WiFi system is available
-        wifi_interface_path = '/root/Raspyjack/wifi/wifi_lcd_interface.py'
+        wifi_interface_path = '/root/DaRkb0x/wifi/wifi_lcd_interface.py'
         
         if not os.path.exists(wifi_interface_path):
             print("❌ WiFi management system not found!")

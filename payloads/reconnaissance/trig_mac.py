@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- MAC Address Trigger
+DaRkb0x Payload -- MAC Address Trigger
 ==========================================
 Author: 7h30th3r0n3
 
@@ -18,7 +18,7 @@ Controls:
   KEY2       -- Change target MAC (return to input)
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/MACTrigger/detections.log
+Loot: /root/DaRkb0x/loot/MACTrigger/detections.log
 """
 
 import os
@@ -50,7 +50,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 DEBOUNCE = 0.18
-LOOT_DIR = "/root/Raspyjack/loot/MACTrigger"
+LOOT_DIR = "/root/DaRkb0x/loot/MACTrigger"
 LOG_FILE = os.path.join(LOOT_DIR, "detections.log")
 SCAN_INTERVAL = 3.0
 

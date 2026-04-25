@@ -2,7 +2,7 @@ import os
 import sys
 
 # 1. READ THE WHOLE FILE
-with open('raspyjack.py.bak', 'r') as f:
+with open('darkbox.py.bak', 'r') as f:
     lines = f.readlines()
 
 new_lines = []
@@ -77,7 +77,7 @@ while i < len(lines):
         continue
 
     # FIX main loop (around line 4480) - ensure auto-pilot doesn't loop
-    if 'subprocess.Popen(["python3", "/home/kali/Raspyjack/payloads/insomnia_suite/insomnia_auto.py"])' in line:
+    if 'subprocess.Popen(["python3", "/home/kali/DaRkb0x/payloads/insomnia_suite/insomnia_auto.py"])' in line:
         # Check if we are in main()
         if i > 4450:
              i += 1 # Skip the extra popen in main()
@@ -86,6 +86,6 @@ while i < len(lines):
     new_lines.append(line)
     i += 1
 
-with open('raspyjack_fixed.py', 'w') as f:
+with open('darkbox_fixed.py', 'w') as f:
     f.writelines(new_lines)
 print("File repaired locally.")

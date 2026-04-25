@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Hotel Card Reader
+DaRkb0x Payload -- Hotel Card Reader
 =========================================
 Read hotel key cards (MIFARE Classic) with hospitality-specific key dictionary.
 Targets: Assa Abloy/VingCard, Dormakaba, Onity, Salto, ASSA ABLOY Hospitality.
@@ -27,7 +27,7 @@ PINS = {"UP":6,"DOWN":19,"LEFT":5,"RIGHT":26,"OK":13,"KEY1":21,"KEY2":20,"KEY3":
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 DEBOUNCE = 0.18
 _last_btn = 0
-LOOT_DIR = "/root/Raspyjack/loot/NFC/hotel"
+LOOT_DIR = "/root/DaRkb0x/loot/NFC/hotel"
 
 # Hotel-specific keys (ordered by likelihood)
 HOTEL_KEYS = [bytes.fromhex(k) for k in [

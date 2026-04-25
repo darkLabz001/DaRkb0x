@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Offline Map Downloader
+DaRkb0x Payload -- Offline Map Downloader
 =============================================
 Pre-download OSM map tiles for wardriving & GPS tracker.
 Select a region and zoom level, tiles are cached for offline use.
@@ -41,7 +41,7 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-TILE_CACHE = "/root/Raspyjack/loot/wardriving/.tilecache"
+TILE_CACHE = "/root/DaRkb0x/loot/wardriving/.tilecache"
 TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 DEBOUNCE = 0.18
 _last_btn = 0
@@ -146,7 +146,7 @@ def _download_tiles(tiles, lcd, font, font_sm, stop_event):
 
         url = TILE_URL.format(z=z, x=x, y=y)
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "RaspyJack/2.0"})
+            req = urllib.request.Request(url, headers={"User-Agent": "DaRkb0x/2.0"})
             with urllib.request.urlopen(req, timeout=10) as resp:
                 data = resp.read()
             with open(cache_path, "wb") as f:

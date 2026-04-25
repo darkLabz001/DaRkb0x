@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload – Micro Shell on 1.44‑inch LCD (v1.6)
+DaRkb0x payload – Micro Shell on 1.44‑inch LCD (v1.6)
 ======================================================
 Hand‑held Linux terminal: interactive **/bin/bash** in a PTY, driven by a USB
 keyboard, rendered on a 128 × 128 Waveshare LCD.

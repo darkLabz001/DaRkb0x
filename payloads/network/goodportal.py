@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Whitelist Portal (GoodPortal)
+DaRkb0x Payload -- Whitelist Portal (GoodPortal)
 ====================================================
 Author: 7h30th3r0n3
 
@@ -17,7 +17,7 @@ Controls
   KEY2       -- Add connected client MAC to whitelist
   KEY3       -- Exit (stops portal if running)
 
-Config: /root/Raspyjack/loot/GoodPortal/whitelist.json
+Config: /root/DaRkb0x/loot/GoodPortal/whitelist.json
 """
 
 import os
@@ -55,7 +55,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/GoodPortal"
+LOOT_DIR = "/root/DaRkb0x/loot/GoodPortal"
 WHITELIST_PATH = os.path.join(LOOT_DIR, "whitelist.json")
 DNSMASQ_CONF = os.path.join(LOOT_DIR, "dnsmasq_portal.conf")
 PORTAL_DIR = os.path.join(LOOT_DIR, "portal_pages")

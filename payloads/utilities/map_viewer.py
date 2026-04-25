@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Offline Map Viewer
+DaRkb0x Payload -- Offline Map Viewer
 =========================================
 Browse downloaded map tiles on the LCD. Pan, zoom, GPS center.
 
@@ -40,7 +40,7 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-TILE_CACHE = "/root/Raspyjack/loot/wardriving/.tilecache"
+TILE_CACHE = "/root/DaRkb0x/loot/wardriving/.tilecache"
 TILE_SIZE = 256
 DEBOUNCE = 0.15
 _last_btn = 0

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- HID Keyboard Injector (BadUSB)
+DaRkb0x Payload -- HID Keyboard Injector (BadUSB)
 =====================================================
 Author: 7h30th3r0n3
 
@@ -10,7 +10,7 @@ Configure the Pi Zero as a USB HID keyboard via Linux USB gadget API
 Setup / Prerequisites:
   - Requires Pi Zero USB OTG port. Connect Pi to target via USB.
   - Kernel must support configfs USB gadget.
-  - DuckyScript files in /root/Raspyjack/payloads/hid_scripts/.
+  - DuckyScript files in /root/DaRkb0x/payloads/hid_scripts/.
 
 Supported DuckyScript commands:
   STRING, ENTER, DELAY, GUI, ALT, CTRL, SHIFT, TAB, ESCAPE,
@@ -23,8 +23,8 @@ Controls:
   KEY2      -- Test mode (show keystrokes on LCD only)
   KEY3      -- Exit
 
-Scripts: /root/Raspyjack/payloads/hid_scripts/
-Loot:    /root/Raspyjack/loot/HIDInjector/
+Scripts: /root/DaRkb0x/payloads/hid_scripts/
+Loot:    /root/DaRkb0x/loot/HIDInjector/
 """
 
 import os
@@ -58,10 +58,10 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-SCRIPTS_DIR = "/root/Raspyjack/payloads/hid_scripts"
-LOOT_DIR = "/root/Raspyjack/loot/HIDInjector"
+SCRIPTS_DIR = "/root/DaRkb0x/payloads/hid_scripts"
+LOOT_DIR = "/root/DaRkb0x/loot/HIDInjector"
 GADGET_BASE = "/sys/kernel/config/usb_gadget"
-GADGET_NAME = "raspyjack_hid"
+GADGET_NAME = "darkbox_hid"
 HID_DEV = "/dev/hidg0"
 ROWS_VISIBLE = 7
 
@@ -211,7 +211,7 @@ def _setup_gadget():
         strings_dir = os.path.join(gadget_dir, "strings", "0x409")
         os.makedirs(strings_dir, exist_ok=True)
         _write_file(os.path.join(strings_dir, "serialnumber"), "000000000001")
-        _write_file(os.path.join(strings_dir, "manufacturer"), "RaspyJack")
+        _write_file(os.path.join(strings_dir, "manufacturer"), "DaRkb0x")
         _write_file(os.path.join(strings_dir, "product"), "HID Keyboard")
 
         config_dir = os.path.join(gadget_dir, "configs", "c.1")
@@ -508,7 +508,7 @@ def _create_sample_script():
             "STRING notepad\n"
             "ENTER\n"
             "DELAY 1000\n"
-            "STRING Hello from RaspyJack!\n"
+            "STRING Hello from DaRkb0x!\n"
             "ENTER\n"
         )
         with open(sample_path, "w") as f:
@@ -649,7 +649,7 @@ def main():
 
             elif btn == "KEY1":
                 # Create a simple type-text payload
-                fname = _create_type_payload("RaspyJack was here!")
+                fname = _create_type_payload("DaRkb0x was here!")
                 scripts = _scan_scripts()
                 with lock:
                     status_msg = f"Created: {fname[:16]}"

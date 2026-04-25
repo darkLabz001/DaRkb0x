@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Neon Bikes (Tron Light Cycles)
+DaRkb0x Payload -- Neon Bikes (Tron Light Cycles)
 ====================================================
 Author: 7h30th3r0n3
 

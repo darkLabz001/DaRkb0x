@@ -33,10 +33,10 @@ KEY_DOWN = 19
 KEY_PRESS = 13
 KEY3 = 16
 
-LOOT_DIR = "/root/Raspyjack/loot/DHCP"
+LOOT_DIR = "/root/DaRkb0x/loot/DHCP"
 popup_message = ""
 popup_until = 0.0
-WPAD_DIR = "/tmp/raspyjack_wpad"
+WPAD_DIR = "/tmp/darkbox_wpad"
 
 
 def lcd_init():
@@ -170,7 +170,7 @@ def write_dnsmasq_conf(iface, gw_ip, dhcp_start, dhcp_end, wpad_url, log_file):
         f"dhcp-option=252,{wpad_url}",
         "",
     ])
-    path = "/tmp/raspyjack_rogue_dhcp.conf"
+    path = "/tmp/darkbox_rogue_dhcp.conf"
     with open(path, "w") as f:
         f.write(conf)
     return path

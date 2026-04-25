@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SYN Flood
+DaRkb0x Payload -- SYN Flood
 ================================
 Author: 7h30th3r0n3
 

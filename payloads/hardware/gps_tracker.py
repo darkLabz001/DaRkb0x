@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- GPS Tracker
+DaRkb0x Payload -- GPS Tracker
 ==================================
 Author: 7h30th3r0n3
 
@@ -22,7 +22,7 @@ Controls
   KEY2       -- Export GPX file
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/GPS/
+Loot: /root/DaRkb0x/loot/GPS/
 """
 
 import os
@@ -63,7 +63,7 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_DIR = "/root/Raspyjack/loot/GPS"
+LOOT_DIR = "/root/DaRkb0x/loot/GPS"
 DEBOUNCE = 0.22
 
 lock = threading.Lock()
@@ -202,8 +202,8 @@ def _export_gpx(entries):
     fpath = os.path.join(LOOT_DIR, fname)
     try:
         lines = ['<?xml version="1.0" encoding="UTF-8"?>',
-                 '<gpx version="1.1" creator="RaspyJack">',
-                 '  <trk><name>RaspyJack Track</name><trkseg>']
+                 '<gpx version="1.1" creator="DaRkb0x">',
+                 '  <trk><name>DaRkb0x Track</name><trkseg>']
         for e in entries:
             lines.append(f'    <trkpt lat="{e[1]}" lon="{e[2]}"><ele>{e[3]}</ele><time>{e[0]}</time></trkpt>')
         lines += ['  </trkseg></trk>', '</gpx>']
@@ -249,7 +249,7 @@ def _draw_coords(lcd, fix, logging, entries, scr, status):
 # OSM tile map view
 # ---------------------------------------------------------------------------
 
-_TILE_CACHE = "/root/Raspyjack/loot/GPS/.tilecache"
+_TILE_CACHE = "/root/DaRkb0x/loot/GPS/.tilecache"
 _TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 _map_bg_img = None
 _map_bg_bbox = None
@@ -270,7 +270,7 @@ def _fetch_tile(z, x, y):
             pass
     try:
         req = urllib.request.Request(_TILE_URL.format(z=z, x=x, y=y),
-                                     headers={"User-Agent": "RaspyJack/1.0"})
+                                     headers={"User-Agent": "DaRkb0x/1.0"})
         with urllib.request.urlopen(req, timeout=8) as resp:
             data = resp.read()
         with open(cache_path, "wb") as f:

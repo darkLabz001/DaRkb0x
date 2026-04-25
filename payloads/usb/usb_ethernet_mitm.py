@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- USB Ethernet MITM
+DaRkb0x Payload -- USB Ethernet MITM
 ========================================
 Author: 7h30th3r0n3
 
@@ -25,7 +25,7 @@ Controls:
   KEY2      -- Show captured data
   KEY3      -- Exit + cleanup gadget
 
-Loot: /root/Raspyjack/loot/USBEthMITM/
+Loot: /root/DaRkb0x/loot/USBEthMITM/
 """
 
 import os
@@ -61,17 +61,17 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/USBEthMITM"
+LOOT_DIR = "/root/DaRkb0x/loot/USBEthMITM"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 GADGET_BASE = "/sys/kernel/config/usb_gadget"
-GADGET_NAME = "raspyjack_eth"
-DNSMASQ_CONF = "/tmp/raspyjack_usbeth_dnsmasq.conf"
+GADGET_NAME = "darkbox_eth"
+DNSMASQ_CONF = "/tmp/darkbox_usbeth_dnsmasq.conf"
 USB_IFACE = "usb0"
 GATEWAY_IP = "10.0.88.1"
 DHCP_RANGE_START = "10.0.88.10"
 DHCP_RANGE_END = "10.0.88.50"
-DNS_LOG = "/tmp/raspyjack_usbeth_dns.log"
+DNS_LOG = "/tmp/darkbox_usbeth_dns.log"
 ROWS_VISIBLE = 6
 
 # ---------------------------------------------------------------------------

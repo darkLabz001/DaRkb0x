@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Shodan InternetDB Query
+DaRkb0x Payload -- Shodan InternetDB Query
 =============================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Controls:
   KEY2        -- Export results to loot
   KEY3        -- Exit
 
-Loot: /root/Raspyjack/loot/Shodan/shodan_YYYYMMDD_HHMMSS.json
+Loot: /root/DaRkb0x/loot/Shodan/shodan_YYYYMMDD_HHMMSS.json
 """
 
 import os
@@ -55,8 +55,8 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 7
 ROW_H = 12
 
-LOOT_DIR = "/root/Raspyjack/loot/Shodan"
-LOOT_SRC_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot/Shodan"
+LOOT_SRC_DIR = "/root/DaRkb0x/loot"
 API_URL = "https://internetdb.shodan.io/"
 API_TIMEOUT = 10
 
@@ -175,7 +175,7 @@ def _query_internetdb(ip_str):
     try:
         req = urllib.request.Request(
             url,
-            headers={"User-Agent": "RaspyJack/1.0", "Accept": "application/json"},
+            headers={"User-Agent": "DaRkb0x/1.0", "Accept": "application/json"},
         )
         with urllib.request.urlopen(req, timeout=API_TIMEOUT) as resp:
             raw = resp.read().decode("utf-8")

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Reverse Shell Generator & Server
+DaRkb0x Payload -- Reverse Shell Generator & Server
 ------------------------------------------------------
 Author: 7h30th3r0n3
 
 Generate reverse shell one-liners, serve them via HTTP, start listeners.
-Loots generated commands to /root/Raspyjack/loot/Shells/.
+Loots generated commands to /root/DaRkb0x/loot/Shells/.
 
 Controls:
   UP/DOWN  = scroll shell types / menu
@@ -46,7 +46,7 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 DEBOUNCE = 0.25
-LOOT_DIR = "/root/Raspyjack/loot/Shells"
+LOOT_DIR = "/root/DaRkb0x/loot/Shells"
 DEFAULT_PORT = 4444
 HTTP_PORT = 8888
 
@@ -232,7 +232,7 @@ def _draw_shell_view(lcd, shell_type, lines, scroll_offset):
 
 def _start_http_server(payload_text, port):
     """Start a simple HTTP server serving the payload. Returns process."""
-    tmp_dir = "/tmp/rj_shell_serve"
+    tmp_dir = "/tmp/db_shell_serve"
     os.makedirs(tmp_dir, exist_ok=True)
     payload_path = os.path.join(tmp_dir, "payload.txt")
     with open(payload_path, "w") as fh:
@@ -395,10 +395,10 @@ def main():
         _kill_process(nc_proc)
         # Clean temp files
         try:
-            tmp_payload = "/tmp/rj_shell_serve/payload.txt"
+            tmp_payload = "/tmp/db_shell_serve/payload.txt"
             if os.path.exists(tmp_payload):
                 os.remove(tmp_payload)
-            tmp_dir = "/tmp/rj_shell_serve"
+            tmp_dir = "/tmp/db_shell_serve"
             if os.path.isdir(tmp_dir):
                 os.rmdir(tmp_dir)
         except OSError:

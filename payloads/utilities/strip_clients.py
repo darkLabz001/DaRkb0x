@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Client & AP Filter
+DaRkb0x Payload -- Client & AP Filter
 =========================================
 Author: 7h30th3r0n3
 
@@ -38,7 +38,7 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-EXPORT_DIR = "/root/Raspyjack/loot/Filters"
+EXPORT_DIR = "/root/DaRkb0x/loot/Filters"
 DEBOUNCE = 0.25
 WLAN_IF = "wlan0"
 

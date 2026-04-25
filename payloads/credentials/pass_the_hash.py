@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Pass the Hash (PtH)
+DaRkb0x Payload -- Pass the Hash (PtH)
 =========================================
 Author: 7h30th3r0n3
 
@@ -25,7 +25,7 @@ Controls:
   KEY2  -- Execute command on authenticated target
   KEY3  -- Exit
 
-Loot: /root/Raspyjack/loot/PtH/
+Loot: /root/DaRkb0x/loot/PtH/
 """
 
 import os
@@ -63,10 +63,10 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/PtH"
-CRACKED_DIR = "/root/Raspyjack/loot/CrackedNTLM"
-RELAY_DIR = "/root/Raspyjack/loot/NTLMRelay"
-RESPONDER_LOG_DIR = "/root/Raspyjack/Responder/logs"
+LOOT_DIR = "/root/DaRkb0x/loot/PtH"
+CRACKED_DIR = "/root/DaRkb0x/loot/CrackedNTLM"
+RELAY_DIR = "/root/DaRkb0x/loot/NTLMRelay"
+RESPONDER_LOG_DIR = "/root/DaRkb0x/Responder/logs"
 
 ROWS_VISIBLE = 6
 ROW_H = 12

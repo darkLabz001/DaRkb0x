@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Raspyjack-specific Ragnar launcher."""
+"""DaRkb0x-specific Ragnar launcher."""
 
 import os
 import signal
@@ -82,7 +82,7 @@ def _ensure_auth_db() -> None:
 
 def _main() -> int:
     # Prevent Ragnar from initializing the e-paper display (EPD) hardware.
-    # RaspyJack uses the same SPI bus for its LCD; EPD init clobbers it and
+    # DaRkb0x uses the same SPI bus for its LCD; EPD init clobbers it and
     # causes a white screen.
     os.environ.setdefault("RAGNAR_PAGER_MODE", "1")
 
@@ -103,8 +103,8 @@ def _main() -> int:
         print("[RAGNAR] Run ./scripts/install_ragnar_port.sh", file=sys.stderr)
         return 3
 
-    logger = Logger(name="raspyjack_headless.py")
-    logger.info(f"Starting Ragnar via Raspyjack launcher on port {web_port}")
+    logger = Logger(name="darkbox_headless.py")
+    logger.info(f"Starting Ragnar via DaRkb0x launcher on port {web_port}")
 
     try:
         shared_data.load_config()
@@ -147,7 +147,7 @@ def _main() -> int:
             time.sleep(2)
 
     except Exception as exc:
-        logger.error(f"Raspyjack Ragnar launcher failed: {exc}")
+        logger.error(f"DaRkb0x Ragnar launcher failed: {exc}")
         if "ragnar" in locals():
             try:
                 ragnar.stop()

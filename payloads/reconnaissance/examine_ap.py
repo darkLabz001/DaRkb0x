@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Detailed AP Examination
+DaRkb0x Payload -- Detailed AP Examination
 =============================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Controls:
   KEY2       -- Export AP report to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/APExamine/ap_YYYYMMDD_HHMMSS.json
+Loot: /root/DaRkb0x/loot/APExamine/ap_YYYYMMDD_HHMMSS.json
 """
 
 import os
@@ -50,8 +50,8 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 6
 ROW_H = 12
 
-LOOT_DIR = "/root/Raspyjack/loot/APExamine"
-CSV_PREFIX = "/tmp/rj_apexam"
+LOOT_DIR = "/root/DaRkb0x/loot/APExamine"
+CSV_PREFIX = "/tmp/db_apexam"
 SCAN_IFACE = "wlan1"
 MON_IFACE = "wlan1mon"
 PARSE_INTERVAL = 3.0

@@ -2,7 +2,7 @@ import os
 import sys
 
 # 1. READ THE ORIGINAL BACKUP (the one we downloaded from the Pi before my broken local fix)
-with open('raspyjack.py.bak', 'r') as f:
+with open('darkbox.py.bak', 'r') as f:
     lines = f.readlines()
 
 new_lines = []
@@ -86,7 +86,7 @@ while i < len(lines):
         continue
 
     # --- 5. Remove duplicate auto-pilot launch ---
-    if 'subprocess.Popen(["python3", "/home/kali/Raspyjack/payloads/insomnia_suite/insomnia_auto.py"])' in line:
+    if 'subprocess.Popen(["python3", "/home/kali/DaRkb0x/payloads/insomnia_suite/insomnia_auto.py"])' in line:
         if i > 4450: # The one in main()
              i += 1
              continue
@@ -94,6 +94,6 @@ while i < len(lines):
     new_lines.append(line)
     i += 1
 
-with open('raspyjack_fixed_v2.py', 'w') as f:
+with open('darkbox_fixed_v2.py', 'w') as f:
     f.writelines(new_lines)
 print("File repaired locally (v2).")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Rogue Gateway
+DaRkb0x Payload -- Rogue Gateway
 ====================================
 Author: 7h30th3r0n3
 
@@ -69,7 +69,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/RogueGateway"
+LOOT_DIR = "/root/DaRkb0x/loot/RogueGateway"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 ROWS_VISIBLE = 4

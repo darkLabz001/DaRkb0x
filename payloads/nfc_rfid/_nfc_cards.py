@@ -7,7 +7,7 @@ import json
 from datetime import datetime
 from typing import Optional, List
 
-LOOT_DIR = "/root/Raspyjack/loot/NFC"
+LOOT_DIR = "/root/DaRkb0x/loot/NFC"
 
 # NDEF URL prefixes (TNF=0x01, type="U")
 NDEF_URL_PREFIXES = {

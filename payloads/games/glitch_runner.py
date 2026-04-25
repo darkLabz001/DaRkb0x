@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Glitch Runner (Cyberpunk Platformer)
+DaRkb0x Payload -- Glitch Runner (Cyberpunk Platformer)
 ==========================================================
 Author: 7h30th3r0n3
 

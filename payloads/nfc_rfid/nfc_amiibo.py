@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Amiibo Reader/Cloner
+DaRkb0x Payload -- Amiibo Reader/Cloner
 ============================================
 Read, identify and clone Nintendo Amiibo (NTAG215).
 
@@ -24,7 +24,7 @@ PINS = {"UP":6,"DOWN":19,"LEFT":5,"RIGHT":26,"OK":13,"KEY1":21,"KEY2":20,"KEY3":
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 DEBOUNCE = 0.18
 _last_btn = 0
-LOOT_DIR = "/root/Raspyjack/loot/NFC/amiibo"
+LOOT_DIR = "/root/DaRkb0x/loot/NFC/amiibo"
 
 # Amiibo character database (top 50)
 AMIIBO_DB = {

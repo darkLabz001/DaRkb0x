@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Stealthy ARP Scanner
+DaRkb0x Payload -- Stealthy ARP Scanner
 ==========================================
 Author: 7h30th3r0n3
 
@@ -17,7 +17,7 @@ Controls:
   LEFT       -- Toggle ARP table view (ip neigh)
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/StealthScan/scan_YYYYMMDD_HHMMSS.json
+Loot: /root/DaRkb0x/loot/StealthScan/scan_YYYYMMDD_HHMMSS.json
 """
 
 import os
@@ -60,7 +60,7 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 6
 ROW_H = 12
 
-LOOT_DIR = "/root/Raspyjack/loot/StealthScan"
+LOOT_DIR = "/root/DaRkb0x/loot/StealthScan"
 
 # Common OUI prefixes for vendor hint (abbreviated)
 OUI_HINTS = {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC/RFID Reader & Cloner
+DaRkb0x Payload -- NFC/RFID Reader & Cloner
 ===============================================
 Read, save and clone NFC/RFID cards.
 Supports PN532 (UART/I2C), ACR122U, SCL3711 via nfcpy.
@@ -76,7 +76,7 @@ CMD_INLISTPASSIVETARGET = 0x4A
 CMD_INDATAEXCHANGE = 0x40
 CMD_GETFIRMWAREVERSION = 0x02
 
-LOOT_DIR = "/root/Raspyjack/loot/NFC"
+LOOT_DIR = "/root/DaRkb0x/loot/NFC"
 DEBOUNCE = 0.18
 _last_btn = 0
 

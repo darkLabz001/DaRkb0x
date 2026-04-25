@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Text Translator
+DaRkb0x Payload -- Text Translator
 ======================================
 Author: 7h30th3r0n3
 
@@ -97,7 +97,7 @@ def _translate(text, src_lang, tgt_lang):
         encoded = quote(text)
         pair = src_lang + "|" + tgt_lang
         url = API_URL + "?q=" + encoded + "&langpair=" + pair
-        req = Request(url, headers={"User-Agent": "RaspyJack/1.0"})
+        req = Request(url, headers={"User-Agent": "DaRkb0x/1.0"})
         resp = urlopen(req, timeout=15)
         body = resp.read().decode("utf-8")
         data = _json.loads(body)

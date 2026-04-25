@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Continuous BLE Scanner Dashboard
+DaRkb0x Payload -- Continuous BLE Scanner Dashboard
 =====================================================
 Author: 7h30th3r0n3
 
@@ -23,7 +23,7 @@ Controls
   KEY2       -- Export JSON to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/BLEScan/
+Loot: /root/DaRkb0x/loot/BLEScan/
 """
 
 import os
@@ -62,7 +62,7 @@ font = scaled_font()
 
 # ── Constants ────────────────────────────────────────────────────────────────
 HCI_DEV = None  # set in main() via select_bt_interface
-LOOT_DIR = "/root/Raspyjack/loot/BLEScan"
+LOOT_DIR = "/root/DaRkb0x/loot/BLEScan"
 ROWS_VISIBLE = 7
 ROW_H = 12
 SORT_MODES = ["rssi", "name", "count"]

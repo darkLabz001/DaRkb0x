@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload – Tetris
+DaRkb0x Payload – Tetris
 Controls:
 - LEFT/RIGHT: move
 - UP: hard drop

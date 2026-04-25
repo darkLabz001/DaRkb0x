@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WiFi Dead Drop
+DaRkb0x Payload -- WiFi Dead Drop
 =====================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2       Purge all files (with confirmation)
   KEY3       Exit + cleanup
 
-Loot: /root/Raspyjack/loot/DeadDrop/
+Loot: /root/DaRkb0x/loot/DeadDrop/
 """
 
 import os
@@ -61,12 +61,12 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 ROWS_VISIBLE = 5
 
-DROP_DIR = "/root/Raspyjack/loot/DeadDrop/files"
-LOG_DIR = "/root/Raspyjack/loot/DeadDrop"
+DROP_DIR = "/root/DaRkb0x/loot/DeadDrop/files"
+LOG_DIR = "/root/DaRkb0x/loot/DeadDrop"
 CONFIG_PATH = os.path.join(LOG_DIR, "config.json")
 
-HOSTAPD_CONF = "/tmp/rj_deaddrop_hostapd.conf"
-DNSMASQ_CONF = "/tmp/rj_deaddrop_dnsmasq.conf"
+HOSTAPD_CONF = "/tmp/db_deaddrop_hostapd.conf"
+DNSMASQ_CONF = "/tmp/db_deaddrop_dnsmasq.conf"
 
 GATEWAY_IP = "10.0.77.1"
 DHCP_START = "10.0.77.10"
@@ -193,7 +193,7 @@ def _start_services(ifc):
     global _hostapd_proc, _dnsmasq_proc, _http_server, status_msg
 
     for proc_name in ("hostapd", "dnsmasq"):
-        subprocess.run(["sudo", "pkill", "-f", f"rj_deaddrop.*{proc_name}"],
+        subprocess.run(["sudo", "pkill", "-f", f"db_deaddrop.*{proc_name}"],
                        capture_output=True, timeout=5)
 
     for cmd in [
@@ -277,7 +277,7 @@ def _stop_services():
     ]:
         subprocess.run(cmd, capture_output=True, timeout=5)
 
-    subprocess.run(["sudo", "pkill", "-f", "rj_deaddrop"], capture_output=True, timeout=5)
+    subprocess.run(["sudo", "pkill", "-f", "db_deaddrop"], capture_output=True, timeout=5)
     with lock:
         status_msg = "Stopped"
 

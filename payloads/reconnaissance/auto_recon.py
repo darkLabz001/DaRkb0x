@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Automated Reconnaissance (Shark Jack Style)
+DaRkb0x Payload -- Automated Reconnaissance (Shark Jack Style)
 ================================================================
 Author: 7h30th3r0n3
 
 Plug-and-pwn: runs AUTOMATICALLY on launch with zero user interaction.
 
 Setup / Prerequisites:
-  - Optional: Discord webhook in /root/Raspyjack/discord_webhook.txt
+  - Optional: Discord webhook in /root/DaRkb0x/discord_webhook.txt
     for auto-exfil of results.
 
 Sequence:
@@ -15,7 +15,7 @@ Sequence:
   2. ARP scan local subnet via scapy
   3. Quick nmap scan (-T4 --top-ports 100) on all discovered hosts
   4. Collect results: IPs, MACs, open ports, OS hints
-  5. Save JSON loot to /root/Raspyjack/loot/AutoRecon/
+  5. Save JSON loot to /root/DaRkb0x/loot/AutoRecon/
   6. POST results to Discord webhook if configured
   7. LCD shows live progress throughout
   8. Auto-exits on completion (KEY3 to abort early)
@@ -58,8 +58,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/AutoRecon"
-WEBHOOK_PATH = "/root/Raspyjack/discord_webhook.txt"
+LOOT_DIR = "/root/DaRkb0x/loot/AutoRecon"
+WEBHOOK_PATH = "/root/DaRkb0x/discord_webhook.txt"
 INTERFACES_PREFERRED = ["eth0", "eth1", "usb0", "wlan0", "wlan1"]
 NMAP_TOP_PORTS = 100
 NMAP_TIMING = "-T4"

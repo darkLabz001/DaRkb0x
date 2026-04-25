@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Service Banner Grabber
+DaRkb0x Payload -- Service Banner Grabber
 =============================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Controls:
   KEY2      -- Export results to loot
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/Banners/<timestamp>.json
+Loot: /root/DaRkb0x/loot/Banners/<timestamp>.json
 """
 
 import os
@@ -54,8 +54,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/Banners"
-NMAP_LOOT = "/root/Raspyjack/loot/Nmap"
+LOOT_DIR = "/root/DaRkb0x/loot/Banners"
+NMAP_LOOT = "/root/DaRkb0x/loot/Nmap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 COMMON_PORTS = [21, 22, 23, 25, 80, 110, 143, 443, 445, 993, 995,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Video Player
+DaRkb0x Payload -- Video Player
 ===================================
 Author: 7h30th3r0n3
 
@@ -44,7 +44,7 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 VISIBLE = 7
 VIDEO_EXTENSIONS = {".mp4", ".avi", ".mkv", ".mov", ".webm", ".flv"}
-START_DIR = "/root/Raspyjack/loot"
+START_DIR = "/root/DaRkb0x/loot"
 
 _running = True
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Route Control - Command Line Interface
+DaRkb0x Route Control - Command Line Interface
 ================================================
 Command-line tool to demonstrate how interface selection
 actually controls system routing.
@@ -17,10 +17,10 @@ import sys
 import os
 
 # Add required paths
-sys.path.append('/root/Raspyjack/wifi/')
+sys.path.append('/root/DaRkb0x/wifi/')
 
 try:
-    from raspyjack_integration import (
+    from darkbox_integration import (
         get_available_interfaces,
         get_interface_status,
         get_current_default_route,
@@ -37,7 +37,7 @@ except Exception as e:
 
 def show_usage():
     """Show usage information."""
-    print("RaspyJack Route Control")
+    print("DaRkb0x Route Control")
     print("="*30)
     print("USAGE:")
     print("  python3 route_control.py status                # Show routing status")
@@ -185,7 +185,7 @@ def cmd_test(interface):
     print(f"\n🎯 Ready for switching: {'Yes' if status['connected'] and status['ip'] else 'No'}")
     
     if status['connected'] and status['ip']:
-        from raspyjack_integration import get_interface_gateway
+        from darkbox_integration import get_interface_gateway
         gateway = get_interface_gateway(interface)
         if gateway:
             print(f"🌐 Gateway: {gateway}")
@@ -209,7 +209,7 @@ def main():
     """Main function."""
     if not IMPORTS_OK:
         print("❌ Required modules not available")
-        print("Make sure you're running from RaspyJack directory")
+        print("Make sure you're running from DaRkb0x directory")
         return 1
     
     if len(sys.argv) < 2:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- USB Mass Storage Gadget
+DaRkb0x Payload -- USB Mass Storage Gadget
 =============================================
 Author: 7h30th3r0n3
 
@@ -47,13 +47,13 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-GADGET_NAME = "raspyjack_usb"
+GADGET_NAME = "darkbox_usb"
 CONFIGFS_BASE = "/sys/kernel/config/usb_gadget"
 GADGET_PATH = os.path.join(CONFIGFS_BASE, GADGET_NAME)
-IMAGE_PATH = "/tmp/raspyjack_usb.img"
-MOUNT_PATH = "/tmp/raspyjack_usb_mount"
+IMAGE_PATH = "/tmp/darkbox_usb.img"
+MOUNT_PATH = "/tmp/darkbox_usb_mount"
 IMAGE_SIZE_MB = 64
-TEMPLATE_DIR = "/root/Raspyjack/templates/usb"
+TEMPLATE_DIR = "/root/DaRkb0x/templates/usb"
 
 TEMPLATES = ["empty", "documents", "autorun"]
 
@@ -187,7 +187,7 @@ def _setup_gadget():
         strings_dir = os.path.join(GADGET_PATH, "strings", "0x409")
         os.makedirs(strings_dir, exist_ok=True)
         _write_sysfs(os.path.join(strings_dir, "serialnumber"), "000000000001")
-        _write_sysfs(os.path.join(strings_dir, "manufacturer"), "RaspyJack")
+        _write_sysfs(os.path.join(strings_dir, "manufacturer"), "DaRkb0x")
         _write_sysfs(os.path.join(strings_dir, "product"), "USB Storage")
 
         # Mass storage function

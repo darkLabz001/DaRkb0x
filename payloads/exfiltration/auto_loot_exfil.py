@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Auto Loot Exfiltration Daemon
+DaRkb0x Payload -- Auto Loot Exfiltration Daemon
 ====================================================
 Author: 7h30th3r0n3
 
-Watches /root/Raspyjack/loot/ for new files using os.scandir polling
+Watches /root/DaRkb0x/loot/ for new files using os.scandir polling
 (every 10s). When a new file is detected, exfiltrate via the configured
 channel: Discord webhook, HTTP POST, or DNS tunnel.
 
@@ -12,7 +12,7 @@ Keeps a .exfiltrated manifest to avoid re-sending files.
 
 Setup / Prerequisites:
   - Configure channel:
-    Discord: set webhook URL in /root/Raspyjack/discord_webhook.txt.
+    Discord: set webhook URL in /root/DaRkb0x/discord_webhook.txt.
     HTTP: set target URL in config.
     DNS: requires an authoritative DNS domain you control.
 
@@ -61,12 +61,12 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_ROOT = "/root/Raspyjack/loot"
+LOOT_ROOT = "/root/DaRkb0x/loot"
 EXFIL_DIR = os.path.join(LOOT_ROOT, "AutoExfil")
 MANIFEST_PATH = os.path.join(EXFIL_DIR, ".exfiltrated")
-CONFIG_DIR = "/root/Raspyjack/config/auto_loot_exfil"
+CONFIG_DIR = "/root/DaRkb0x/config/auto_loot_exfil"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
-WEBHOOK_PATH = "/root/Raspyjack/discord_webhook.txt"
+WEBHOOK_PATH = "/root/DaRkb0x/discord_webhook.txt"
 POLL_INTERVAL = 10  # seconds
 DEBOUNCE = 0.25
 

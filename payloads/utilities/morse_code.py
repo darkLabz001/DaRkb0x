@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Morse Code Encoder / Decoder
+DaRkb0x Payload -- Morse Code Encoder / Decoder
 ====================================================
 Author: 7h30th3r0n3
 

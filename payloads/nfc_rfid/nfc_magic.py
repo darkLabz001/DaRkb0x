@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Magic Card Detector
+DaRkb0x Payload -- Magic Card Detector
 ==========================================
 Detect magic card type: Gen1a, Gen2 (CUID), Gen3 (UFUID), Gen4 (GDM), or Original.
 

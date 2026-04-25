@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Passive Traffic Sentinel
+DaRkb0x Payload -- Passive Traffic Sentinel
 ===============================================
 Author: 7h30th3r0n3
 
@@ -14,7 +14,7 @@ Controls:
   KEY2       -- Export stats to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/Sentinel/<timestamp>.json
+Loot: /root/DaRkb0x/loot/Sentinel/<timestamp>.json
 """
 
 import os
@@ -45,7 +45,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-LOOT_DIR = "/root/Raspyjack/loot/Sentinel"
+LOOT_DIR = "/root/DaRkb0x/loot/Sentinel"
 INTERFACES = ["eth0", "wlan0", "wlan1"]
 ROW_H = 12
 ROWS_VISIBLE = 5

@@ -1,21 +1,21 @@
-# RaspyJack WebUI
+# DaRkb0x WebUI
 
-This WebUI provides a browser-based remote control for the RaspyJack LCD UI.
+This WebUI provides a browser-based remote control for the DaRkb0x LCD UI.
 It streams LCD frames to the browser and forwards button input back to the device.
 
 ## Required folders and files on device
 - `web/`
   - `web/index.html`
   - `web/app.js`
-  - `web/raspyjack.png`
+  - `web/darkbox.png`
 - `payloads/utilities/webui.py` (on-device controller that starts/stops the WebUI stack)
 - `device_server.py` (WebSocket server for frames + input)
 - `web_server.py` (static WebUI + read-only loot API)
-- `rj_input.py` (virtual input bridge for browser controls)
+- `db_input.py` (virtual input bridge for browser controls)
 - `LCD_1in44.py` and `LCD_Config.py` (LCD driver used by `payloads/utilities/webui.py`)
 
 ## Dependencies (install script)
-These are the WebUI-relevant packages in `install_raspyjack.sh`:
+These are the WebUI-relevant packages in `install_darkbox.sh`:
 - `python3-websockets` (WebSocket server dependency for `device_server.py`)
 - `python3-pil` (Pillow for LCD rendering in `payloads/utilities/webui.py`)
 - `python3-rpi.gpio` (GPIO input in `payloads/utilities/webui.py`)
@@ -62,21 +62,21 @@ http://<device-ip>:8080
 
 ## Environment variables (optional)
 `device_server.py` supports:
-- `RJ_FRAME_PATH` (default `/dev/shm/raspyjack_last.jpg`)
-- `RJ_WS_HOST` (default `0.0.0.0`)
-- `RJ_WS_PORT` (default `8765`)
-- `RJ_FPS` (default `10`)
-- `RJ_WS_TOKEN` (optional shared token)
-- `RJ_WS_TOKEN_FILE` (optional token file; default `/root/Raspyjack/.webui_token`)
-- `RJ_WEB_AUTH_FILE` (default `/root/Raspyjack/.webui_auth.json`)
-- `RJ_WEB_AUTH_SECRET_FILE` (default `/root/Raspyjack/.webui_session_secret`)
-- `RJ_WEB_SESSION_TTL` (default `28800`)
-- `RJ_WEB_WS_TICKET_TTL` (default `120`)
-- `RJ_INPUT_SOCK` (default `/dev/shm/rj_input.sock`)
+- `DB_FRAME_PATH` (default `/dev/shm/darkbox_last.jpg`)
+- `DB_WS_HOST` (default `0.0.0.0`)
+- `DB_WS_PORT` (default `8765`)
+- `DB_FPS` (default `10`)
+- `DB_WS_TOKEN` (optional shared token)
+- `DB_WS_TOKEN_FILE` (optional token file; default `/root/DaRkb0x/.webui_token`)
+- `DB_WEB_AUTH_FILE` (default `/root/DaRkb0x/.webui_auth.json`)
+- `DB_WEB_AUTH_SECRET_FILE` (default `/root/DaRkb0x/.webui_session_secret`)
+- `DB_WEB_SESSION_TTL` (default `28800`)
+- `DB_WEB_WS_TICKET_TTL` (default `120`)
+- `DB_INPUT_SOCK` (default `/dev/shm/db_input.sock`)
 
 ## Notes
-- The LCD frame mirror must exist at `RJ_FRAME_PATH`.
-- If you want browser input to control the UI, `rj_input.py` must be present and
+- The LCD frame mirror must exist at `DB_FRAME_PATH`.
+- If you want browser input to control the UI, `db_input.py` must be present and
   the main UI must import it so it consumes virtual button events.
 
 ## Local sanity check (JS syntax)

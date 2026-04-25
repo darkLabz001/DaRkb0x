@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SOCKS5 Pivot Proxy
+DaRkb0x Payload -- SOCKS5 Pivot Proxy
 ========================================
 Author: 7h30th3r0n3
 

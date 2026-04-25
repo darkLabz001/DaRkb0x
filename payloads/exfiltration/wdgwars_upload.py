@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WDGoWars Upload
+DaRkb0x Payload -- WDGoWars Upload
 ======================================
 Upload wardriving sessions to wdgwars.pl (Watch Dogs Go Wars).
 Supports CSV upload (Wigle format) and profile check.
@@ -45,9 +45,9 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 API_URL_CSV = "https://wdgwars.pl/api/upload-csv"
 API_URL_JSON = "https://wdgwars.pl/api/upload"
 API_URL_ME = "https://wdgwars.pl/api/me"
-KEY_FILE = "/root/Raspyjack/.wdgwars_key"
-SESSION_DIR = "/root/Raspyjack/loot/wardriving/sessions"
-LOOT_DIR = "/root/Raspyjack/loot/wardriving"
+KEY_FILE = "/root/DaRkb0x/.wdgwars_key"
+SESSION_DIR = "/root/DaRkb0x/loot/wardriving/sessions"
+LOOT_DIR = "/root/DaRkb0x/loot/wardriving"
 DEBOUNCE = 0.18
 _last_btn = 0
 
@@ -93,7 +93,7 @@ def _list_csv_files():
 
 def _upload_csv(api_key, filepath):
     """Upload a CSV file to wdgwars.pl. Returns (success, message)."""
-    boundary = f"----RaspyJack{secrets.token_hex(8)}"
+    boundary = f"----DaRkb0x{secrets.token_hex(8)}"
     filename = os.path.basename(filepath)
 
     with open(filepath, "rb") as f:
@@ -111,7 +111,7 @@ def _upload_csv(api_key, filepath):
         headers={
             "X-API-Key": api_key,
             "Content-Type": f"multipart/form-data; boundary={boundary}",
-            "User-Agent": "RaspyJack/2.0",
+            "User-Agent": "DaRkb0x/2.0",
         },
         method="POST",
     )
@@ -145,7 +145,7 @@ def _get_profile(api_key):
         API_URL_ME,
         headers={
             "X-API-Key": api_key,
-            "User-Agent": "RaspyJack/2.0",
+            "User-Agent": "DaRkb0x/2.0",
         },
     )
     ctx = ssl.create_default_context()

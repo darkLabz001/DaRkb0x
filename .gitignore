@@ -1,1 +1,49 @@
 *.img.xz
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.env
+.venv/
+
+# Loot and configs that shouldn't be shared
+loot/
+config/wardriving.json
+config/
+config/*
+!config/cctv_viewer/
+!config/rtsp_viewer/
+gui_conf.json
+menu_icons.json
+discord_webhook.txt
+
+# Keys and secrets
+*.pem
+*.key
+*.db
+sessions/
+
+# Temporary
+.claude/
+.codex/
+build_output.txt
+
+# Old Raspyjack files
+DaRkb0x/
+KTOX_Pi_ref/
+build_ultimate.py
+darkbox_deploy*.py
+darkbox_final*.py
+darkbox_fixed*.py
+darkbox_master*.py
+darkbox_clean.py
+darkbox_custom.py
+darkbox_DEPLOY_THIS.py
+darkbox.py.bak
+darkbox_v2/
+flash_*.sh
+master_build.py
+patch_v3.py
+repair_file*.py
+update_menu.py

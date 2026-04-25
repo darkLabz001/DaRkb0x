@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Wardriving
+DaRkb0x Payload -- Wardriving
 ================================
 Author: 7h30th3r0n3 / dag nazty
 
@@ -23,7 +23,7 @@ Controls:
   LEFT/RIGHT Change sort (NETWORKS view)
 
 Exports: Wigle CSV, JSON, KML
-Loot: /root/Raspyjack/loot/wardriving/
+Loot: /root/DaRkb0x/loot/wardriving/
 """
 
 import os
@@ -75,7 +75,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-LOOT_DIR = "/root/Raspyjack/loot/wardriving"
+LOOT_DIR = "/root/DaRkb0x/loot/wardriving"
 DB_PATH = os.path.join(LOOT_DIR, "networks.db")
 
 CHANNELS_24 = list(range(1, 14))
@@ -92,8 +92,8 @@ AUTO_MODE = "--auto" in sys.argv
 # Known monitor drivers (from _iface_helper)
 KNOWN_MONITOR_DRIVERS = {
     "rtl88XXau", "rtl8812au", "rtl8821au", "rtl88x2bu",
-    "rtl8188eus", "rtl8187", "rt2800usb", "ath9k_htc",
-    "mt76x2u", "mt76x0u", "mt7921u", "rtl8814au",
+    "rtl8188eus", "rtl8187", "rt2800usb", "ath9k_htc", "ath9k",
+    "mt76x2u", "mt76x0u", "mt7921u", "rtl8814au", "mt7601u"
 }
 
 # OUI vendor lookup (top entries)
@@ -166,9 +166,17 @@ signal.signal(signal.SIGTERM, _cleanup_signal)
 
 
 def _detect_gps_device():
-    """Auto-detect GPS device path."""
+    """Auto-detect GPS device path (Quectel LC86L, u-blox, generic serial)."""
+    # 1. Prefer reliable serial IDs if they exist
+    by_id_path = "/dev/serial/by-id"
+    if os.path.exists(by_id_path):
+        for dev in os.listdir(by_id_path):
+            if "GPS" in dev or "GNSS" in dev or "u-blox" in dev.lower() or "CH340" in dev or "Serial" in dev:
+                return os.path.join(by_id_path, dev)
+
+    # 2. Fallback to generic serial ports
     for dev in ["/dev/ttyACM0", "/dev/ttyACM1", "/dev/ttyUSB0",
-                "/dev/ttyUSB1", "/dev/ttyAMA0"]:
+                "/dev/ttyUSB1", "/dev/ttyAMA0", "/dev/serial0"]:
         if os.path.exists(dev):
             return dev
     return None
@@ -924,8 +932,8 @@ def _export_all():
     wigle_path = os.path.join(LOOT_DIR, f"wigle_{ts}.csv")
     try:
         with open(wigle_path, "w", newline="") as f:
-            f.write("WigleWifi-1.4,appRelease=RaspyJack-v2,model=RaspberryPi,"
-                    "release=2.0,device=RaspyJack,display=LCD144,"
+            f.write("WigleWifi-1.4,appRelease=DaRkb0x-v2,model=RaspberryPi,"
+                    "release=2.0,device=DaRkb0x,display=LCD144,"
                     "board=RaspberryPi,brand=7h30th3r0n3\n")
             writer = csv.writer(f)
             writer.writerow([
@@ -971,7 +979,7 @@ def _export_all():
     try:
         kml = ['<?xml version="1.0" encoding="UTF-8"?>',
                '<kml xmlns="http://www.opengis.net/kml/2.2">',
-               '<Document><name>RaspyJack Wardriving</name>']
+               '<Document><name>DaRkb0x Wardriving</name>']
         for bssid, n in nets.items():
             gps = n.get("gps")
             if not gps:
@@ -1450,7 +1458,7 @@ def _draw_networks(lcd, font, font_sm, scroll_pos, sort):
 # Live map view — tile download + real-time AP plotting
 # ---------------------------------------------------------------------------
 
-_MAP_TILE_CACHE = "/root/Raspyjack/loot/wardriving/.tilecache"
+_MAP_TILE_CACHE = "/root/DaRkb0x/loot/wardriving/.tilecache"
 _MAP_TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 _map_bg = None
 _map_bbox = None
@@ -1475,7 +1483,7 @@ def _fetch_map_tile(z, x, y):
         return None
     url = _MAP_TILE_URL.format(z=z, x=x, y=y)
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "RaspyJack/1.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "DaRkb0x/1.0"})
         with urllib.request.urlopen(req, timeout=6) as resp:
             data = resp.read()
         with open(cache_path, "wb") as f:
@@ -1711,7 +1719,7 @@ def _init_session():
     meta = {
         "session_id": _session_id,
         "start_time": datetime.now().isoformat(),
-        "device": "RaspyJack",
+        "device": "DaRkb0x",
         "networks": 0,
         "wigle_ready": 0,
     }
@@ -1748,7 +1756,7 @@ def _save_session_meta():
             "session_id": _session_id,
             "start_time": _session_id,
             "end_time": datetime.now().isoformat(),
-            "device": "RaspyJack",
+            "device": "DaRkb0x",
             "networks": len(nets),
             "wigle_ready": sum(1 for n in nets.values() if n.get("gps")),
             "duration_seconds": int(time.time() - scan_start_time) if scan_start_time else 0,
@@ -1774,8 +1782,8 @@ def _append_live_csv(bssid, net):
             is_new_file = not os.path.isfile(path) or os.path.getsize(path) < 10
             with open(path, "a", newline="") as f:
                 if is_new_file:
-                    f.write("WigleWifi-1.4,appRelease=RaspyJack-v2,model=RaspberryPi,"
-                            "release=2.0,device=RaspyJack,display=LCD144,"
+                    f.write("WigleWifi-1.4,appRelease=DaRkb0x-v2,model=RaspberryPi,"
+                            "release=2.0,device=DaRkb0x,display=LCD144,"
                             "board=RaspberryPi,brand=7h30th3r0n3\n")
                     f.write("MAC,SSID,AuthMode,FirstSeen,Channel,RSSI,"
                             "CurrentLatitude,CurrentLongitude,AltitudeMeters,"
@@ -1798,8 +1806,8 @@ def _write_wigle_csv(path, nets):
     """Write Wigle-format CSV to a given path."""
     try:
         with open(path, "w", newline="") as f:
-            f.write("WigleWifi-1.4,appRelease=RaspyJack-v2,model=RaspberryPi,"
-                    "release=2.0,device=RaspyJack,display=LCD144,"
+            f.write("WigleWifi-1.4,appRelease=DaRkb0x-v2,model=RaspberryPi,"
+                    "release=2.0,device=DaRkb0x,display=LCD144,"
                     "board=RaspberryPi,brand=7h30th3r0n3\n")
             writer = csv.writer(f)
             writer.writerow([

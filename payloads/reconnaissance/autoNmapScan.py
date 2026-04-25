@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-RaspyJack *payload* – **Periodic Nmap Scan**
+DaRkb0x *payload* – **Periodic Nmap Scan**
 ==========================================
-This standalone script resides in the ``payloads/`` folder of your RaspyJack
+This standalone script resides in the ``payloads/`` folder of your DaRkb0x
 installation.  It continuously *monitors* the joystick/buttons and can:
 
 1. **Launch** a *standard* Nmap scan on demand (KEY1).
@@ -15,7 +15,7 @@ style of ``example_show_buttons.py``.
 """
 
 # ---------------------------------------------------------------------------
-# 0) Allow imports of RaspyJack helper modules when run manually  
+# 0) Allow imports of DaRkb0x helper modules when run manually  
 # ---------------------------------------------------------------------------
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', '..')))
@@ -28,7 +28,7 @@ import subprocess         # running nmap
 from datetime import datetime, timedelta
 
 # ----------------------------- Third-party libs ---------------------------
-# These come pre-installed with RaspyJack.
+# These come pre-installed with DaRkb0x.
 import RPi.GPIO as GPIO
 import LCD_1in44, LCD_Config
 from PIL import Image, ImageDraw, ImageFont
@@ -49,13 +49,13 @@ PINS: dict[str, int] = {
     "OK"   : 13,     # joystick centre push
     "KEY1" : 21,     # ← launch an *immediate* scan
     "KEY2" : 20,     # ← toggle periodic scans every 2 h
-    "KEY3" : 16,     # ← exit back to RaspyJack UI
+    "KEY3" : 16,     # ← exit back to DaRkb0x UI
 }
 
 # Scan settings
 NMAP_ARGS   = ["-T4"]           # standard quick+service scan
 SCAN_PERIOD = 2 * 60 * 60               # 2 hours in seconds
-LOOT_DIR    = "/root/Raspyjack/loot/Nmap/"  # output directory
+LOOT_DIR    = "/root/DaRkb0x/loot/Nmap/"  # output directory
 
 # Create output directory if it doesn't exist
 os.makedirs(LOOT_DIR, exist_ok=True)
@@ -148,7 +148,7 @@ def nmap_scan() -> None:
     show(["Nmap scan", "in progress…"])
     try:
         subprocess.run(["nmap", *NMAP_ARGS, "-oN", out, "-oX", xml_out, target], check=True)
-        # Clean output like RaspyJack main script
+        # Clean output like DaRkb0x main script
         subprocess.run(["sed", "-i", "s/Nmap scan report for //g", out])
         show(["Scan finished!", ts])
     except subprocess.CalledProcessError as exc:
@@ -186,7 +186,7 @@ def cleanup(*_):
     periodic_stop.set()
 
 signal.signal(signal.SIGINT,  cleanup)    # Ctrl-C
-signal.signal(signal.SIGTERM, cleanup)    # RaspyJack UI stop
+signal.signal(signal.SIGTERM, cleanup)    # DaRkb0x UI stop
 
 # ---------------------------------------------------------------------------
 # 9) Button-handling helpers

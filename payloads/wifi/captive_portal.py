@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Captive Portal
+DaRkb0x Payload -- Captive Portal
 ====================================
 Author: 7h30th3r0n3
 
@@ -12,7 +12,7 @@ Setup / Prerequisites
 ---------------------
 - USB WiFi dongle with AP mode support (e.g. Alfa AWUS036ACH)
 - apt install hostapd dnsmasq-base
-- Optional: phishing templates in /root/Raspyjack/DNSSpoof/sites/
+- Optional: phishing templates in /root/DaRkb0x/DNSSpoof/sites/
 - Dongle is auto-detected via select_interface (onboard wlan0 reserved)
 
 Controls:
@@ -63,13 +63,13 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Paths & constants
 # ---------------------------------------------------------------------------
-PORTAL_DIR = "/root/Raspyjack/DNSSpoof/sites"
-LOOT_DIR = "/root/Raspyjack/loot/Portal"
+PORTAL_DIR = "/root/DaRkb0x/DNSSpoof/sites"
+LOOT_DIR = "/root/DaRkb0x/loot/Portal"
 CONFIG_PATH = os.path.join(LOOT_DIR, "portal_config.json")
 WHITELIST_PATH = os.path.join(LOOT_DIR, "whitelist.json")
 CREDS_LOG = os.path.join(LOOT_DIR, "creds.log")
-HOSTAPD_CONF = "/tmp/rj_portal_hostapd.conf"
-DNSMASQ_CONF = "/tmp/rj_portal_dnsmasq.conf"
+HOSTAPD_CONF = "/tmp/db_portal_hostapd.conf"
+DNSMASQ_CONF = "/tmp/db_portal_dnsmasq.conf"
 GATEWAY_IP = "10.0.77.1"
 DHCP_RANGE = "10.0.77.10,10.0.77.250,12h"
 HTTP_PORT = 80

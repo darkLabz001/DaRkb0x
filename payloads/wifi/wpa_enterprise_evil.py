@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WPA-Enterprise Evil Twin + Fake RADIUS
+DaRkb0x Payload -- WPA-Enterprise Evil Twin + Fake RADIUS
 =============================================================
 Author: 7h30th3r0n3
 
@@ -30,7 +30,7 @@ Controls:
   KEY2      -- Show captured credentials
   KEY3      -- Exit + cleanup
 
-Loot: /root/Raspyjack/loot/EnterpriseEvilTwin/
+Loot: /root/DaRkb0x/loot/EnterpriseEvilTwin/
 """
 
 import os
@@ -70,11 +70,11 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/EnterpriseEvilTwin"
+LOOT_DIR = "/root/DaRkb0x/loot/EnterpriseEvilTwin"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
-HOSTAPD_CONF = "/tmp/raspyjack_ent_hostapd.conf"
-DNSMASQ_CONF = "/tmp/raspyjack_ent_dnsmasq.conf"
+HOSTAPD_CONF = "/tmp/darkbox_ent_hostapd.conf"
+DNSMASQ_CONF = "/tmp/darkbox_ent_dnsmasq.conf"
 RADIUS_SECRET = b"testing123"
 RADIUS_PORT = 1812
 GATEWAY_IP = "10.0.88.1"

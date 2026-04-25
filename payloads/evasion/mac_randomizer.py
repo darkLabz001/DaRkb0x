@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- MAC Address Randomizer
+DaRkb0x Payload -- MAC Address Randomizer
 --------------------------------------------
 Author: 7h30th3r0n3
 

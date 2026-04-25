@@ -27,11 +27,11 @@ import signal
 from payloads._display_helper import ScaledDraw, scaled_font
 
 # Add the required paths
-sys.path.append('/root/Raspyjack/')
-sys.path.append('/root/Raspyjack/wifi/')
+sys.path.append('/root/DaRkb0x/')
+sys.path.append('/root/DaRkb0x/wifi/')
 
 try:
-    # Import RaspyJack LCD functions (PROPER WAY)
+    # Import DaRkb0x LCD functions (PROPER WAY)
     import LCD_1in44, LCD_Config
     import RPi.GPIO as GPIO
     from PIL import Image, ImageDraw, ImageFont
@@ -39,9 +39,9 @@ try:
     from payloads._input_helper import get_virtual_button
     
     # Import WiFi integration functions
-    from wifi.raspyjack_integration import (
-        set_raspyjack_interface,
-        get_current_raspyjack_interface,
+    from wifi.darkbox_integration import (
+        set_darkbox_interface,
+        get_current_darkbox_interface,
         get_interface_status,
         ensure_interface_default
     )
@@ -93,7 +93,7 @@ class FastWiFiSwitcher:
     def get_current(self):
         """Get current interface quickly."""
         try:
-            return get_current_raspyjack_interface()
+            return get_current_darkbox_interface()
         except Exception:
             return "unknown"
     
@@ -145,13 +145,13 @@ class FastWiFiSwitcher:
         try:
             print(f"🔄 Fast switching to {target_interface} using integration function")
             
-            # Use the FIXED set_raspyjack_interface function with LCD callback
+            # Use the FIXED set_darkbox_interface function with LCD callback
             # This includes all our bug fixes:
             # - SSID parsing fix
             # - Auto-connect using WiFi profiles  
             # - Disconnected interface handling
             # - LCD-friendly status messages
-            success = set_raspyjack_interface(target_interface, lcd_callback)
+            success = set_darkbox_interface(target_interface, lcd_callback)
             
             if success:
                 # Quick status check for display

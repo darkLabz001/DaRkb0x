@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- DuckyScript Library & Launcher
+DaRkb0x Payload -- DuckyScript Library & Launcher
 =====================================================
 Author: 7h30th3r0n3
 
 Browse, preview, and execute DuckyScript payloads stored in
-/root/Raspyjack/payloads/hid_scripts/. Bundles a set of common
+/root/DaRkb0x/payloads/hid_scripts/. Bundles a set of common
 offensive scripts and allows editing the ATTACKER_IP placeholder.
 
 Setup / Prerequisites:
-  - Script files in /root/Raspyjack/payloads/hid_scripts/.
+  - Script files in /root/DaRkb0x/payloads/hid_scripts/.
   - Edit ATTACKER_IP placeholder in scripts before use.
   - Requires hid_injector.py gadget setup.
 
@@ -54,8 +54,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-SCRIPTS_DIR = "/root/Raspyjack/payloads/hid_scripts"
-HID_INJECTOR = "/root/Raspyjack/payloads/usb/hid_injector.py"
+SCRIPTS_DIR = "/root/DaRkb0x/payloads/hid_scripts"
+HID_INJECTOR = "/root/DaRkb0x/payloads/usb/hid_injector.py"
 ROWS_VISIBLE = 7
 IP_PLACEHOLDER = "ATTACKER_IP"
 

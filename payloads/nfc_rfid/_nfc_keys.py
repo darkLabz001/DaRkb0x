@@ -6,7 +6,7 @@ import os
 import json
 from typing import Optional, List, Tuple
 
-KEYS_DIR = "/root/Raspyjack/loot/NFC/keys"
+KEYS_DIR = "/root/DaRkb0x/loot/NFC/keys"
 
 # Extended dictionary of known MIFARE Classic keys (~100 most common)
 KNOWN_KEYS = [

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- RSS News Reader
+DaRkb0x Payload -- RSS News Reader
 ======================================
 Author: 7h30th3r0n3
 
@@ -15,7 +15,7 @@ Controls:
   KEY2         -- Refresh current feed
   KEY3         -- Exit (or back from summary)
 
-Config: /root/Raspyjack/loot/News/feeds.json
+Config: /root/DaRkb0x/loot/News/feeds.json
 """
 
 import os
@@ -47,7 +47,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
-CONFIG_DIR = "/root/Raspyjack/loot/News"
+CONFIG_DIR = "/root/DaRkb0x/loot/News"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "feeds.json")
 
 DEFAULT_FEEDS = [
@@ -116,7 +116,7 @@ def strip_html(text):
 def fetch_feed(url):
     """Fetch and parse RSS feed. Returns list of dicts with title/summary."""
     try:
-        req = Request(url, headers={"User-Agent": "RaspyJack/1.0"})
+        req = Request(url, headers={"User-Agent": "DaRkb0x/1.0"})
         with urlopen(req, timeout=15) as resp:
             data = resp.read()
     except (URLError, OSError) as exc:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload -- Sokoban
+DaRkb0x payload -- Sokoban
 ============================
 Author: 7h30th3r0n3
 
@@ -42,7 +42,7 @@ _GAME_W, _GAME_H = 128, 128
 font = ImageFont.load_default()
 
 # ---------------------------------------------------------------------------
-# Colours (green/black RaspyJack theme)
+# Colours (green/black DaRkb0x theme)
 # ---------------------------------------------------------------------------
 COL_BG = (0, 0, 0)
 COL_WALL = (80, 80, 80)

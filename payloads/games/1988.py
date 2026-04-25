@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- 1988 Retro Arcade
+DaRkb0x Payload -- 1988 Retro Arcade
 ----------------------------------------
 Author: 7h30th3r0n3
 

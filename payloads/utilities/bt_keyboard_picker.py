@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload – Bluetooth Keyboard Picker
+DaRkb0x payload – Bluetooth Keyboard Picker
 ===========================================
 
 Interactive joystick + LCD helper to **scan**, **pair**, **trust** and **connect**
@@ -16,7 +16,7 @@ Usage
 ```bash
 sudo python3 payloads/bt_keyboard_picker.py
 ```
-UP/DOWN : navigation OK : sélectionner KEY3 : retour/menu RaspyJack.
+UP/DOWN : navigation OK : sélectionner KEY3 : retour/menu DaRkb0x.
 """
 
 # ---------------------------------------------------------------------------

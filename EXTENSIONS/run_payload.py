@@ -9,7 +9,7 @@ from api import RUN_PAYLOAD
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run a RaspyJack payload by relative path.")
+    parser = argparse.ArgumentParser(description="Run a DaRkb0x payload by relative path.")
     parser.add_argument("payload")
     parser.add_argument("payload_args", nargs=argparse.REMAINDER)
     args = parser.parse_args()

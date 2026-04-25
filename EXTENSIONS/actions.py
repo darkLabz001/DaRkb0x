@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared action helpers for RaspyJack extensions. Author: m0usem0use"""
+"""Shared action helpers for DaRkb0x extensions. Author: m0usem0use"""
 from __future__ import annotations
 
 import os

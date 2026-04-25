@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Pwnagotchi
+DaRkb0x Payload -- Pwnagotchi
 ================================
 Author: 7h30th3r0n3
 
@@ -17,7 +17,7 @@ Features:
   Dual WiFi card support (sniffer + attacker)
   Whitelist MAC/SSID to exclude your own networks
   Stealth mode (MAC randomize + TX power reduction)
-  Peer detection (other Raspyjack on the network)
+  Peer detection (other DaRkb0x on the network)
   Discord/webhook notification on capture
   Capture flash (visual feedback on handshake)
   Persistent lifetime stats across sessions
@@ -35,7 +35,7 @@ Controls:
   KEY2       Toggle stealth mode
   KEY3       Exit (or back from sub-view)
 
-Loot: /root/Raspyjack/loot/Pwnagotchi/
+Loot: /root/DaRkb0x/loot/Pwnagotchi/
 """
 
 import os
@@ -79,7 +79,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-LOOT_DIR = "/root/Raspyjack/loot/Pwnagotchi"
+LOOT_DIR = "/root/DaRkb0x/loot/Pwnagotchi"
 STATS_FILE = os.path.join(LOOT_DIR, "lifetime_stats.json")
 CONFIG_FILE = os.path.join(LOOT_DIR, "config.json")
 HANDSHAKE_DIR = os.path.join(LOOT_DIR, "handshakes")
@@ -632,7 +632,7 @@ def _packet_handler(pkt):
     if pkt.haslayer(Dot11ProbeReq):
         try:
             ssid_raw = pkt[Dot11Elt].info.decode("utf-8", errors="replace")
-            if ssid_raw.startswith("RJ_PEER_"):
+            if ssid_raw.startswith("DB_PEER_"):
                 with lock:
                     peers_detected.add((pkt[Dot11].addr2 or "").upper())
         except Exception:

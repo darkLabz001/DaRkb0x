@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- HCCAPX Converter for Hashcat
+DaRkb0x Payload -- HCCAPX Converter for Hashcat
 ====================================================
 Author: 7h30th3r0n3
 
@@ -14,8 +14,8 @@ Controls
   KEY1       -- Batch convert all files
   KEY3       -- Exit
 
-Input:  /root/Raspyjack/loot/ (recursive .cap files)
-Output: /root/Raspyjack/loot/Hashcat/
+Input:  /root/DaRkb0x/loot/ (recursive .cap files)
+Output: /root/DaRkb0x/loot/Hashcat/
 """
 
 import os
@@ -51,7 +51,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot"
 OUTPUT_DIR = os.path.join(LOOT_DIR, "Hashcat")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 ROW_H = 12

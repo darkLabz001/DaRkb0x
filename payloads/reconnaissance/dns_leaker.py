@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ===============================================================================
- RaspyJack Payload — DNS / NBNS Network Leaker
+ DaRkb0x Payload — DNS / NBNS Network Leaker
 ===============================================================================
 
 PURPOSE
@@ -18,10 +18,10 @@ This payload is intended to identify:
 FEATURES
 -------------------------------------------------------------------------------
 - Fully passive sniffing (no injection, no MITM required)
-- Live dashboard on RaspyJack 1.44" LCD
+- Live dashboard on DaRkb0x 1.44" LCD
 - Scrollable TOP queries list (UP / DOWN)
 - Persistent logging (one line per request)
-- Clean exit and safe return to RaspyJack UI
+- Clean exit and safe return to DaRkb0x UI
 
 -------------------------------------------------------------------------------
 USAGE (BUTTON MAPPING)
@@ -48,7 +48,7 @@ INT is incremented when a name matches one of the following:
 LOGGING
 -------------------------------------------------------------------------------
 All requests are logged to:
-    /root/Raspyjack/loot/MITM/Log-DNS.txt
+    /root/DaRkb0x/loot/MITM/Log-DNS.txt
 
 Format (one line per request):
     [YYYY-MM-DD HH:MM:SS] DNS  SRC=<ip> DST=<ip> QNAME=<name> QTYPE=<type> FLAGS=<flags>
@@ -59,7 +59,7 @@ REQUIREMENTS
 -------------------------------------------------------------------------------
 - Root privileges
 - scapy installed
-- RaspyJack-compatible Waveshare 1.44" LCD HAT
+- DaRkb0x-compatible Waveshare 1.44" LCD HAT
 - Correct network interface selected (eth0 / wlan0 / br0)
 
 -------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ font = scaled_font()
 # ==================================================
 # LOG FILE
 # ==================================================
-LOG_DIR = "/root/Raspyjack/loot/MITM"
+LOG_DIR = "/root/DaRkb0x/loot/MITM"
 LOG_FILE = os.path.join(LOG_DIR, "Log-DNS.txt")
 os.makedirs(LOG_DIR, exist_ok=True)
 

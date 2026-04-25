@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload Template (WebUI + GPIO compatible)
+DaRkb0x Payload Template (WebUI + GPIO compatible)
 ---------------------------------------------------
 Use this as a starting point for custom payloads.
 
@@ -20,7 +20,7 @@ import os
 import sys
 import time
 
-# Allow imports from RaspyJack root
+# Allow imports from DaRkb0x root
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
 
 import RPi.GPIO as GPIO

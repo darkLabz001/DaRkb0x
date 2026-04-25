@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- PCAP Packet Replayer
+DaRkb0x Payload -- PCAP Packet Replayer
 ==========================================
 Author: 7h30th3r0n3
 
@@ -52,7 +52,7 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 6
 ROW_H = 12
 
-LOOT_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot"
 SPEED_MODES = ["1x", "5x", "max"]
 
 # ---------------------------------------------------------------------------

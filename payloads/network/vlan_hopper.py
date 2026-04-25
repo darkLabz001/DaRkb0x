@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- VLAN Hopper
+DaRkb0x Payload -- VLAN Hopper
 ================================
 Author: 7h30th3r0n3
 
@@ -51,7 +51,7 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-LOOT_DIR = "/root/Raspyjack/loot/VLANHop"
+LOOT_DIR = "/root/DaRkb0x/loot/VLANHop"
 
 # DTP multicast destination
 DTP_MULTICAST = "01:00:0c:cc:cc:cc"

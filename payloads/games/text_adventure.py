@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- LLM Text Adventure
+DaRkb0x Payload -- LLM Text Adventure
 =========================================
 Author: 7h30th3r0n3
 
@@ -14,7 +14,7 @@ Controls:
   OK    -- Confirm selection
   KEY3  -- Exit
 
-API key: env var ANTHROPIC_API_KEY or /root/Raspyjack/loot/Games/llm_config.json
+API key: env var ANTHROPIC_API_KEY or /root/DaRkb0x/loot/Games/llm_config.json
 """
 
 import os, sys, time, signal, json, textwrap
@@ -69,7 +69,7 @@ COL_OFFLINE = (255, 200, 0)
 # ---------------------------------------------------------------------------
 API_URL = "https://api.anthropic.com/v1/messages"
 MODEL = "claude-haiku-4-5-20251001"
-CONFIG_PATH = "/root/Raspyjack/loot/Games/llm_config.json"
+CONFIG_PATH = "/root/DaRkb0x/loot/Games/llm_config.json"
 
 SYSTEM_PROMPT = (
     "You are a cyberpunk text adventure game master. "

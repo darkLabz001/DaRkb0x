@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- System Monitor
+DaRkb0x Payload -- System Monitor
 =====================================
 Author: 7h30th3r0n3
 
@@ -9,7 +9,7 @@ uptime, network throughput, and service status from /proc and /sys.
 
 Setup / Prerequisites
 ---------------------
-- RaspyJack base system with LCD hat.
+- DaRkb0x base system with LCD hat.
 - Thermal zone at /sys/class/thermal/thermal_zone0/temp.
 
 Controls
@@ -52,7 +52,7 @@ font = scaled_font()
 VIEWS = ["Dashboard", "CPU Graph", "Network", "Net Info"]
 REFRESH_INTERVAL = 2.0
 DEBOUNCE = 0.20
-SERVICES = ["raspyjack", "raspyjack-device", "raspyjack-webui", "caddy"]
+SERVICES = ["darkbox", "darkbox-device", "darkbox-webui", "caddy"]
 
 lock = threading.Lock()
 _running = True
@@ -359,7 +359,7 @@ def _draw_dashboard(lcd, snap):
     d.text((2, y), "Services:", font=font, fill="#aaa"); y += 12
     for svc, st in snap.services.items():
         color = "#00ff00" if st == "active" else "#ff4444"
-        short = svc.replace("raspyjack-", "rj-")[:12]
+        short = svc.replace("darkbox-", "rj-")[:12]
         d.text((2, y), f" {short}: {st}", font=font, fill=color); y += 11
         if y > 112:
             break

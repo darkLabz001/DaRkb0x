@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Visual Network Topology Mapper
+DaRkb0x Payload -- Visual Network Topology Mapper
 =====================================================
 Author: 7h30th3r0n3
 
@@ -51,8 +51,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-NMAP_LOOT = "/root/Raspyjack/loot/Nmap"
-LOOT_DIR = "/root/Raspyjack/loot/NetMap"
+NMAP_LOOT = "/root/DaRkb0x/loot/Nmap"
+LOOT_DIR = "/root/DaRkb0x/loot/NetMap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 IP_RE = re.compile(r"\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b")

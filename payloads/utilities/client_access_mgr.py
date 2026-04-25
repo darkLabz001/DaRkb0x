@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Client Access Manager
+DaRkb0x Payload -- Client Access Manager
 ============================================
 Author: 7h30th3r0n3
 
@@ -38,7 +38,7 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-CONFIG_DIR = "/root/Raspyjack/loot/AccessMgr"
+CONFIG_DIR = "/root/DaRkb0x/loot/AccessMgr"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 DEBOUNCE = 0.25
 MAC_RE = re.compile(r"([0-9a-fA-F]{2}(?::[0-9a-fA-F]{2}){5})")

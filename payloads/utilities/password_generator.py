@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Password Generator
+DaRkb0x Payload -- Password Generator
 =========================================
 Author: 7h30th3r0n3
 
@@ -47,7 +47,7 @@ font = scaled_font()
 
 DEBOUNCE = 0.20
 ROW_H = 12
-SAVE_DIR = "/root/Raspyjack/loot/Passwords"
+SAVE_DIR = "/root/DaRkb0x/loot/Passwords"
 SAVE_FILE = os.path.join(SAVE_DIR, "passwords.txt")
 
 CHARSETS = [

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- IPv6 Router Advertisement Spoofing
+DaRkb0x Payload -- IPv6 Router Advertisement Spoofing
 =======================================================
 Author: 7h30th3r0n3
 

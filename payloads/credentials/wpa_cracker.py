@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WPA/WPA2 Cracker
+DaRkb0x Payload -- WPA/WPA2 Cracker
 ======================================
 Author: 7h30th3r0n3
 
@@ -10,7 +10,7 @@ using John the Ripper. Scans loot directories for crack targets.
 Setup / Prerequisites:
   - Requires aircrack-ng for .cap handshake files.
   - Requires john for PMKID hash cracking.
-  - Optional wordlists: /root/Raspyjack/loot/wordlists/rockyou.txt,
+  - Optional wordlists: /root/DaRkb0x/loot/wordlists/rockyou.txt,
     custom.txt
 
 Controls:
@@ -20,7 +20,7 @@ Controls:
   KEY2       -- Export cracked results to loot
   KEY3       -- Exit (kills cracking process)
 
-Loot: /root/Raspyjack/loot/CrackedWPA/
+Loot: /root/DaRkb0x/loot/CrackedWPA/
 """
 
 import os
@@ -58,14 +58,14 @@ font = scaled_font()
 # Constants
 # ---------------------------------------------------------------------------
 AIRCRACK_BIN = "/usr/bin/aircrack-ng"
-WORDLIST_DIR = "/root/Raspyjack/loot/wordlists"
+WORDLIST_DIR = "/root/DaRkb0x/loot/wordlists"
 SYSTEM_WORDLIST = "/usr/share/john/password.lst"
 HANDSHAKE_DIRS = [
-    "/root/Raspyjack/loot/Handshakes",
-    "/root/Raspyjack/loot/Pwnagotchi/handshakes",
-    "/root/Raspyjack/loot/ESPNow/handshakes",
+    "/root/DaRkb0x/loot/Handshakes",
+    "/root/DaRkb0x/loot/Pwnagotchi/handshakes",
+    "/root/DaRkb0x/loot/ESPNow/handshakes",
 ]
-LOOT_DIR = "/root/Raspyjack/loot/CrackedWPA"
+LOOT_DIR = "/root/DaRkb0x/loot/CrackedWPA"
 ROWS_VISIBLE = 6
 ROW_H = 12
 

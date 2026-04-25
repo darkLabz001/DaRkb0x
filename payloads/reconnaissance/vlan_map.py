@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- VLAN Map
+DaRkb0x Payload -- VLAN Map
 ==============================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY1       -- Toggle passive / active mode
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/VLANMap/
+Loot: /root/DaRkb0x/loot/VLANMap/
 """
 
 import os
@@ -69,7 +69,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/VLANMap"
+LOOT_DIR = "/root/DaRkb0x/loot/VLANMap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 DTP_MCAST = "01:00:0c:cc:cc:cc"

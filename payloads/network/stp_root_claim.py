@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- STP Root Bridge Takeover
+DaRkb0x Payload -- STP Root Bridge Takeover
 ==============================================
 Author: 7h30th3r0n3
 

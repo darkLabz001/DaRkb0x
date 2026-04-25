@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-RaspyJack input bridge
+DaRkb0x input bridge
 ----------------------
 Listens on a Unix datagram socket for JSON input events coming from the
 WebSocket server and exposes a tiny queue API so the main UI can treat them
 like real button presses.
 
 Environment:
-  RJ_INPUT_SOCK  Path to AF_UNIX datagram socket (default: /dev/shm/rj_input.sock)
+  DB_INPUT_SOCK  Path to AF_UNIX datagram socket (default: /dev/shm/db_input.sock)
 
 Protocol (JSON, one datagram per message):
     {"type":"input","button":"UP|DOWN|LEFT|RIGHT|OK|KEY1|KEY2|KEY3","state":"press|release"}
@@ -20,9 +20,9 @@ Only "press" events are queued; "release" is ignored for simple navigation.
 import os, json, threading, socket, queue, atexit
 from typing import Optional
 
-_SOCK_PATH = os.environ.get("RJ_INPUT_SOCK", "/dev/shm/rj_input.sock")
+_SOCK_PATH = os.environ.get("DB_INPUT_SOCK", "/dev/shm/db_input.sock")
 
-# Map frontend button names to RaspyJack getButton() return values
+# Map frontend button names to DaRkb0x getButton() return values
 _BTN_MAP = {
     "UP": "KEY_UP_PIN",
     "DOWN": "KEY_DOWN_PIN",
@@ -91,7 +91,7 @@ def _listen():
             mapped = _BTN_MAP.get(button)
             if not mapped:
                 continue
-            print(f"[rj_input] {button} {state} -> {mapped}")
+            print(f"[db_input] {button} {state} -> {mapped}")
             if state == "press":
                 try:
                     _q.put_nowait(mapped)
@@ -112,7 +112,7 @@ def _listen():
                 event["special"] = str(msg.get("special", ""))
             else:
                 event["key"] = str(msg.get("key", ""))
-            print(f"[rj_input:text] session={event.get('session_id','')} key={event.get('key','')} special={event.get('special','')}")
+            print(f"[db_input:text] session={event.get('session_id','')} key={event.get('key','')} special={event.get('special','')}")
             try:
                 _text_q.put_nowait(event)
             except Exception:

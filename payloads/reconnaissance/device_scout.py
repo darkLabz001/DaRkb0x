@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Device Scout
+DaRkb0x Payload -- Device Scout
 ===================================
 Author: 7h30th3r0n3
 
@@ -65,7 +65,7 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-LOOT_DIR = "/root/Raspyjack/loot/DeviceScout"
+LOOT_DIR = "/root/DaRkb0x/loot/DeviceScout"
 VIEWS = ["RADAR", "THREATS", "DEVICES", "BLE"]
 
 ALL_CHANNELS = list(range(1, 14)) + [

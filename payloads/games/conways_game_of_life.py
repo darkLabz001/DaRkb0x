@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload - Conway's Game of Life
+DaRkb0x Payload - Conway's Game of Life
 ----------------------------------------
 Controls:
 - OK / RIGHT : Pause/Run toggle

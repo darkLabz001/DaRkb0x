@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BLE GATT MITM Proxy
+DaRkb0x Payload -- BLE GATT MITM Proxy
 =========================================
 Author: 7h30th3r0n3
 
@@ -24,7 +24,7 @@ Controls
   KEY2       -- Export GATT traffic log
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/BLE_MITM/
+Loot: /root/DaRkb0x/loot/BLE_MITM/
 """
 
 import os
@@ -63,7 +63,7 @@ font = scaled_font()
 
 # ── Constants ────────────────────────────────────────────────────────────────
 HCI_DEV = None  # set in main() via select_bt_interface
-LOOT_DIR = "/root/Raspyjack/loot/BLE_MITM"
+LOOT_DIR = "/root/DaRkb0x/loot/BLE_MITM"
 ROWS_VISIBLE = 6
 ROW_H = 12
 VIEWS = ["devices", "log"]

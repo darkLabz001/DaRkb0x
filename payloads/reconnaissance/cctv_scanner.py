@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- CCTV Camera Scanner
+DaRkb0x Payload -- CCTV Camera Scanner
 ==========================================
 Author: 7h30th3r0n3
 
@@ -63,8 +63,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/CCTV"
-CONFIG_DIR = "/root/Raspyjack/config/cctv_scanner"
+LOOT_DIR = "/root/DaRkb0x/loot/CCTV"
+CONFIG_DIR = "/root/DaRkb0x/config/cctv_scanner"
 os.makedirs(LOOT_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 

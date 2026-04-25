@@ -41,7 +41,7 @@ _DISPLAY_TYPE = "ST7735_128"  # default
 
 _CONF_PATHS = [
     os.path.join(os.path.dirname(os.path.abspath(__file__)), "gui_conf.json"),
-    "/root/Raspyjack/gui_conf.json",
+    "/root/DaRkb0x/gui_conf.json",
 ]
 for _p in _CONF_PATHS:
     if os.path.isfile(_p):
@@ -86,16 +86,16 @@ def S(v):
     return int(v * LCD_SCALE)
 
 # WebUI frame mirror (used by device_server.py)
-_FRAME_MIRROR_PATH = os.environ.get("RJ_FRAME_PATH", "/dev/shm/raspyjack_last.jpg")
-_FRAME_MIRROR_ENABLED = os.environ.get("RJ_FRAME_MIRROR", "1") != "0"
-_CARDPUTER_FRAME_PATH = os.environ.get("RJ_CARDPUTER_FRAME_PATH", "/dev/shm/raspyjack_cardputer.jpg")
-_CARDPUTER_FRAME_ENABLED = os.environ.get("RJ_CARDPUTER_FRAME_ENABLED", "1") != "0"
-_CARDPUTER_FRAME_MODE = str(os.environ.get("RJ_CARDPUTER_FRAME_MODE", "stretch") or "stretch").strip().lower()
-_CARDPUTER_FRAME_WIDTH = max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_WIDTH", "240")))
-_CARDPUTER_FRAME_HEIGHT = max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_HEIGHT", "135")))
-_CARDPUTER_FRAME_QUALITY = min(100, max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_QUALITY", "76"))))
+_FRAME_MIRROR_PATH = os.environ.get("DB_FRAME_PATH", "/dev/shm/darkbox_last.jpg")
+_FRAME_MIRROR_ENABLED = os.environ.get("DB_FRAME_MIRROR", "1") != "0"
+_CARDPUTER_FRAME_PATH = os.environ.get("DB_CARDPUTER_FRAME_PATH", "/dev/shm/darkbox_cardputer.jpg")
+_CARDPUTER_FRAME_ENABLED = os.environ.get("DB_CARDPUTER_FRAME_ENABLED", "1") != "0"
+_CARDPUTER_FRAME_MODE = str(os.environ.get("DB_CARDPUTER_FRAME_MODE", "stretch") or "stretch").strip().lower()
+_CARDPUTER_FRAME_WIDTH = max(1, int(os.environ.get("DB_CARDPUTER_FRAME_WIDTH", "240")))
+_CARDPUTER_FRAME_HEIGHT = max(1, int(os.environ.get("DB_CARDPUTER_FRAME_HEIGHT", "135")))
+_CARDPUTER_FRAME_QUALITY = min(100, max(1, int(os.environ.get("DB_CARDPUTER_FRAME_QUALITY", "76"))))
 try:
-    _frame_fps = float(os.environ.get("RJ_FRAME_FPS", "10"))
+    _frame_fps = float(os.environ.get("DB_FRAME_FPS", "10"))
     _FRAME_MIRROR_INTERVAL = 1.0 / max(1.0, _frame_fps)
 except Exception:
     _FRAME_MIRROR_INTERVAL = 0.1

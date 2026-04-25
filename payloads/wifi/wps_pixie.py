@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WPS Pixie Dust + Brute-Force
+DaRkb0x Payload -- WPS Pixie Dust + Brute-Force
 ===================================================
 Author: 7h30th3r0n3
 
@@ -27,7 +27,7 @@ Controls:
   KEY2      -- Toggle Pixie / Brute mode
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/WPS/
+Loot: /root/DaRkb0x/loot/WPS/
 """
 
 import os
@@ -65,7 +65,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/WPS"
+LOOT_DIR = "/root/DaRkb0x/loot/WPS"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 ROWS_VISIBLE = 6

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BLE Advertisement Exfiltration
+DaRkb0x Payload -- BLE Advertisement Exfiltration
 ====================================================
 Author: 7h30th3r0n3
 
@@ -62,7 +62,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_ROOT = "/root/Raspyjack/loot"
+LOOT_ROOT = "/root/DaRkb0x/loot"
 BLE_LOOT_DIR = os.path.join(LOOT_ROOT, "BLEExfil")
 DEBOUNCE = 0.25
 

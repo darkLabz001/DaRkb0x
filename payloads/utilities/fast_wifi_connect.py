@@ -12,7 +12,7 @@ import subprocess
 import time
 from payloads._display_helper import ScaledDraw, scaled_font
 
-# Ensure RaspyJack modules are importable when launched directly
+# Ensure DaRkb0x modules are importable when launched directly
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
 
 LCD_OK = False
@@ -71,11 +71,11 @@ def _run(cmd):
     return subprocess.run(cmd, capture_output=True, text=True)
 
 
-PROFILES_DIR = "/root/Raspyjack/wifi/profiles"
+PROFILES_DIR = "/root/DaRkb0x/wifi/profiles"
 
 
 def _get_saved_wifi():
-    """Get saved WiFi networks from both nmcli and RaspyJack JSON profiles."""
+    """Get saved WiFi networks from both nmcli and DaRkb0x JSON profiles."""
     saved = {}  # ssid -> password (None if nmcli-only)
 
     # 1. nmcli saved connections (already known to NetworkManager)
@@ -88,7 +88,7 @@ def _get_saved_wifi():
             if ctype in ("wifi", "802-11-wireless") and name:
                 saved[name] = None  # nmcli knows the password
 
-    # 2. RaspyJack WiFi Manager JSON profiles (may have password nmcli doesn't)
+    # 2. DaRkb0x WiFi Manager JSON profiles (may have password nmcli doesn't)
     try:
         import json
         for fname in os.listdir(PROFILES_DIR):

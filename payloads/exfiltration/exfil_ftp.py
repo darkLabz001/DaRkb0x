@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Mini FTP Server for Loot Retrieval
+DaRkb0x Payload -- Mini FTP Server for Loot Retrieval
 =========================================================
 Author: 7h30th3r0n3
 
-Lightweight FTP server serving /root/Raspyjack/loot/ read-only.
+Lightweight FTP server serving /root/DaRkb0x/loot/ read-only.
 Uses ``pyftpdlib`` when available; otherwise falls back to a minimal
 socket-based FTP server supporting LIST, RETR, PWD, CWD, TYPE, PASV,
 and QUIT.
@@ -54,8 +54,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_ROOT = "/root/Raspyjack/loot"
-CONFIG_DIR = "/root/Raspyjack/config/exfil_ftp"
+LOOT_ROOT = "/root/DaRkb0x/loot"
+CONFIG_DIR = "/root/DaRkb0x/config/exfil_ftp"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 os.makedirs(LOOT_ROOT, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
@@ -172,7 +172,7 @@ def _run_pyftpdlib():
 
     handler = FTPHandler
     handler.authorizer = authorizer
-    handler.banner = "RaspyJack FTP Loot Server"
+    handler.banner = "DaRkb0x FTP Loot Server"
     handler.passive_ports = range(60000, 60100)
 
     ip = _get_pi_ip()
@@ -268,7 +268,7 @@ def _handle_ftp_client(conn, addr, anon, username, password):
         return resolved
 
     conn.settimeout(60)
-    _send("220 RaspyJack FTP Loot Server")
+    _send("220 DaRkb0x FTP Loot Server")
 
     try:
         while not _get("stop"):

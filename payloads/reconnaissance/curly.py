@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Interactive HTTP Probe (curly)
+DaRkb0x Payload -- Interactive HTTP Probe (curly)
 ====================================================
 Author: 7h30th3r0n3
 
@@ -18,7 +18,7 @@ Controls:
   KEY2       -- Toggle headers / body view
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/HTTPProbe/probe_<timestamp>.json
+Loot: /root/DaRkb0x/loot/HTTPProbe/probe_<timestamp>.json
 """
 
 import os
@@ -51,10 +51,10 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 ROWS_VISIBLE = 6
 DEBOUNCE = 0.18
-LOOT_DIR = "/root/Raspyjack/loot/HTTPProbe"
+LOOT_DIR = "/root/DaRkb0x/loot/HTTPProbe"
 CURL_TIMEOUT = 15
-CURL_OUT_FILE = "/tmp/rj_curl_out"
-CURL_HDR_FILE = "/tmp/rj_curl_hdr"
+CURL_OUT_FILE = "/tmp/db_curl_out"
+CURL_HDR_FILE = "/tmp/db_curl_hdr"
 
 METHODS = ["GET", "POST", "HEAD", "OPTIONS"]
 
@@ -119,7 +119,7 @@ def _do_request(method, url):
             "-w", "%{http_code}\n%{time_total}\n%{size_download}",
             "-X", method,
             "--max-time", str(CURL_TIMEOUT),
-            "-A", "RaspyJack-Probe/1.0",
+            "-A", "DaRkb0x-Probe/1.0",
             url,
         ]
         result = subprocess.run(

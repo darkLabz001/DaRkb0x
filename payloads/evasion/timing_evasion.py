@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Network Timing Randomizer
+DaRkb0x Payload -- Network Timing Randomizer
 ================================================
 Author: 7h30th3r0n3
 

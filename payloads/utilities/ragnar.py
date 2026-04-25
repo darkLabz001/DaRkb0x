@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Launch and control the vendored Ragnar port from Raspyjack.
+Launch and control the vendored Ragnar port from DaRkb0x.
 """
 
 import json
@@ -25,11 +25,11 @@ from payloads._input_helper import get_button
 
 ROOT = Path(__file__).resolve().parents[2]
 RAGNAR_ROOT = ROOT / "vendor" / "ragnar"
-RAGNAR_SHIM = RAGNAR_ROOT / "raspyjack_headless.py"
+RAGNAR_SHIM = RAGNAR_ROOT / "darkbox_headless.py"
 RAGNAR_LOG_DIR = ROOT / "loot" / "Ragnar"
 RAGNAR_LOG_PATH = RAGNAR_LOG_DIR / "ragnar.log"
 RAGNAR_UI_LOG_PATH = RAGNAR_LOG_DIR / "ragnar_ui.log"
-RAGNAR_PID_PATH = Path("/dev/shm/raspyjack_ragnar.pid")
+RAGNAR_PID_PATH = Path("/dev/shm/darkbox_ragnar.pid")
 RAGNAR_PORT = int(os.environ.get("RAGNAR_PORT", "8091"))
 
 PINS = {
@@ -159,7 +159,7 @@ def _pid_matches_ragnar(pid: int) -> bool:
         raw = proc_cmdline.read_text(encoding="utf-8", errors="ignore")
     except Exception:
         return False
-    return "raspyjack_headless.py" in raw
+    return "darkbox_headless.py" in raw
 
 
 def _running_pid() -> int | None:
@@ -212,7 +212,7 @@ def _display_url() -> str:
 
 def _preflight_ragnar() -> tuple[bool, str]:
     env = os.environ.copy()
-    env["RAGNAR_PAGER_MODE"] = "1"  # skip EPD init — conflicts with RaspyJack LCD SPI
+    env["RAGNAR_PAGER_MODE"] = "1"  # skip EPD init — conflicts with DaRkb0x LCD SPI
     env["PYTHONPATH"] = str(RAGNAR_ROOT) + os.pathsep + env.get("PYTHONPATH", "")
     try:
         proc = subprocess.run(
@@ -313,7 +313,7 @@ def _start_ragnar() -> tuple[bool, str]:
     env = os.environ.copy()
     env["PYTHONUNBUFFERED"] = "1"
     env["RAGNAR_PORT"] = str(RAGNAR_PORT)
-    env["RAGNAR_PAGER_MODE"] = "1"  # skip EPD init — conflicts with RaspyJack LCD SPI
+    env["RAGNAR_PAGER_MODE"] = "1"  # skip EPD init — conflicts with DaRkb0x LCD SPI
     env["PYTHONPATH"] = str(RAGNAR_ROOT) + os.pathsep + env.get("PYTHONPATH", "")
 
     with open(RAGNAR_LOG_PATH, "ab", buffering=0) as log_handle:
@@ -866,7 +866,7 @@ def _draw_address(image: Image.Image, draw: ScaledDraw, state: dict, anim_tick: 
     y += 11
     draw.text((6, y), "Port kept separate", font=SMALL_FONT, fill="#a7f3d0")
     y += 11
-    draw.text((6, y), "from Raspyjack UI.", font=SMALL_FONT, fill="#a7f3d0")
+    draw.text((6, y), "from DaRkb0x UI.", font=SMALL_FONT, fill="#a7f3d0")
     y += 14
     draw.text((6, y), "K2/OK refresh", font=SMALL_FONT, fill="#7dd3fc")
 

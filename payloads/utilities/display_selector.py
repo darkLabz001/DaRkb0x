@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Display Type Selector
+DaRkb0x Payload -- Display Type Selector
 -------------------------------------------
 Switch between supported LCD screens from the device menu.
 Changes take effect after service restart.
@@ -38,7 +38,7 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 font_big = scaled_font(12)
 
-CONF_PATH = "/root/Raspyjack/gui_conf.json"
+CONF_PATH = "/root/DaRkb0x/gui_conf.json"
 
 DISPLAY_OPTIONS = [
     ("ST7735_128", "1.44\" 128x128"),
@@ -150,7 +150,7 @@ def main():
                             d.text((64, 64), "Restarting...", font=font_big, fill="#FFAA00", anchor="mm")
                             LCD.LCD_ShowImage(img, 0, 0)
                             time.sleep(1)
-                            os.system("sudo systemctl restart raspyjack")
+                            os.system("sudo systemctl restart darkbox")
                             return 0
                         elif btn2 == "KEY3":
                             break

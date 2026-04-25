@@ -2,15 +2,15 @@
 set -e
 
 # ==============================================================================
-# insomniaBox FINAL MASTER FLASH SCRIPT
+# DaRkb0x FINAL MASTER FLASH SCRIPT
 # ==============================================================================
 
 IMG="/home/sinxneo/projects/pizero/kali-rpi-zero.img.xz"
 DEV="/dev/sda"
 MNT_BOOT="/mnt/insomnia_boot"
 MNT_ROOT="/mnt/insomnia_root"
-PI_HOME="/home/kali/Raspyjack"
-REPO_URL="https://github.com/darkLabz001/insomniaBox.git"
+PI_HOME="/home/kali/DaRkb0x"
+REPO_URL="https://github.com/darkLabz001/DaRkb0x.git"
 
 if [ "$EUID" -ne 0 ]; then
   echo "Please run this script with sudo."
@@ -52,7 +52,7 @@ network={
 }
 EOF
 
-echo "[6/11] Copying insomniaBox Files & Branding..."
+echo "[6/11] Copying DaRkb0x Files & Branding..."
 mkdir -p "$MNT_ROOT$PI_HOME"
 rsync -av --exclude='*.img.xz' --exclude='.git' /home/sinxneo/projects/pizero/ "$MNT_ROOT$PI_HOME/"
 cp /home/sinxneo/projects/pizero/logo.bmp "$MNT_ROOT$PI_HOME/img/logo.bmp"
@@ -65,7 +65,7 @@ sed -i 's/"SELECTED_TEXT_BACKGROUND": "#2d0fff"/"SELECTED_TEXT_BACKGROUND": "#00
 sed -i 's/"TEXT": "#05ff00"/"TEXT": "#ff00ff"/' "$MNT_ROOT$PI_HOME/gui_conf.json"
 
 echo "[7/11] Initializing Git for OTA Updates..."
-chroot "$MNT_ROOT" /bin/bash -c "cd $PI_HOME && git init && git config user.email 'insomnia@box.local' && git config user.name 'insomniaBox' && git remote add origin $REPO_URL && git add . && git commit -m 'initial local sync' && git branch -M main" || echo "Git setup failed, skipping..."
+chroot "$MNT_ROOT" /bin/bash -c "cd $PI_HOME && git init && git config user.email 'insomnia@box.local' && git config user.name 'DaRkb0x' && git remote add origin $REPO_URL && git add . && git commit -m 'initial local sync' && git branch -M main" || echo "Git setup failed, skipping..."
 
 echo "[8/11] Injecting Anti-Freeze Fix (1GB SWAP)..."
 fallocate -l 1G "$MNT_ROOT/swapfile"
@@ -73,16 +73,16 @@ chmod 600 "$MNT_ROOT/swapfile"
 echo "/swapfile none swap sw 0 0" >> "$MNT_ROOT/etc/fstab"
 
 echo "[9/11] Setting up systemd service..."
-cat << 'EOF' > "$MNT_ROOT/etc/systemd/system/raspyjack.service"
+cat << 'EOF' > "$MNT_ROOT/etc/systemd/system/darkbox.service"
 [Unit]
-Description=insomniaBox Toolkit
+Description=DaRkb0x Toolkit
 After=network.target
 
 [Service]
 ExecStartPre=-/sbin/mkswap /swapfile
 ExecStartPre=-/sbin/swapon /swapfile
-ExecStart=/usr/bin/python3 /home/kali/Raspyjack/raspyjack.py
-WorkingDirectory=/home/kali/Raspyjack
+ExecStart=/usr/bin/python3 /home/kali/DaRkb0x/darkbox.py
+WorkingDirectory=/home/kali/DaRkb0x
 User=root
 Restart=always
 
@@ -91,15 +91,15 @@ WantedBy=multi-user.target
 EOF
 
 echo "[10/11] Finalizing Paths & Permissions..."
-sed -i 's|/root/Raspyjack/|/home/kali/Raspyjack/|g' "$MNT_ROOT$PI_HOME/raspyjack.py"
-sed -i 's|/root/Raspyjack/|/home/kali/Raspyjack/|g' "$MNT_ROOT$PI_HOME/gui_conf.json"
+sed -i 's|/root/DaRkb0x/|/home/kali/DaRkb0x/|g' "$MNT_ROOT$PI_HOME/darkbox.py"
+sed -i 's|/root/DaRkb0x/|/home/kali/DaRkb0x/|g' "$MNT_ROOT$PI_HOME/gui_conf.json"
 
 echo "[11/11] Unmounting..."
 chown -R 1000:1000 "$MNT_ROOT$PI_HOME"
 umount "$MNT_BOOT" "$MNT_ROOT"
 
 echo "=========================================================="
-echo "COMPLETED! insomniaBox is ready."
+echo "COMPLETED! DaRkb0x is ready."
 echo "- SD card expanded to full size"
 echo "- 1GB Swap (No freezing)"
 echo "- OTA Updates Enabled (System menu)"

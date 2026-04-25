@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload – RF Spectrum Analyzer
+DaRkb0x Payload – RF Spectrum Analyzer
 =========================================
 Real-time spectrum analyzer with channel filters for targeted RF analysis.
 Features dynamic display with auto-scaling, peak frequency detection, and
@@ -82,8 +82,8 @@ DWELL_STEP = 0.05
 
 # Loot directory (handle case-sensitive path differences)
 _loot_paths = [
-    "/root/Raspyjack/loot/Analyzer",
-    "/root/raspyjack/loot/Analyzer",
+    "/root/DaRkb0x/loot/Analyzer",
+    "/root/darkbox/loot/Analyzer",
 ]
 LOOT_DIR = next((p for p in _loot_paths if os.path.exists(os.path.dirname(p))), _loot_paths[0])
 os.makedirs(LOOT_DIR, exist_ok=True)

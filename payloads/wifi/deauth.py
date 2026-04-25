@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack WiFi Deauth -- Multi-Target with Handshake Capture
+DaRkb0x WiFi Deauth -- Multi-Target with Handshake Capture
 =============================================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Modes:
   DTH       -- Deauth only (aireplay-ng bursts)
   DTH+CAP   -- Deauth + parallel EAPOL sniffer (scapy)
 
-Handshakes saved to /root/Raspyjack/loot/Handshakes/
+Handshakes saved to /root/DaRkb0x/loot/Handshakes/
 """
 
 import os
@@ -48,12 +48,12 @@ except ImportError:
 
 # WiFi integration (optional)
 try:
-    sys.path.append("/root/Raspyjack/wifi/")
-    from wifi.raspyjack_integration import (
+    sys.path.append("/root/DaRkb0x/wifi/")
+    from wifi.darkbox_integration import (
         get_best_interface,
         get_available_interfaces,
         get_interface_status,
-        set_raspyjack_interface,
+        set_darkbox_interface,
     )
     WIFI_INTEGRATION = True
 except ImportError:
@@ -68,7 +68,7 @@ PINS = {
 }
 SCAN_TIMEOUT_DEFAULT = 15
 LOG_FILE = os.path.join(os.path.dirname(__file__), "deauth_debug.log")
-LOOT_DIR = "/root/Raspyjack/loot/Handshakes"
+LOOT_DIR = "/root/DaRkb0x/loot/Handshakes"
 
 # Attack modes
 MODE_DEAUTH = 0

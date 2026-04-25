@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload -- Connect 4 (Puissance 4)
+DaRkb0x payload -- Connect 4 (Puissance 4)
 =============================================
 Author: 7h30th3r0n3
 

@@ -1,4 +1,4 @@
-"""RaspyJack shared extension helpers."""
+"""DaRkb0x shared extension helpers."""
 
 from .api import REQUIRE_CAPABILITY, RUN_PAYLOAD, WAIT_FOR_NOTPRESENT, WAIT_FOR_PRESENT
 

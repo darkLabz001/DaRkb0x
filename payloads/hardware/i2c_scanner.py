@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- I2C Bus Scanner
+DaRkb0x Payload -- I2C Bus Scanner
 =====================================
 Author: 7h30th3r0n3
 
@@ -19,7 +19,7 @@ Controls:
   KEY2       -- Export results to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/I2CScan/scan_YYYYMMDD_HHMMSS.json
+Loot: /root/DaRkb0x/loot/I2CScan/scan_YYYYMMDD_HHMMSS.json
 Requires: smbus2
 """
 
@@ -57,7 +57,7 @@ ROWS_VISIBLE = 6
 ROW_H = 12
 
 I2C_BUS = 1
-LOOT_DIR = "/root/Raspyjack/loot/I2CScan"
+LOOT_DIR = "/root/DaRkb0x/loot/I2CScan"
 
 # Built-in I2C address database (hex address -> description)
 I2C_DEVICES = {

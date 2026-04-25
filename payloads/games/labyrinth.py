@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Random Labyrinth
+DaRkb0x Payload -- Random Labyrinth
 =======================================
 Author: 7h30th3r0n3
 

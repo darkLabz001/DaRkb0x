@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Interface Manager
+DaRkb0x Payload -- Interface Manager
 ========================================
 Author: 7h30th3r0n3
 
@@ -20,7 +20,7 @@ Action menu (per interface):
   OK         -- Execute selected action
   KEY3       -- Back to interface list
 
-Loot: /root/Raspyjack/loot/IfaceManager/
+Loot: /root/DaRkb0x/loot/IfaceManager/
 """
 
 import os
@@ -46,7 +46,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
-LOOT_DIR = "/root/Raspyjack/loot/IfaceManager"
+LOOT_DIR = "/root/DaRkb0x/loot/IfaceManager"
 
 _running = True
 

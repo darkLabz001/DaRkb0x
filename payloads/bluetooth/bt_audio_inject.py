@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Bluetooth Audio Injection
+DaRkb0x Payload -- Bluetooth Audio Injection
 ===============================================
 Author: 7h30th3r0n3
 
@@ -11,7 +11,7 @@ Setup / Prerequisites
 ---------------------
 - Bluetooth adapter (hci0)
 - apt install bluez pulseaudio-module-bluetooth (or bluealsa)
-- Audio file at /root/Raspyjack/config/bt_audio/payload.wav
+- Audio file at /root/DaRkb0x/config/bt_audio/payload.wav
   (or default system beep is used)
 
 Controls
@@ -57,7 +57,7 @@ font = scaled_font()
 
 # ── Constants ────────────────────────────────────────────────────────────────
 HCI_DEV = None  # set in main() via select_bt_interface
-AUDIO_FILE = "/root/Raspyjack/config/bt_audio/payload.wav"
+AUDIO_FILE = "/root/DaRkb0x/config/bt_audio/payload.wav"
 ROWS_VISIBLE = 6
 ROW_H = 12
 

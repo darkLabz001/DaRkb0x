@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC Reader
+DaRkb0x Payload -- NFC Reader
 =================================
 Read and identify NFC cards. Supports MIFARE Classic, Ultralight, NTAG, EMV.
 Auto-detects PN532 (UART/I2C) and USB readers (ACR122U, SCL3711).

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- TCP RST Injection
+DaRkb0x Payload -- TCP RST Injection
 ========================================
 Author: 7h30th3r0n3
 

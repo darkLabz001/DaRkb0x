@@ -5,7 +5,7 @@ set -euo pipefail
 # - onboard Pi WiFi (mmc) -> wlan0
 # - first USB WiFi dongle (usb) -> wlan1
 
-LOG_FILE="/root/Raspyjack/loot/network/wifi_pin_boot.log"
+LOG_FILE="/root/DaRkb0x/loot/network/wifi_pin_boot.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
 log() {

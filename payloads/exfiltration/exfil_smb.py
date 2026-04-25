@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SMB Exfiltration
+DaRkb0x Payload -- SMB Exfiltration
 =======================================
 Author: 7h30th3r0n3
 
 Two-mode SMB exfiltration tool:
-  Mode 1 (Serve): Start an SMB share on the Pi serving /root/Raspyjack/loot/
+  Mode 1 (Serve): Start an SMB share on the Pi serving /root/DaRkb0x/loot/
   using impacket-smbserver (from Responder's vendored impacket).
   Mode 2 (Upload): Upload loot files to a remote SMB share using smbclient.
 
@@ -57,9 +57,9 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_ROOT = "/root/Raspyjack/loot"
-LOOT_DIR = "/root/Raspyjack/loot/SMBExfil"
-CONFIG_DIR = "/root/Raspyjack/config/exfil_smb"
+LOOT_ROOT = "/root/DaRkb0x/loot"
+LOOT_DIR = "/root/DaRkb0x/loot/SMBExfil"
+CONFIG_DIR = "/root/DaRkb0x/config/exfil_smb"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 os.makedirs(LOOT_ROOT, exist_ok=True)
 os.makedirs(LOOT_DIR, exist_ok=True)

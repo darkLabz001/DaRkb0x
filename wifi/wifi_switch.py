@@ -3,7 +3,7 @@
 WiFi Interface Switcher - Quick wlan0 vs wlan1 Tool
 ===================================================
 Simple command-line tool to quickly switch between WiFi interfaces
-and fix the issue where RaspyJack keeps using the wrong interface.
+and fix the issue where DaRkb0x keeps using the wrong interface.
 
 Usage:
     python3 wifi_switch.py                    # Show current status
@@ -18,13 +18,13 @@ import sys
 import os
 
 # Add required paths
-sys.path.append('/root/Raspyjack/wifi/')
+sys.path.append('/root/DaRkb0x/wifi/')
 
 try:
-    from raspyjack_integration import (
-        set_raspyjack_interface,
+    from darkbox_integration import (
+        set_darkbox_interface,
         switch_wifi_interface,
-        get_current_raspyjack_interface,
+        get_current_darkbox_interface,
         list_wifi_interfaces_with_status,
         get_interface_status,
         show_routing_status,
@@ -48,16 +48,16 @@ def show_usage():
     print("  python3 wifi_switch.py toggle             # Toggle between wlan0/wlan1")
     print("")
     print("EXAMPLES:")
-    print("  python3 wifi_switch.py wlan1              # Switch RaspyJack to wlan1")
+    print("  python3 wifi_switch.py wlan1              # Switch DaRkb0x to wlan1")
     print("  python3 wifi_switch.py toggle             # Switch from current to other")
 
 def cmd_status():
     """Show current interface status."""
-    current = get_current_raspyjack_interface()
+    current = get_current_darkbox_interface()
     
-    print("📡 Current RaspyJack Interface Status")
+    print("📡 Current DaRkb0x Interface Status")
     print("="*38)
-    print(f"🎯 RaspyJack using: {current}")
+    print(f"🎯 DaRkb0x using: {current}")
     
     if current != 'unknown':
         status = get_interface_status(current)
@@ -77,7 +77,7 @@ def cmd_list():
         return
     
     print(f"\n📋 Found {len(interfaces)} WiFi interfaces")
-    current = get_current_raspyjack_interface()
+    current = get_current_darkbox_interface()
     
     for iface_info in interfaces:
         name = iface_info['name']
@@ -86,7 +86,7 @@ def cmd_list():
 
 def cmd_switch(interface):
     """Switch to specified interface."""
-    print(f"🔄 Switching RaspyJack to {interface}")
+    print(f"🔄 Switching DaRkb0x to {interface}")
     print("="*40)
     
     # Check if interface exists
@@ -103,22 +103,22 @@ def cmd_switch(interface):
         return False
     
     # Perform the switch
-    success = set_raspyjack_interface(interface)
+    success = set_darkbox_interface(interface)
     
     if success:
-        print(f"\n🎉 SUCCESS! RaspyJack now using {interface}")
+        print(f"\n🎉 SUCCESS! DaRkb0x now using {interface}")
         print("🔄 Verifying the change...")
         
         # Verify
-        current = get_current_raspyjack_interface()
+        current = get_current_darkbox_interface()
         if current == interface:
-            print(f"✅ Verified: RaspyJack is using {interface}")
+            print(f"✅ Verified: DaRkb0x is using {interface}")
             print("✅ All nmap scans will now use this interface")
             print("✅ All MITM attacks will now use this interface")
             print("✅ All tools will now use this interface")
             return True
         else:
-            print(f"⚠️  Warning: Expected {interface}, but RaspyJack using {current}")
+            print(f"⚠️  Warning: Expected {interface}, but DaRkb0x using {current}")
             return False
     else:
         print(f"\n❌ Failed to switch to {interface}")
@@ -126,7 +126,7 @@ def cmd_switch(interface):
 
 def cmd_toggle():
     """Toggle between wlan0 and wlan1."""
-    current = get_current_raspyjack_interface()
+    current = get_current_darkbox_interface()
     
     print("🔄 Toggling WiFi Interface")
     print("="*28)
@@ -174,7 +174,7 @@ def main():
     """Main function."""
     if not IMPORTS_OK:
         print("❌ Required modules not available")
-        print("Make sure you're running from RaspyJack directory")
+        print("Make sure you're running from DaRkb0x directory")
         return 1
     
     if len(sys.argv) < 2:

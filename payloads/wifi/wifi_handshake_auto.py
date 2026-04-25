@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Automatic WiFi Handshake Capture
+DaRkb0x Payload -- Automatic WiFi Handshake Capture
 =====================================================
 Author: 7h30th3r0n3
 
@@ -23,7 +23,7 @@ Controls
   KEY2       -- Export all captures to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/Handshakes/
+Loot: /root/DaRkb0x/loot/Handshakes/
 """
 
 import os
@@ -69,7 +69,7 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 # ── Constants ────────────────────────────────────────────────────────────────
-LOOT_DIR = "/root/Raspyjack/loot/Handshakes"
+LOOT_DIR = "/root/DaRkb0x/loot/Handshakes"
 CHANNELS_24 = list(range(1, 14))
 ROWS_VISIBLE = 6
 ROW_H = 12

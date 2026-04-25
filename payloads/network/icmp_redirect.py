@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- ICMP Redirect
+DaRkb0x Payload -- ICMP Redirect
 ====================================
 Author: 7h30th3r0n3
 
@@ -65,7 +65,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/ICMPRedirect"
+LOOT_DIR = "/root/DaRkb0x/loot/ICMPRedirect"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 ROWS_VISIBLE = 5

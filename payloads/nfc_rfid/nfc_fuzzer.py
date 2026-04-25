@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC APDU Fuzzer
+DaRkb0x Payload -- NFC APDU Fuzzer
 =======================================
 Interactive APDU terminal for exploring unknown NFC cards.
 Send arbitrary commands, decode responses, scan SFI/records.

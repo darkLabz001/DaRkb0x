@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WiFi Client-AP Association Mapper
+DaRkb0x Payload -- WiFi Client-AP Association Mapper
 =======================================================
 Author: 7h30th3r0n3
 
@@ -20,7 +20,7 @@ Controls:
   KEY2        -- Export results to loot
   KEY3        -- Exit
 
-Loot: /root/Raspyjack/loot/ClientMap/<timestamp>.json
+Loot: /root/DaRkb0x/loot/ClientMap/<timestamp>.json
 """
 
 import os
@@ -56,13 +56,13 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/ClientMap"
+LOOT_DIR = "/root/DaRkb0x/loot/ClientMap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 ROWS_VISIBLE = 7
 ROW_H = 12
 BROADCAST = "ff:ff:ff:ff:ff:ff"
-EVENT_LOG = "/root/Raspyjack/loot/ClientMap/events.log"
+EVENT_LOG = "/root/DaRkb0x/loot/ClientMap/events.log"
 
 # Common OUI vendor prefixes
 OUI_VENDORS = {

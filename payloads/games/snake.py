@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack *payload* example – **Snake Game**
+DaRkb0x *payload* example – **Snake Game**
 ==========================================
 Based on the original *Show Buttons* example, this script turns your Waveshare
 1.44-inch LCD HAT into a classic *Snake* game!
@@ -8,7 +8,7 @@ Based on the original *Show Buttons* example, this script turns your Waveshare
 Features
 --------
 1. **Joystick & buttons** ­– control the snake with UP / DOWN / LEFT / RIGHT;
-   press **KEY3** at any time to quit and return to the RaspyJack menu.
+   press **KEY3** at any time to quit and return to the DaRkb0x menu.
 2. **Real-time animation** on the 128 × 128 LCD at ~8 FPS.
 3. **Food & scoring** – every bite grows the snake and increments your score.
 4. **Game-over detection** – hit a wall or bite yourself and the game ends

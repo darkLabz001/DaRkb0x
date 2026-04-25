@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- ICMP Covert Channel
+DaRkb0x Payload -- ICMP Covert Channel
 ==========================================
 Author: 7h30th3r0n3
 
@@ -55,7 +55,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_BASE = "/root/Raspyjack/loot"
+LOOT_BASE = "/root/DaRkb0x/loot"
 CHUNK_SIZE = 48
 XOR_KEY = b"R4spy_J4ck!"
 

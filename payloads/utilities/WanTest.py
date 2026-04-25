@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-WAN Speed Test – RaspyJack payload
+WAN Speed Test – DaRkb0x payload
 ==================================
 Measures internet (WAN) download/upload using Speedtest. Prefers the Python
 speedtest module; falls back to the Ookla CLI (JSON). Works over whichever

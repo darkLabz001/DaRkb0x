@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Cam Finder Payload
+DaRkb0x Cam Finder Payload
 =============================
 Thin wrapper around WardrivingScanner that filters for security
 camera OUIs only (Ring, Blink, Nest, Wyze, Arlo, Eufy, etc.).
@@ -783,7 +783,7 @@ class CamFinderScanner(WardrivingScanner):
             self.log(f"GPIO error: {e}")
 
     def run_interactive(self):
-        print("RaspyJack Cam Finder")
+        print("DaRkb0x Cam Finder")
         print("====================")
 
         if LCD_AVAILABLE and self.lcd_ready:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SMB Share Crawler
+DaRkb0x Payload -- SMB Share Crawler
 =======================================
 Author: 7h30th3r0n3
 
@@ -14,7 +14,7 @@ Controls:
   KEY1      -- Toggle view (hosts / shares / files)
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/SMBCrawl/crawl_<timestamp>.json
+Loot: /root/DaRkb0x/loot/SMBCrawl/crawl_<timestamp>.json
 """
 
 import os
@@ -51,7 +51,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/SMBCrawl"
+LOOT_DIR = "/root/DaRkb0x/loot/SMBCrawl"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 MAX_DEPTH = 3

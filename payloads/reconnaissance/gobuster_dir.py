@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Gobuster (dir mode)
+DaRkb0x Payload -- Gobuster (dir mode)
 =========================================
 Author: MerlinvdW
 
-Runs gobuster dir against a URL. Wordlists: install_raspyjack.sh fills
+Runs gobuster dir against a URL. Wordlists: install_darkbox.sh fills
 loot/wordlists and loot/wordlists/dirbuster (with /usr/share fallbacks).
 
 Authorized testing only; generates many HTTP requests.
@@ -19,7 +19,7 @@ Controls:
   UP / DOWN  -- Scroll results
   LEFT       -- Back to idle (from results)
 
-Loot: /root/Raspyjack/loot/Gobuster/
+Loot: /root/DaRkb0x/loot/Gobuster/
 """
 
 from __future__ import annotations
@@ -62,7 +62,7 @@ PINS: dict[str, int] = {
     "KEY3": 16,
 }
 
-LOOT_DIR = "/root/Raspyjack/loot/Gobuster"
+LOOT_DIR = "/root/DaRkb0x/loot/Gobuster"
 DEBOUNCE_S = 0.22
 LINE_W = 18
 LINE_H = 12
@@ -87,27 +87,27 @@ TRIM_LINE_LEN = 100
 
 _WORDLIST_PRESETS: list[tuple[str, list[str]]] = [
     ("d:common", [
-        "/root/Raspyjack/loot/wordlists/common.txt",
+        "/root/DaRkb0x/loot/wordlists/common.txt",
         "/usr/share/dirb/wordlists/common.txt",
     ]),
     ("d:small", [
-        "/root/Raspyjack/loot/wordlists/small.txt",
+        "/root/DaRkb0x/loot/wordlists/small.txt",
         "/usr/share/dirb/wordlists/small.txt",
     ]),
     ("DB:small", [
-        "/root/Raspyjack/loot/wordlists/dirbuster/small.txt",
+        "/root/DaRkb0x/loot/wordlists/dirbuster/small.txt",
         "/usr/share/dirbuster/wordlists/small.txt",
     ]),
     ("DB:common", [
-        "/root/Raspyjack/loot/wordlists/dirbuster/common.txt",
+        "/root/DaRkb0x/loot/wordlists/dirbuster/common.txt",
         "/usr/share/dirbuster/wordlists/common.txt",
     ]),
     ("DB:big", [
-        "/root/Raspyjack/loot/wordlists/dirbuster/big.txt",
+        "/root/DaRkb0x/loot/wordlists/dirbuster/big.txt",
         "/usr/share/dirbuster/wordlists/big.txt",
     ]),
     ("DB:ext", [
-        "/root/Raspyjack/loot/wordlists/dirbuster/extensions_common.txt",
+        "/root/DaRkb0x/loot/wordlists/dirbuster/extensions_common.txt",
         "/usr/share/dirbuster/wordlists/extensions_common.txt",
     ]),
 ]
@@ -366,7 +366,7 @@ def _run_gobuster_missing_loop() -> None:
     try:
         while True:
             _draw_error(
-                "gobuster not found|apt install gobuster|or re-run install_raspyjack.sh"
+                "gobuster not found|apt install gobuster|or re-run install_darkbox.sh"
             )
             if get_button(PINS, GPIO) == "KEY3":
                 break
@@ -455,7 +455,7 @@ def main() -> None:
                 elif btn == "OK":
                     resolved, _ = _wordlist_resolve(wl_preset)
                     if not resolved:
-                        _draw_error("No wordlist|run install_raspyjack.sh")
+                        _draw_error("No wordlist|run install_darkbox.sh")
                         time.sleep(ERROR_SCREEN_PAUSE_S)
                         continue
                     if not _validate_url(url):

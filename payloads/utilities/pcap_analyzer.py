@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- PCAP Analyzer
+DaRkb0x Payload -- PCAP Analyzer
 ====================================
 Author: 7h30th3r0n3
 
@@ -64,7 +64,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-LOOT_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot"
 EXPORT_DIR = os.path.join(LOOT_DIR, "PCAPAnalyzer")
 PCAP_EXTENSIONS = (".pcap", ".cap", ".pcapng")
 

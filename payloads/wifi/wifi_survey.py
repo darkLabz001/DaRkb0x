@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WiFi Recon Survey Dashboard
+DaRkb0x Payload -- WiFi Recon Survey Dashboard
 =================================================
 Author: 7h30th3r0n3
 
@@ -23,7 +23,7 @@ Controls
   KEY2          -- Export JSON to loot
   KEY3          -- Exit
 
-Loot: /root/Raspyjack/loot/WiFiSurvey/
+Loot: /root/DaRkb0x/loot/WiFiSurvey/
 """
 
 import os
@@ -70,7 +70,7 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 # ── Constants ────────────────────────────────────────────────────────────────
-LOOT_DIR = "/root/Raspyjack/loot/WiFiSurvey"
+LOOT_DIR = "/root/DaRkb0x/loot/WiFiSurvey"
 CHANNELS_24 = list(range(1, 14))
 ROWS_VISIBLE = 7
 ROW_H = 12

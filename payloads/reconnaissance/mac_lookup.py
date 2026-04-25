@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- MAC Address OUI Vendor Lookup
+DaRkb0x Payload -- MAC Address OUI Vendor Lookup
 ====================================================
 Author: 7h30th3r0n3
 
@@ -20,7 +20,7 @@ Controls:
   KEY2      -- Export results to loot
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/MACLookup/<timestamp>.json
+Loot: /root/DaRkb0x/loot/MACLookup/<timestamp>.json
 """
 
 import os
@@ -56,9 +56,9 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/MACLookup"
-NMAP_LOOT = "/root/Raspyjack/loot/Nmap"
-OUI_CACHE = "/root/Raspyjack/loot/MACLookup/oui_cache.json"
+LOOT_DIR = "/root/DaRkb0x/loot/MACLookup"
+NMAP_LOOT = "/root/DaRkb0x/loot/Nmap"
+OUI_CACHE = "/root/DaRkb0x/loot/MACLookup/oui_cache.json"
 OUI_URL = "https://standards-oui.ieee.org/oui/oui.txt"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
@@ -314,7 +314,7 @@ def _load_from_loot():
                         all_macs[mac] = f"Nmap/{fname[:12]}"
 
     # Also check other loot directories
-    loot_root = "/root/Raspyjack/loot"
+    loot_root = "/root/DaRkb0x/loot"
     if os.path.isdir(loot_root):
         for subdir in os.listdir(loot_root):
             if subdir in ("MACLookup",):

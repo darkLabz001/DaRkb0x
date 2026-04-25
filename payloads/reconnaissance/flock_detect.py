@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Device Flock Detector
+DaRkb0x Payload -- Device Flock Detector
 ===========================================
 Author: 7h30th3r0n3
 
@@ -15,7 +15,7 @@ Controls:
   KEY2       -- Export flocks to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/FlockDetect/<timestamp>.json
+Loot: /root/DaRkb0x/loot/FlockDetect/<timestamp>.json
 """
 
 import os
@@ -46,7 +46,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-LOOT_DIR = "/root/Raspyjack/loot/FlockDetect"
+LOOT_DIR = "/root/DaRkb0x/loot/FlockDetect"
 IFACE = None  # resolved at runtime via select_interface()
 CORRELATION_WINDOW = 30  # seconds
 ROW_H = 12

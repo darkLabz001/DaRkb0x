@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- HTTP Exfiltration
+DaRkb0x Payload -- HTTP Exfiltration
 =======================================
 Author: 7h30th3r0n3
 
-Reads files from /root/Raspyjack/loot/, encodes in base64, and
+Reads files from /root/DaRkb0x/loot/, encodes in base64, and
 sends as POST chunks to a configurable URL.
 
 Setup / Prerequisites:
-  - Edit config at /root/Raspyjack/config/http_exfil/config.json with
+  - Edit config at /root/DaRkb0x/config/http_exfil/config.json with
     target_url of your exfil server.
   - Server must accept POST requests with JSON body.
 
-Config: /root/Raspyjack/config/http_exfil/config.json
+Config: /root/DaRkb0x/config/http_exfil/config.json
   Fields: target_url, chunk_size, headers, auth_token
 
 Chunk format (JSON POST):
@@ -61,9 +61,9 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_ROOT = "/root/Raspyjack/loot"
+LOOT_ROOT = "/root/DaRkb0x/loot"
 LOOT_DIR = os.path.join(LOOT_ROOT, "HTTPExfil")
-CONFIG_DIR = "/root/Raspyjack/config/http_exfil"
+CONFIG_DIR = "/root/DaRkb0x/config/http_exfil"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 DEBOUNCE = 0.25
 

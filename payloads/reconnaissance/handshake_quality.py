@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WPA Handshake Quality Checker
+DaRkb0x Payload -- WPA Handshake Quality Checker
 ====================================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Controls:
   KEY2       -- Export report to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/HandshakeQuality/report_<timestamp>.json
+Loot: /root/DaRkb0x/loot/HandshakeQuality/report_<timestamp>.json
 """
 
 import os
@@ -48,8 +48,8 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 ROWS_VISIBLE = 6
-LOOT_SCAN_DIR = "/root/Raspyjack/loot"
-LOOT_DIR = "/root/Raspyjack/loot/HandshakeQuality"
+LOOT_SCAN_DIR = "/root/DaRkb0x/loot"
+LOOT_DIR = "/root/DaRkb0x/loot/HandshakeQuality"
 
 # ---------------------------------------------------------------------------
 # Shared state

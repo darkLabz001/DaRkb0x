@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-RaspyJack WiFi Management System
+DaRkb0x WiFi Management System
 ===============================
-Dual-interface support for RaspyJack - use both eth0 and WiFi dongles
+Dual-interface support for DaRkb0x - use both eth0 and WiFi dongles
 
 Features:
 - WiFi profile management (save/load network credentials)
 - Network scanning and connection
 - Interface priority and selection
-- Integration with RaspyJack LCD interface
+- Integration with DaRkb0x LCD interface
 - Automatic reconnection and failover
 
-Author: RaspyJack WiFi Integration
+Author: DaRkb0x WiFi Integration
 """
 
 import os
@@ -23,9 +23,9 @@ import threading
 from datetime import datetime
 from pathlib import Path
 
-# Try to import RaspyJack LCD modules
+# Try to import DaRkb0x LCD modules
 try:
-    sys.path.append('/root/Raspyjack/')
+    sys.path.append('/root/DaRkb0x/')
     import LCD_1in44, LCD_Config
     from PIL import Image, ImageDraw, ImageFont
     import RPi.GPIO as GPIO
@@ -35,7 +35,7 @@ except Exception:
 
 class WiFiManager:
     def __init__(self):
-        self.base_dir = "/root/Raspyjack/wifi"
+        self.base_dir = "/root/DaRkb0x/wifi"
         self.profiles_dir = f"{self.base_dir}/profiles"
         self.current_profile_file = f"{self.base_dir}/current_profile.json"
         self.log_file = f"{self.base_dir}/wifi.log"
@@ -449,7 +449,7 @@ class WiFiManager:
 wifi_manager = WiFiManager()
 
 def get_available_interfaces():
-    """Get list of available network interfaces for RaspyJack tools."""
+    """Get list of available network interfaces for DaRkb0x tools."""
     interfaces = ["eth0"]  # Always include ethernet
     interfaces.extend(wifi_manager.wifi_interfaces)
     return interfaces

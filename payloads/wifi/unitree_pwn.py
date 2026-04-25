@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Unitree Robot Security Tester
+DaRkb0x Payload -- Unitree Robot Security Tester
 ====================================================
 Author: 7h30th3r0n3
 
@@ -77,7 +77,7 @@ FONT = scaled_font(8)
 FONT_BIG = scaled_font(10)
 FONT_SM = scaled_font(7)
 
-LOOT_DIR = "/root/Raspyjack/loot/Unitree"
+LOOT_DIR = "/root/DaRkb0x/loot/Unitree"
 
 _running = True
 

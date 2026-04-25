@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Pong Game
+DaRkb0x Payload -- Pong Game
 -------------------------------
 Author: 7h30th3r0n3
 

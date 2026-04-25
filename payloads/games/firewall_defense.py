@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Firewall Defense
+DaRkb0x Payload -- Firewall Defense
 --------------------------------------
 A polished tower defense game with network security theming,
 pixel-art sprites, path-based enemy movement, laser effects,

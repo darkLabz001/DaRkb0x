@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC Key Brute-force
+DaRkb0x Payload -- NFC Key Brute-force
 ==========================================
 Advanced brute-force beyond dictionary: UID-derived keys, patterns, incremental.
 

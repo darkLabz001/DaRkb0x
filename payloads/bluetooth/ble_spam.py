@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BLE Spam (iOS / Android / Windows)
+DaRkb0x Payload -- BLE Spam (iOS / Android / Windows)
 ========================================================
 Author: 7h30th3r0n3
 

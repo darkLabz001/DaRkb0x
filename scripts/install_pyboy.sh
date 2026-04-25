@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install PyBoy Game Boy emulator dependencies for RaspyJack
+# Install PyBoy Game Boy emulator dependencies for DaRkb0x
 # Usage: sudo bash scripts/install_pyboy.sh
 set -euo pipefail
 
@@ -18,10 +18,10 @@ pip3 install --break-system-packages pyboy 2>/dev/null \
   || warn "PyBoy install failed"
 
 # Create ROMs directory
-mkdir -p /root/Raspyjack/roms
+mkdir -p /root/DaRkb0x/roms
 
 # Verify
 python3 -c "from pyboy import PyBoy; print('[OK] PyBoy installed')" 2>/dev/null \
   || warn "PyBoy import failed - check errors above"
 
-info "Done! Place .gb/.gbc ROMs in /root/Raspyjack/roms/"
+info "Done! Place .gb/.gbc ROMs in /root/DaRkb0x/roms/"

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload – SMB Probe (port 445)
+DaRkb0x Payload – SMB Probe (port 445)
 ---------------------------------------
 - Detects active subnet
 - Scans for SMB (445/tcp) open hosts (no exploitation)
@@ -15,7 +15,7 @@ import subprocess
 from datetime import datetime
 import ipaddress
 
-# Ensure RaspyJack modules are importable
+# Ensure DaRkb0x modules are importable
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
 
 import RPi.GPIO as GPIO  # type: ignore
@@ -217,7 +217,7 @@ def main():
 
     target = select_mask_menu(lcd, cidr)
 
-    loot_dir = "/root/Raspyjack/loot/SMB"
+    loot_dir = "/root/DaRkb0x/loot/SMB"
     os.makedirs(loot_dir, exist_ok=True)
     ts = datetime.now().strftime("%Y-%m-%d_%H%M%S")
     out_path = f"{loot_dir}/smb_probe_{ts}.txt"

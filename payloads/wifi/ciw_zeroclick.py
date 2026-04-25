@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- CIW Zeroclick
+DaRkb0x Payload -- CIW Zeroclick
 ====================================
 Author: 7h30th3r0n3
 
@@ -9,7 +9,7 @@ Broadcasts crafted SSID payloads to detect parsing vulnerabilities, buffer
 overflows, and command injection flaws in nearby devices.
 
 Based on CommandInWiFi-Zeroclick concept by V33RU.
-Ported from Evil-M5Project (ESP32) to Raspyjack (Raspberry Pi).
+Ported from Evil-M5Project (ESP32) to DaRkb0x (Raspberry Pi).
 
 Workflow:
   1) Select payload categories (14 categories, 157 payloads)
@@ -27,7 +27,7 @@ Controls:
   KEY2       -- Set rotation interval
   KEY3       -- Exit / stop + exit
 
-Loot: /root/Raspyjack/loot/CIW/
+Loot: /root/DaRkb0x/loot/CIW/
 """
 
 import os
@@ -61,11 +61,11 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 ROWS_VISIBLE = 7
 
-LOOT_DIR = "/root/Raspyjack/loot/CIW"
+LOOT_DIR = "/root/DaRkb0x/loot/CIW"
 PAYLOADS_FILE = os.path.join(LOOT_DIR, "payloads.json")
 ALERTS_FILE = os.path.join(LOOT_DIR, "alerts.log")
-HOSTAPD_CONF = "/tmp/rj_ciw_hostapd.conf"
-DNSMASQ_CONF = "/tmp/rj_ciw_dnsmasq.conf"
+HOSTAPD_CONF = "/tmp/db_ciw_hostapd.conf"
+DNSMASQ_CONF = "/tmp/db_ciw_dnsmasq.conf"
 GATEWAY_IP = "10.0.88.1"
 
 # ---------------------------------------------------------------------------
@@ -377,7 +377,7 @@ def _start_broadcast(iface):
     alerts = []
 
     # Kill existing
-    subprocess.run(["sudo", "pkill", "-f", "rj_ciw"], capture_output=True, timeout=5)
+    subprocess.run(["sudo", "pkill", "-f", "db_ciw"], capture_output=True, timeout=5)
     time.sleep(0.3)
 
     # Configure interface
@@ -439,7 +439,7 @@ def _stop_broadcast():
             _hostapd_proc.kill()
         _hostapd_proc = None
 
-    subprocess.run(["sudo", "pkill", "-f", "rj_ciw"], capture_output=True, timeout=5)
+    subprocess.run(["sudo", "pkill", "-f", "db_ciw"], capture_output=True, timeout=5)
     with lock:
         status_msg = "Stopped"
 

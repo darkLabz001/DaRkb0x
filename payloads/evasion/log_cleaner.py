@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Engagement Log Cleaner
+DaRkb0x Payload -- Engagement Log Cleaner
 --------------------------------------------
 Author: 7h30th3r0n3
 
 Selective cleanup of forensic artifacts after an engagement.
-Protects /root/Raspyjack/loot/ (operator data).
+Protects /root/DaRkb0x/loot/ (operator data).
 
 Controls:
   UP/DOWN  = scroll items

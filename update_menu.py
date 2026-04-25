@@ -1,7 +1,7 @@
 import sys
 import os
 
-PATH = '/home/kali/Raspyjack/raspyjack.py'
+PATH = '/home/kali/DaRkb0x/darkbox.py'
 with open(PATH, 'r') as f:
     lines = f.readlines()
 
@@ -20,7 +20,7 @@ for line in lines:
         new_lines.append('        ),\n\n')
         
         new_lines.append('        "auto": (\n')
-        new_lines.append('            [" Run insomniaBox", partial(exec_payload, "insomnia_suite/insomnia_auto")],\n')
+        new_lines.append('            [" Run DaRkb0x", partial(exec_payload, "insomnia_suite/insomnia_auto")],\n')
         new_lines.append('            [" View Auto Logs",  ReadTextFileInsomnia],\n')
         new_lines.append('        ),\n\n')
         
@@ -54,7 +54,7 @@ for line in lines:
     if not skip:
         # Also update ah menu to include insomnia
         if '[" Nmap",      ReadTextFileNmap],' in line:
-             new_lines.append('            [" insomniaBox",   ReadTextFileInsomnia],\n')
+             new_lines.append('            [" DaRkb0x",   ReadTextFileInsomnia],\n')
         new_lines.append(line)
 
 with open(PATH, 'w') as f:

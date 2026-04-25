@@ -1,5 +1,5 @@
 """
-Shared on-screen keyboard for RaspyJack payloads.
+Shared on-screen keyboard for DaRkb0x payloads.
 
 Usage:
     from payloads._keyboard_helper import lcd_keyboard

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC Key Cracker
+DaRkb0x Payload -- NFC Key Cracker
 ======================================
 Brute-force MIFARE Classic sector keys with extended dictionary (~100 keys).
 Visual progress grid showing cracked/locked/active sectors.

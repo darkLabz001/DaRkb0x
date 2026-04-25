@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC Card Manager
+DaRkb0x Payload -- NFC Card Manager
 ========================================
 Browse, view, delete and export saved NFC card dumps.
 Supports Flipper Zero .nfc export format.

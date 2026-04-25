@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Latency/Jitter Monitor (RaspyJack payload)
+Latency/Jitter Monitor (DaRkb0x payload)
 ==========================================
 Measures TCP connect RTT (no monitor mode), estimates jitter, and shows a
 rolling graph on the LCD. Designed to work over Ethernet or managed
@@ -429,7 +429,7 @@ try:
         time.sleep(TICK_INTERVAL)
 
 except Exception as exc:
-    # minimal error print; RaspyJack will capture stdout
+    # minimal error print; DaRkb0x will capture stdout
     print(f"[latency_jitter_monitor] ERROR: {exc}")
 
 finally:

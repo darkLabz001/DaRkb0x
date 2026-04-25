@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Payload Search
+DaRkb0x Payload -- Payload Search
 =====================================
 Author: 7h30th3r0n3
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Tic-Tac-Toe vs AI (minimax with alpha-beta pruning)
+DaRkb0x Payload -- Tic-Tac-Toe vs AI (minimax with alpha-beta pruning)
 --------------------------------------------------------------------------
 Author: 7h30th3r0n3
 

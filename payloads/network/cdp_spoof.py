@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- CDP/LLDP Spoof
+DaRkb0x Payload -- CDP/LLDP Spoof
 ====================================
 Author: 7h30th3r0n3
 
@@ -20,7 +20,7 @@ Controls:
   KEY2       -- Export neighbor table
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/CDPSpoof/
+Loot: /root/DaRkb0x/loot/CDPSpoof/
 """
 
 import os
@@ -66,7 +66,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/CDPSpoof"
+LOOT_DIR = "/root/DaRkb0x/loot/CDPSpoof"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 CDP_MULTICAST = "01:00:0c:cc:cc:cc"
@@ -183,7 +183,7 @@ def _build_cdp_frame(iface, mac, mode):
         platform = b"Linux Embedded"
         capabilities = struct.pack("!I", 0x00000001)  # Router
         port_id = b"eth0"
-        software = b"RaspyJack Custom Agent"
+        software = b"DaRkb0x Custom Agent"
 
     # Address TLV: count(4) + proto_type(1) + proto_len(1) + proto(1) + addr_len(2) + addr(4)
     addr_entry = struct.pack("!IBBB", 1, 1, 1, 0xCC) + struct.pack("!H", 4) + ip_bytes

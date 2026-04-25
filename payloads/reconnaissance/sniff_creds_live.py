@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Credential Aggregator Dashboard
+DaRkb0x Payload -- Credential Aggregator Dashboard
 ======================================================
 Author: 7h30th3r0n3
 
@@ -14,8 +14,8 @@ Auto-refreshes every 10 seconds.
 
 Setup / Prerequisites
 ---------------------
-- Various RaspyJack attack payloads populate loot directories.
-- Read access to /root/Raspyjack/loot/ and /root/Raspyjack/Responder/logs/.
+- Various DaRkb0x attack payloads populate loot directories.
+- Read access to /root/DaRkb0x/loot/ and /root/DaRkb0x/Responder/logs/.
 
 Controls
 --------
@@ -59,20 +59,20 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/CredDashboard"
+LOOT_DIR = "/root/DaRkb0x/loot/CredDashboard"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 SCAN_DIRS = {
-    "Responder":   "/root/Raspyjack/Responder/logs",
-    "HTTPCreds":   "/root/Raspyjack/loot/HTTPCreds",
-    "CrackedNTLM": "/root/Raspyjack/loot/CrackedNTLM",
-    "CrackedWPA":  "/root/Raspyjack/loot/CrackedWPA",
-    "Telnet":      "/root/Raspyjack/loot/Telnet",
-    "CredSniff":   "/root/Raspyjack/loot/CredSniff",
-    "SSDP":        "/root/Raspyjack/loot/SSDP",
-    "CaptivePortal": "/root/Raspyjack/loot/CaptivePortal",
-    "EvilTwin":    "/root/Raspyjack/loot/EvilTwin",
-    "EnterpriseTwin": "/root/Raspyjack/loot/EnterpriseEvilTwin",
+    "Responder":   "/root/DaRkb0x/Responder/logs",
+    "HTTPCreds":   "/root/DaRkb0x/loot/HTTPCreds",
+    "CrackedNTLM": "/root/DaRkb0x/loot/CrackedNTLM",
+    "CrackedWPA":  "/root/DaRkb0x/loot/CrackedWPA",
+    "Telnet":      "/root/DaRkb0x/loot/Telnet",
+    "CredSniff":   "/root/DaRkb0x/loot/CredSniff",
+    "SSDP":        "/root/DaRkb0x/loot/SSDP",
+    "CaptivePortal": "/root/DaRkb0x/loot/CaptivePortal",
+    "EvilTwin":    "/root/DaRkb0x/loot/EvilTwin",
+    "EnterpriseTwin": "/root/DaRkb0x/loot/EnterpriseEvilTwin",
 }
 
 PROTOCOLS = ["ALL", "NTLM", "HTTP", "WPA", "Telnet", "SSDP", "Other"]

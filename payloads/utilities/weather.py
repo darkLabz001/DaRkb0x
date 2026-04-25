@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Weather Display
+DaRkb0x Payload -- Weather Display
 =====================================
 Author: 7h30th3r0n3
 
@@ -13,7 +13,7 @@ Controls:
   KEY2         -- Change city (character picker)
   KEY3         -- Exit
 
-Config: /root/Raspyjack/loot/Weather/config.json
+Config: /root/DaRkb0x/loot/Weather/config.json
 """
 
 import os
@@ -42,7 +42,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
-CONFIG_DIR = "/root/Raspyjack/loot/Weather"
+CONFIG_DIR = "/root/DaRkb0x/loot/Weather"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 # ---------------------------------------------------------------------------
 # State

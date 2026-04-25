@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- BLE GATT Replay Attack
+DaRkb0x Payload -- BLE GATT Replay Attack
 =============================================
 Author: 7h30th3r0n3
 
@@ -27,7 +27,7 @@ Controls:
   KEY3      -- Exit
 
 Uses: gatttool, hcitool via subprocess
-Loot: /root/Raspyjack/loot/BLEReplay/
+Loot: /root/DaRkb0x/loot/BLEReplay/
 """
 
 import os
@@ -65,7 +65,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/BLEReplay"
+LOOT_DIR = "/root/DaRkb0x/loot/BLEReplay"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 HCI_DEV = None  # set in main() via select_bt_interface

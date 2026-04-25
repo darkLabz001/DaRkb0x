@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 ===============================================================================
- RaspyJack Payload — Tailscale Control & Status
+ DaRkb0x Payload — Tailscale Control & Status
 ===============================================================================
 
 PURPOSE
 -------
 This payload allows you to control and monitor Tailscale directly from the
-RaspyJack 1.44" LCD screen using the physical buttons.
+DaRkb0x 1.44" LCD screen using the physical buttons.
 
 It is designed for:
 - fast and encrypted out-of-band remote access

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Traffic Analyzer
+DaRkb0x Payload -- Traffic Analyzer
 =======================================
 Author: 7h30th3r0n3
 
@@ -22,7 +22,7 @@ Controls:
   KEY2        -- Export snapshot
   KEY3        -- Exit
 
-Loot: /root/Raspyjack/loot/TrafficAnalyzer/
+Loot: /root/DaRkb0x/loot/TrafficAnalyzer/
 
 Setup: No special requirements.
 """
@@ -68,7 +68,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/TrafficAnalyzer"
+LOOT_DIR = "/root/DaRkb0x/loot/TrafficAnalyzer"
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROWS_VISIBLE = 6
 VIEWS = ["dashboard", "connections", "dns"]

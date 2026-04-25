@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- LLMNR/NBT-NS Query Injector
+DaRkb0x Payload -- LLMNR/NBT-NS Query Injector
 =================================================
 Author: 7h30th3r0n3
 

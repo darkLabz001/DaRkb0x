@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- QR Code Generator (LCD)
+DaRkb0x Payload -- QR Code Generator (LCD)
 =====================================================
 Author: 7h30th3r0n3
 
@@ -76,7 +76,7 @@ qr_image = None         # current PIL Image of QR code (LCD)
 custom_text = []         # list of characters
 
 # WiFi config (editable)
-wifi_ssid = "RaspyJack"
+wifi_ssid = "DaRkb0x"
 wifi_pass = "changeme"
 
 

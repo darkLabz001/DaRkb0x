@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- TCP/IP Fingerprint Spoofer
+DaRkb0x Payload -- TCP/IP Fingerprint Spoofer
 =================================================
 Author: 7h30th3r0n3
 

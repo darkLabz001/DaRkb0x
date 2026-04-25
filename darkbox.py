@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import base64
+import PIL.ImageFont
+# PIL.ImageFont.truetype = lambda *a, **k: PIL.ImageFont.load_default()
 import hashlib
 import hmac
 import os
@@ -12,7 +14,6 @@ from datetime import datetime
 import threading, smbus2 as smbus, time, pyudev, serial, struct, json
 from subprocess import STDOUT, check_output
 from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageSequence, ImageOps
-ImageFont.truetype = lambda *a, **k: ImageFont.load_default()
 import LCD_Config
 import LCD_1in44
 import RPi.GPIO as GPIO
@@ -23,12 +24,12 @@ from functools import partial
 import time
 import sys
 import requests  # For Discord webhook integration
-import rj_input  # Virtual input bridge (WebSocket → Unix socket)
+import db_input  # Virtual input bridge (WebSocket → Unix socket)
 
 # WiFi Integration - Add dual interface support
 try:
-    sys.path.append('/root/Raspyjack/wifi/')
-    from wifi.raspyjack_integration import (
+    sys.path.append('/root/DaRkb0x/wifi/')
+    from wifi.darkbox_integration import (
         get_best_interface,
         get_interface_ip,
         get_interface_network,
@@ -37,7 +38,7 @@ try:
         get_responder_interface,
         get_dns_spoof_ip,
         show_interface_info,
-        set_raspyjack_interface
+        set_darkbox_interface
     )
     WIFI_AVAILABLE = True
     print("✅ WiFi integration loaded - dual interface support enabled")
@@ -70,14 +71,22 @@ except ImportError as e:
             return subprocess.check_output(f"ip -4 addr show {iface} | awk '/inet / {{split($2, a, \"/\"); print a[1]}}'", shell=True).decode().strip()
         except:
             return None
-    def set_raspyjack_interface(interface):
+    def set_darkbox_interface(interface):
         print(f"⚠️  WiFi integration not available - cannot switch to {interface}")
         return False
 _stop_evt = threading.Event()
 screen_lock = threading.Event()
 # Flicker control
 _status_text = ""
-_temp_c = 0.0
+_temp_f = 0.0
+
+def get_temp_f() -> float:
+    try:
+        with open("/sys/class/thermal/thermal_zone0/temp") as f:
+            c = int(f.read()) / 1000
+            return (c * 9/5) + 32
+    except:
+        return 0.0
 draw_lock = threading.Lock()
 _last_button = None
 _last_button_time = 0.0
@@ -148,22 +157,22 @@ _lock_screensaver_cache = {
 }
 
 # WebUI frame mirror (used by device_server.py)
-FRAME_MIRROR_PATH = os.environ.get("RJ_FRAME_PATH", "/dev/shm/raspyjack_last.jpg")
-FRAME_MIRROR_ENABLED = os.environ.get("RJ_FRAME_MIRROR", "1") != "0"
-CARDPUTER_FRAME_PATH = os.environ.get("RJ_CARDPUTER_FRAME_PATH", "/dev/shm/raspyjack_cardputer.jpg")
-CARDPUTER_FRAME_ENABLED = os.environ.get("RJ_CARDPUTER_FRAME_ENABLED", "1") != "0"
-CARDPUTER_FRAME_MODE = str(os.environ.get("RJ_CARDPUTER_FRAME_MODE", "stretch") or "stretch").strip().lower()
-CARDPUTER_FRAME_WIDTH = max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_WIDTH", "240")))
-CARDPUTER_FRAME_HEIGHT = max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_HEIGHT", "135")))
-CARDPUTER_FRAME_QUALITY = min(100, max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_QUALITY", "60"))))
-CARDPUTER_FRAME_SUBSAMPLING = min(2, max(0, int(os.environ.get("RJ_CARDPUTER_FRAME_SUBSAMPLING", "0"))))
+FRAME_MIRROR_PATH = os.environ.get("DB_FRAME_PATH", "/dev/shm/darkbox_last.jpg")
+FRAME_MIRROR_ENABLED = os.environ.get("DB_FRAME_MIRROR", "1") != "0"
+CARDPUTER_FRAME_PATH = os.environ.get("DB_CARDPUTER_FRAME_PATH", "/dev/shm/darkbox_cardputer.jpg")
+CARDPUTER_FRAME_ENABLED = os.environ.get("DB_CARDPUTER_FRAME_ENABLED", "1") != "0"
+CARDPUTER_FRAME_MODE = str(os.environ.get("DB_CARDPUTER_FRAME_MODE", "stretch") or "stretch").strip().lower()
+CARDPUTER_FRAME_WIDTH = max(1, int(os.environ.get("DB_CARDPUTER_FRAME_WIDTH", "240")))
+CARDPUTER_FRAME_HEIGHT = max(1, int(os.environ.get("DB_CARDPUTER_FRAME_HEIGHT", "135")))
+CARDPUTER_FRAME_QUALITY = min(100, max(1, int(os.environ.get("DB_CARDPUTER_FRAME_QUALITY", "60"))))
+CARDPUTER_FRAME_SUBSAMPLING = min(2, max(0, int(os.environ.get("DB_CARDPUTER_FRAME_SUBSAMPLING", "0"))))
 try:
-    _frame_fps = float(os.environ.get("RJ_FRAME_FPS", "10"))
+    _frame_fps = float(os.environ.get("DB_FRAME_FPS", "10"))
     FRAME_MIRROR_INTERVAL = 1.0 / max(1.0, _frame_fps)
 except Exception:
     FRAME_MIRROR_INTERVAL = 0.1
 try:
-    _cardputer_frame_fps = float(os.environ.get("RJ_CARDPUTER_FRAME_FPS", "6"))
+    _cardputer_frame_fps = float(os.environ.get("DB_CARDPUTER_FRAME_FPS", "6"))
     CARDPUTER_FRAME_INTERVAL = 1.0 / max(1.0, _cardputer_frame_fps)
 except Exception:
     CARDPUTER_FRAME_INTERVAL = 1.0 / 6.0
@@ -229,14 +238,14 @@ def _check_wifi():
         _wifi_connected = False
 
 def _stats_loop():
-    global _status_text, _temp_c
+    global _status_text, _temp_f
     _wifi_tick = 4  # starts at 4 so first iteration triggers check immediately
     while not _stop_evt.is_set():
         if screen_lock.is_set():
             time.sleep(0.5)
             continue
         try:
-            _temp_c = temp()
+            _temp_f = temp()
             _wifi_tick += 1
             if _wifi_tick % 5 == 0:
                 _check_wifi()
@@ -309,7 +318,7 @@ if os.getuid() != 0:
         print("You need a sudo to run this!")
         exit()
 print(" ")
-print(" ------ insomniaBox Started !!! ------ ")
+print(" ------ DaRkb0x Started !!! ------ ")
 start_time = time.time()
 
 ####### Classes except menu #######
@@ -333,7 +342,7 @@ class Defaults():
 
     imgstart_path = "/root/"
 
-    install_path = "/home/kali/Raspyjack/"
+    install_path = "/root/DaRkb0x/"
     config_file = install_path + "gui_conf.json"
     screensaver_gif = install_path + "img/screensaver/default.gif"
 
@@ -344,13 +353,13 @@ class Defaults():
 ### Color scheme class ###
 class template():
     # Color values
-    border = "#0e0e6b"
+    border = "#FFFFFF"
     background = "#000000"
-    text = "#9c9ccc"
-    selected_text = "#EEEEEE"
-    select = "#141494"
-    gamepad = select
-    gamepad_fill = selected_text
+    text = "#FFFFFF"
+    selected_text = "#000000"
+    select = "#FFFFFF"
+    gamepad = "#FFFFFF"
+    gamepad_fill = "#FFFFFF"
 
     # Render the border
     def DrawBorder(self):
@@ -437,7 +446,7 @@ def getButton():
                 exec_payload(requested)
                 continue
         # 1) virtual buttons from Web UI
-        v = rj_input.get_virtual_button()
+        v = db_input.get_virtual_button()
         if v:
             _log_virtual_consume("getButton", v)
             _mark_user_activity()
@@ -471,7 +480,8 @@ def getButton():
 
 def temp() -> float:
     with open("/sys/class/thermal/thermal_zone0/temp") as f:
-        return int(f.read()) / 1000
+        c = int(f.read()) / 1000
+        return (c * 9/5) + 32
 
 
 def _iface_carrier_up(name: str) -> bool:
@@ -640,7 +650,7 @@ def _handle_main_menu_key3_double_click() -> bool:
                 return True
         except Exception:
             pass
-        virtual_button = rj_input.get_virtual_button()
+        virtual_button = db_input.get_virtual_button()
         if virtual_button == "KEY3_PIN":
             _log_virtual_consume("main_menu_key3_double_click", virtual_button)
             _mark_user_activity()
@@ -720,11 +730,11 @@ def _wait_for_button_release(timeout: float = 1.0) -> None:
     while time.monotonic() < deadline:
         try:
             physical_released = all(GPIO.input(pin) != 0 for pin in PINS.values())
-            virtual_released = not rj_input.get_held_buttons()
+            virtual_released = not db_input.get_held_buttons()
             if physical_released and virtual_released:
                 return
         except Exception:
-            if not rj_input.get_held_buttons():
+            if not db_input.get_held_buttons():
                 return
         time.sleep(0.01)
 
@@ -843,8 +853,8 @@ def ToggleFlip():
 
 def _draw_toolbar():
     try:
-        draw.line([(0, S(4)), (_SCR_W, S(4))], fill="#222", width=S(10))
-        draw.text((0, S(-2)), f"{_temp_c:.0f} °C ", fill="WHITE", font=font)
+        draw.line([(0, S(4)), (_SCR_W, S(4))], fill="#444", width=S(10))
+        draw.text((0, S(-2)), f"{_temp_f:.0f} °F ", fill="WHITE", font=font)
         if _status_text:
             draw.text((S(30), S(-2)), _status_text, fill="WHITE", font=font)
         # WiFi icon at top right when connected
@@ -970,10 +980,10 @@ def _draw_lock_screen(title: str, prompt: str, entered: list[str] | None = None,
             y0 = slot_y
             y1 = y0 + S(18)
             filled = index < len(entered)
-            box_fill = color.select if filled else "#07140b"
+            box_fill = color.select if filled else "#111111"
             box_outline = color.selected_text if filled else color.border
             box_text = "*" if filled else "•"
-            box_text_fill = color.selected_text if filled else "#446b52"
+            box_text_fill = color.selected_text if filled else "#666666"
             draw.rounded_rectangle((x0, y0, x1, y1), radius=S(3), outline=box_outline, fill=box_fill)
             _draw_centered_text((x0, y0 + 1, x1, y1), box_text, fill=box_text_fill, font=text_font)
 
@@ -992,7 +1002,7 @@ def _draw_lock_screen(title: str, prompt: str, entered: list[str] | None = None,
                 x1 = x0 + cell_w
                 y1 = y0 + cell_h
                 is_selected = row_index == selected_row and col_index == selected_col
-                fill = color.select if is_selected else "#07140b"
+                fill = color.select if is_selected else "#111111"
                 outline = color.selected_text if is_selected else color.border
                 text_fill = color.selected_text if is_selected else color.text
                 draw.rounded_rectangle((x0, y0, x1, y1), radius=S(3), outline=outline, fill=fill)
@@ -1025,7 +1035,7 @@ def _draw_sequence_screen(title: str, prompt: str, entered: list[str] | None = N
         progress_text = f"{len(entered)}/{LOCK_SEQUENCE_LENGTH}"
         progress_bbox = draw.textbbox((0, 0), progress_text, font=text_font)
         progress_w = progress_bbox[2] - progress_bbox[0]
-        draw.text((_SCR_W - S(10) - progress_w, S(16)), progress_text, fill="#7fdc9c", font=text_font)
+        draw.text((_SCR_W - S(10) - progress_w, S(16)), progress_text, fill="#FFFFFF", font=text_font)
 
         slot_w = S(17)
         slot_gap = S(2)
@@ -1038,24 +1048,24 @@ def _draw_sequence_screen(title: str, prompt: str, entered: list[str] | None = N
             y0 = slot_y
             y1 = y0 + S(18)
             filled = index < len(entered)
-            fill = color.select if filled else "#07140b"
+            fill = color.select if filled else "#111111"
             outline = color.selected_text if filled else color.border
             if filled:
                 token = "*" if mask_entered else LOCK_SEQUENCE_TOKENS.get(entered[index], "?")
             else:
                 token = "•"
-            text_fill = color.selected_text if filled else "#446b52"
+            text_fill = color.selected_text if filled else "#666666"
             draw.rounded_rectangle((x0, y0, x1, y1), radius=S(3), outline=outline, fill=fill)
             _draw_centered_text((x0, y0 + 1, x1, y1), token, fill=text_fill, font=text_font)
 
         if entered and not mask_entered:
             latest = LOCK_SEQUENCE_LABELS.get(entered[-1], "")
-            _draw_centered_text((S(12), S(82), _SCR_W - S(12), S(96)), f"Last input: {latest}", fill="#88f0aa", font=font)
+            _draw_centered_text((S(12), S(82), _SCR_W - S(12), S(96)), f"Last input: {latest}", fill="#FFFFFF", font=font)
         elif entered:
-            _draw_centered_text((S(12), S(82), _SCR_W - S(12), S(96)), "Sequence entered", fill="#88f0aa", font=font)
+            _draw_centered_text((S(12), S(82), _SCR_W - S(12), S(96)), "Sequence entered", fill="#FFFFFF", font=font)
 
         footer_text = _truncate_to_width(controls, _SCR_W - S(16), font)
-        draw.text((S(8), _SCR_H - S(17)), footer_text, fill="#6ea680", font=font)
+        draw.text((S(8), _SCR_H - S(17)), footer_text, fill="#999999", font=font)
     finally:
         draw_lock.release()
 
@@ -1088,7 +1098,7 @@ def _draw_lock_screensaver_frame(frame: Image.Image) -> None:
 
 
 def _get_fresh_lock_button() -> str | None:
-    virtual_button = rj_input.get_virtual_button()
+    virtual_button = db_input.get_virtual_button()
     if virtual_button:
         _log_virtual_consume("fresh_lock", virtual_button)
         _mark_user_activity()
@@ -1104,7 +1114,7 @@ def _get_fresh_lock_button() -> str | None:
 
 
 def _get_sequence_lock_button(held_buttons: set[str]) -> tuple[str | None, set[str]]:
-    virtual_button = rj_input.get_virtual_button()
+    virtual_button = db_input.get_virtual_button()
     if virtual_button:
         _log_virtual_consume("sequence_lock", virtual_button)
         _mark_user_activity()
@@ -1667,9 +1677,9 @@ def Dialog(a, wait=True):
     try:
         draw_lock.acquire()
         _draw_toolbar()
-        draw.rectangle([S(7), S(35), _SCR_W - S(8), S(95)], fill="#ADADAD")
+        draw.rectangle([S(7), S(35), _SCR_W - S(8), S(95)], fill="#CCCCCC")
         _draw_centered_text((S(7), S(35), _SCR_W - S(8), S(63)), a, fill="#000000", font=text_font)
-        draw.rectangle([(_SCR_W - S(25)) // 2, S(65), (_SCR_W + S(25)) // 2, S(80)], fill="#FF0000")
+        draw.rectangle([(_SCR_W - S(25)) // 2, S(65), (_SCR_W + S(25)) // 2, S(80)], fill="#FFFFFF")
 
         _draw_centered_text(((_SCR_W - S(25)) // 2, S(65), (_SCR_W + S(25)) // 2, S(80)), "OK", fill=color.selected_text, font=text_font)
     finally:
@@ -1682,11 +1692,11 @@ def Dialog_result(title, detail="", wait=True):
     try:
         draw_lock.acquire()
         _draw_toolbar()
-        draw.rectangle([7, 25, 120, 102], fill="#ADADAD")
+        draw.rectangle([7, 25, 120, 102], fill="#CCCCCC")
         _draw_centered_text((10, 30, 117, 53), title, fill="#000000", font=text_font)
         if detail:
             _draw_centered_text((10, 52, 117, 77), detail, fill="#000000", font=text_font)
-        draw.rectangle([43, 82, 83, 96], fill="#FF0000")
+        draw.rectangle([43, 82, 83, 96], fill="#FFFFFF")
         _draw_centered_text((43, 82, 83, 96), "OK", fill=color.selected_text, font=text_font)
     finally:
         draw_lock.release()
@@ -1698,7 +1708,7 @@ def Dialog_info(a, wait=True, timeout=None):
     try:
         draw_lock.acquire()
         _draw_toolbar()
-        draw.rectangle([S(3), S(14), _SCR_W - S(4), _SCR_H - S(4)], fill="#00A321")
+        draw.rectangle([S(3), S(14), _SCR_W - S(4), _SCR_H - S(4)], fill="#FFFFFF")
         _draw_centered_text((S(3), S(14), _SCR_W - S(4), _SCR_H - S(4)), a, fill="#000000", font=text_font)
     finally:
         draw_lock.release()
@@ -1708,14 +1718,14 @@ def Dialog_info(a, wait=True, timeout=None):
             try:
                 draw_lock.acquire()
                 _draw_toolbar()
-                draw.rectangle([S(3), S(14), _SCR_W - S(4), _SCR_H - S(4)], fill="#00A321")
+                draw.rectangle([S(3), S(14), _SCR_W - S(4), _SCR_H - S(4)], fill="#FFFFFF")
                 _draw_centered_text((S(3), S(14), _SCR_W - S(4), _SCR_H - S(4)), a, fill="#000000", font=text_font)
                 # Progress bar at bottom
                 pct = min(1.0, (time.time() - start) / timeout)
                 bar_x0, bar_y0, bar_x1, bar_y1 = S(10), _SCR_H - S(18), _SCR_W - S(10), _SCR_H - S(10)
-                draw.rectangle([bar_x0, bar_y0, bar_x1, bar_y1], outline="#004d12", fill="#00A321")
+                draw.rectangle([bar_x0, bar_y0, bar_x1, bar_y1], outline="#444444", fill="#FFFFFF")
                 fill_w = int((bar_x1 - bar_x0) * pct)
-                draw.rectangle([bar_x0, bar_y0, bar_x0 + fill_w, bar_y1], fill="#004d12")
+                draw.rectangle([bar_x0, bar_y0, bar_x0 + fill_w, bar_y1], fill="#444444")
             finally:
                 draw_lock.release()
             time.sleep(0.1)
@@ -1726,7 +1736,7 @@ def YNDialog(a="Are you sure?", y="Yes", n="No",b=""):
     try:
         draw_lock.acquire()
         _draw_toolbar()
-        draw.rectangle([S(7), S(35), _SCR_W - S(8), S(95)], fill="#ADADAD")
+        draw.rectangle([S(7), S(35), _SCR_W - S(8), S(95)], fill="#CCCCCC")
         _draw_centered_text((S(7), S(35), _SCR_W - S(8), S(52)), a, fill="#000000", font=text_font)
         if b:
             _draw_centered_text((S(7), S(50), _SCR_W - S(8), S(65)), b, fill="#000000", font=text_font)
@@ -1739,17 +1749,17 @@ def YNDialog(a="Are you sure?", y="Yes", n="No",b=""):
             draw_lock.acquire()
             _draw_toolbar()
             render_color = "#000000"
-            render_bg_color = "#ADADAD"
+            render_bg_color = "#CCCCCC"
             if answer:
-                render_bg_color = "#FF0000"
+                render_bg_color = "#FFFFFF"
                 render_color = color.selected_text
             draw.rectangle([S(15), S(65), S(45), S(80)], fill=render_bg_color)
             draw.text((S(20), S(68)), y, fill=render_color)
 
             render_color = "#000000"
-            render_bg_color = "#ADADAD"
+            render_bg_color = "#CCCCCC"
             if not answer:
-                render_bg_color = "#FF0000"
+                render_bg_color = "#FFFFFF"
                 render_color = color.selected_text
             draw.rectangle([S(76), S(65), S(106), S(80)], fill=render_bg_color)
             draw.text((S(86), S(68)), n, fill=render_color)
@@ -1817,7 +1827,7 @@ def ShowLines(arr,bold=[]):
             # Draw icons on main menu when available
             if m.which == "a":
                 icon = _menu_icon_for_label(render_text, "")
-                if icon:
+                if False:
                     draw.text(
                         (default.start_text[0] - 2, default.start_text[1] + default.text_gap * i),
                         icon,
@@ -1880,7 +1890,7 @@ def RenderMenuWindowOnce(inlist, selected_index=0):
                     fill=color.select
                 )
             icon = ""
-            if icon:
+            if False:
                 draw.text(
                     (default.start_text[0],
                      row_y),
@@ -1977,7 +1987,7 @@ def RenderMenuGridOnce(inlist, selected_index=0):
                 fill_color = color.text
 
             icon = _menu_icon_for_label(item, "")
-            if icon:
+            if False:
                 draw.text((x + 2, y), icon, font=icon_font, fill=fill_color)
                 short_text = item.strip()[:8]
                 draw.text((x, y + S(13)), short_text, font=text_font, fill=fill_color)
@@ -2121,7 +2131,7 @@ def GetMenuString(inlist, duplicates=False):
                     )
 
                 icon = ""
-                if icon:
+                if False:
                     draw.text(
                         (default.start_text[0],
                          row_y),
@@ -2740,9 +2750,17 @@ def Explorer(path="/",extensions=""):
             break
     return ""
 
+
+def ReadTextFileInsomnia():
+    while 1:
+        rfile = Explorer("/home/kali/DaRkb0x/loot/insomnia/", extensions=".log")
+        if rfile == "": break
+        with open(rfile) as f: content = f.read().splitlines()
+        GetMenuString(content)
+
 def ReadTextFileNmap():
     while 1:
-        rfile = Explorer("/root/Raspyjack/loot/Nmap/",extensions=".txt\\|.json\\|.conf\\|.pcap")
+        rfile = Explorer("/root/DaRkb0x/loot/Nmap/",extensions=".txt\\|.json\\|.conf\\|.pcap")
         if rfile == "":
             break
         with open(rfile) as f:
@@ -2751,7 +2769,7 @@ def ReadTextFileNmap():
 
 def ReadTextFileResponder():
     while 1:
-        rfile = Explorer("/root/Raspyjack/Responder/logs/",extensions=".log\\|.txt\\|.pcap")
+        rfile = Explorer("/root/DaRkb0x/Responder/logs/",extensions=".log\\|.txt\\|.pcap")
         if rfile == "":
             break
         with open(rfile) as f:
@@ -2760,7 +2778,7 @@ def ReadTextFileResponder():
 
 def ReadTextFileDNSSpoof():
     while 1:
-        rfile = Explorer("/root/Raspyjack/DNSSpoof/captures/",extensions=".log\\|.txt\\|.pcap")
+        rfile = Explorer("/root/DaRkb0x/DNSSpoof/captures/",extensions=".log\\|.txt\\|.pcap")
         if rfile == "":
             break
         with open(rfile) as f:
@@ -2812,7 +2830,7 @@ def _rename_uploaded_wigle_file(file_path: str) -> str:
         suffix += 1
 
 def ReadTextFileWardriving():
-    directory = "/root/Raspyjack/loot/wardriving/"
+    directory = "/root/DaRkb0x/loot/wardriving/"
     while 1:
         files = _list_wardriving_files(directory)
         selection_index, selection = GetMenuString([f" {name}" for name in files], duplicates=True)
@@ -2887,7 +2905,7 @@ WIGLE_UPLOAD_URL = "https://api.wigle.net/api/v2/file/upload"
 
 def get_discord_webhook():
     """Read Discord webhook URL from configuration file."""
-    webhook_file = "/root/Raspyjack/discord_webhook.txt"
+    webhook_file = "/root/DaRkb0x/discord_webhook.txt"
     try:
         if os.path.exists(webhook_file):
             with open(webhook_file, 'r') as f:
@@ -2900,7 +2918,7 @@ def get_discord_webhook():
 
 
 def get_wigle_credentials():
-    credentials_file = "/root/Raspyjack/.wigle_credentials.json"
+    credentials_file = "/root/DaRkb0x/.wigle_credentials.json"
     try:
         if not os.path.exists(credentials_file):
             return "", ""
@@ -3044,7 +3062,7 @@ def send_to_discord(scan_label: str, file_path: str, target_network: str, interf
                 }
             ],
             "footer": {
-                "text": "insomniaBox Nmap Scanner"
+                "text": "DaRkb0x Nmap Scanner"
             },
             "timestamp": datetime.now().isoformat()
         }
@@ -3106,7 +3124,7 @@ def run_scan(label: str, nmap_args: list[str]):
         pass
 
     ts   = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    path = f"/root/Raspyjack/loot/Nmap/{label.lower().replace(' ', '_')}_{ts}.txt"
+    path = f"/root/DaRkb0x/loot/Nmap/{label.lower().replace(' ', '_')}_{ts}.txt"
     xml_path = path.replace(".txt", ".xml")
 
     # Build nmap command with interface specification
@@ -3204,7 +3222,7 @@ def responder_on():
         interface = _choose_interface_for_action(get_responder_interface())
         if interface == "__back__":
             return
-        os.system(f'python3 /root/Raspyjack/Responder/Responder.py -Q -I {interface} &')
+        os.system(f'python3 /root/DaRkb0x/Responder/Responder.py -Q -I {interface} &')
         Dialog_info(f"     Responder \n      started !!\n   Interface: {interface}", wait=True)
         time.sleep(2)
 
@@ -3352,7 +3370,7 @@ def Start_MITM():
 
 # Start tcpdump capture to sniff network traffic
         now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        pcap_file = f"/root/Raspyjack/loot/MITM/network_traffic_{now}.pcap"
+        pcap_file = f"/root/DaRkb0x/loot/MITM/network_traffic_{now}.pcap"
         print(f"[*] Starting tcpdump capture and writing packets to {pcap_file}...")
         os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
         tcpdump_process = subprocess.Popen(["tcpdump", "-i", interface, "-w", pcap_file], stdout=subprocess.PIPE)
@@ -3387,7 +3405,7 @@ def spoof_site(name: str):
     subprocess.run("pkill -f 'php'", shell=True)   # stoppe les instances PHP
     time.sleep(1)
 
-    webroot = f"/root/Raspyjack/DNSSpoof/sites/{name}"
+    webroot = f"/root/DaRkb0x/DNSSpoof/sites/{name}"
     cmd = f"cd {webroot} && php -S 0.0.0.0:80"
     subprocess.Popen(cmd, shell=True)              # launch the built-in PHP
 
@@ -3437,7 +3455,7 @@ def Start_DNSSpoofing():
     print("------------------------------- ")
 
 # Commands executed in the background
-    website_command = f"cd /root/Raspyjack/DNSSpoof/sites/{site_spoof} && php -S 0.0.0.0:80"
+    website_command = f"cd /root/DaRkb0x/DNSSpoof/sites/{site_spoof} && php -S 0.0.0.0:80"
     ettercap_command = f"ettercap -Tq -M arp:remote -P dns_spoof -i {interface}"
     Dialog_info(f"    DNS Spoofing\n   {site_spoof}  started !!!\n Interface: {interface}", wait=True)
     time.sleep(2)
@@ -3472,7 +3490,7 @@ def show_interface_info():
         return
 
     try:
-        from wifi.raspyjack_integration import show_interface_info as show_info
+        from wifi.darkbox_integration import show_interface_info as show_info
 
         # Create a text display of interface info
         current_interface = get_best_interface_prefer_eth()
@@ -3506,14 +3524,14 @@ def switch_interface_menu():
         return
 
     try:
-        from wifi.raspyjack_integration import (
+        from wifi.darkbox_integration import (
             list_wifi_interfaces_with_status,
-            get_current_raspyjack_interface,
-            set_raspyjack_interface
+            get_current_darkbox_interface,
+            set_darkbox_interface
         )
 
         # Get current interface
-        current = get_current_raspyjack_interface()
+        current = get_current_darkbox_interface()
 
         # Get WiFi interfaces with status
         wifi_interfaces = list_wifi_interfaces_with_status()
@@ -3546,10 +3564,10 @@ def switch_interface_menu():
                     Dialog_info(f"Switching to\n{selected_iface}\nConfiguring routes...", wait=True)
 
                     # Actually perform the switch
-                    success = set_raspyjack_interface(selected_iface)
+                    success = set_darkbox_interface(selected_iface)
 
                     if success:
-                        Dialog_info(f"✓ SUCCESS!\ninsomniaBox now using\n{selected_iface}\nAll tools updated", wait=True)
+                        Dialog_info(f"✓ SUCCESS!\nDaRkb0x now using\n{selected_iface}\nAll tools updated", wait=True)
                     else:
                         Dialog_info(f"✗ FAILED!\nCould not switch to\n{selected_iface}\nCheck connection", wait=True)
 
@@ -3563,7 +3581,7 @@ def show_routing_status():
         return
 
     try:
-        from wifi.raspyjack_integration import get_current_default_route
+        from wifi.darkbox_integration import get_current_default_route
 
         current_route = get_current_default_route()
         current_interface = get_best_interface_prefer_eth()
@@ -3573,7 +3591,7 @@ def show_routing_status():
                 "Routing Status:",
                 f"Default: {current_route.get('interface', 'unknown')}",
                 f"Gateway: {current_route.get('gateway', 'unknown')}",
-                f"insomniaBox uses: {current_interface}",
+                f"DaRkb0x uses: {current_interface}",
                 "",
                 "Press any key to exit"
             ]
@@ -3581,7 +3599,7 @@ def show_routing_status():
             info_lines = [
                 "Routing Status:",
                 "No default route found",
-                f"insomniaBox uses: {current_interface}",
+                f"DaRkb0x uses: {current_interface}",
                 "",
                 "Press any key to exit"
             ]
@@ -3598,7 +3616,7 @@ def switch_to_wifi():
         return
 
     try:
-        from wifi.raspyjack_integration import get_available_interfaces, ensure_interface_default
+        from wifi.darkbox_integration import get_available_interfaces, ensure_interface_default
 
         # Find WiFi interfaces
         interfaces = get_available_interfaces()
@@ -3629,7 +3647,7 @@ def switch_to_ethernet():
         return
 
     try:
-        from wifi.raspyjack_integration import ensure_interface_default
+        from wifi.darkbox_integration import ensure_interface_default
 
         Dialog_info("Switching to Ethernet\neth0\nPlease wait...", wait=True)
 
@@ -3664,12 +3682,12 @@ def quick_wifi_toggle():
         return
 
     try:
-        from wifi.raspyjack_integration import (
-            get_current_raspyjack_interface,
-            set_raspyjack_interface
+        from wifi.darkbox_integration import (
+            get_current_darkbox_interface,
+            set_darkbox_interface
         )
 
-        current = get_current_raspyjack_interface()
+        current = get_current_darkbox_interface()
 
         # Determine target interface immediately
         if current == 'wlan0':
@@ -3683,7 +3701,7 @@ def quick_wifi_toggle():
         Dialog_info(f"FAST SWITCH:\n{current} -> {target}\nSwitching now...", wait=True)
 
         # IMMEDIATE switch with force
-        success = set_raspyjack_interface(target)
+        success = set_darkbox_interface(target)
 
         if success:
             Dialog_info(f"✓ SWITCHED!\n{target} active\n\nAll tools now\nuse {target}", wait=True)
@@ -3738,7 +3756,7 @@ def list_payloads_by_category():
 # ---------------------------------------------------------------------------
 # Payload state (for WebUI status)
 # ---------------------------------------------------------------------------
-PAYLOAD_STATE_PATH = "/dev/shm/rj_payload_state.json"
+PAYLOAD_STATE_PATH = "/dev/shm/db_payload_state.json"
 
 def _write_payload_state(running: bool, path: str | None = None) -> None:
     try:
@@ -3775,12 +3793,12 @@ def _setup_gpio() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 2)  exec_payload – run a script then *immediately* restore insomniaBox UI
+# 2)  exec_payload – run a script then *immediately* restore DaRkb0x UI
 # ---------------------------------------------------------------------------
 def exec_payload(filename: str, *args) -> None:
     """
     Execute a Python script located in « payloads/ » and *always*
-    return control – screen **and** buttons – to insomniaBox.
+    return control – screen **and** buttons – to DaRkb0x.
 
     Workflow
     --------
@@ -3811,7 +3829,7 @@ def exec_payload(filename: str, *args) -> None:
 
     log = open(default.payload_log, "ab", buffering=0)
     try:
-        # Ensure payloads can import insomniaBox modules reliably
+        # Ensure payloads can import DaRkb0x modules reliably
         env = os.environ.copy()
         env["PYTHONPATH"] = default.install_path + os.pathsep + env.get("PYTHONPATH", "")
         cmd = ["python3", full]
@@ -3819,7 +3837,7 @@ def exec_payload(filename: str, *args) -> None:
             cmd.extend(args)
         result = subprocess.run(
             cmd,
-            cwd=default.install_path,  # same PYTHONPATH as insomniaBox
+            cwd=default.install_path,  # same PYTHONPATH as DaRkb0x
             env=env,
             stdout=log,
             stderr=subprocess.STDOUT,
@@ -3835,12 +3853,12 @@ def exec_payload(filename: str, *args) -> None:
         print(f"[PAYLOAD]   • ERROR: {exc!r}")
         Dialog_info("Payload error\nCheck payload.log", wait=True)
 
-    # ---- restore insomniaBox ----------------------------------------------
+    # ---- restore DaRkb0x ----------------------------------------------
     print("[PAYLOAD] ◄ Restoring LCD & GPIO…")
     _write_payload_state(False, None)
     _setup_gpio()                                  # SPI/DC/RST/CS back
     try:
-        rj_input.restart_listener()                # ensure virtual input socket is back
+        db_input.restart_listener()                # ensure virtual input socket is back
     except AttributeError:
         pass
 
@@ -3872,28 +3890,69 @@ def exec_payload(filename: str, *args) -> None:
     print("[PAYLOAD] ✔ Menu ready – you can navigate again.")
 
 
+
+def check_for_updates():
+    Dialog_info("Checking for updates...", wait=False)
+    try:
+        # Reset local changes to core file to ensure clean pull
+        subprocess.run(['git', 'checkout', 'darkbox.py'], cwd=default.install_path)
+        result = subprocess.run(['git', 'pull', 'origin', 'main'], cwd=default.install_path, capture_output=True, text=True)
+        if 'Already up to date' in result.stdout:
+            Dialog_info("DaRkb0x is up to date", wait=True)
+        else:
+            Dialog_info("Update complete! Restarting...", wait=True)
+            Restart()
+    except Exception as e:
+        Dialog_info(f"Update Failed:\n{str(e)[:20]}", wait=True)
+
+
 ### Menu class ###
 class DisposableMenu:
     which  = "a"     # Start menu
     select = 0       # Current selection index
     _select_stack = []  # stack to remember parent selection when entering submenus
+    _which_stack = []   # stack to remember parent menu keys
     char   = "> "    # Indentation character
     max_len = 17     # Max chars per line
     view_mode = "list"  # "list", "grid", or "carousel" - current view mode
 
     menu = {
         "a": (
-            [" Scan Nmap",      "ab"],     # b
-            [" Reverse Shell",  "ac"],     # c
-            [" Responder",      "ad"],     # d
-            [" MITM & Sniff",   "ai"],     # i
-            [" DNS Spoofing",   "aj"],     # j
-            [" Network info",   ShowInfo], # appel direct
-            [" WiFi Manager",   "aw"],     # w
-            [" Other features", "ag"],     # g
-            [" Read file",      "ah"],     # h
-            [" Payload", "ap"],            # p
-            [" Lock",           OpenLockMenu],
+            [" AUTO-PILOT",     "auto"],
+            [" NETWORK",        "net"],
+            [" WIRELESS",       "aw"],
+            [" WARDRIVING",     partial(exec_payload, "reconnaissance/wardriving.py")],
+            [" PAYLOADS",       "ap"],
+            [" SYSTEM",         "ag"],
+
+        ),
+
+        "auto": (
+            [" Run DaRkb0x", partial(exec_payload, "insomnia_suite/insomnia_auto")],
+            [" View Auto Logs",  ReadTextFileInsomnia],
+        ),
+
+        "net": (
+            [" Scan Nmap",      "ab"],
+            [" Responder",      "ad"],
+            [" MITM & Sniff",   "ai"],
+            [" DNS Spoofing",   "aj"],
+            [" Network info",   ShowInfo],
+        ),
+
+        "ap_root": (
+            [" Reverse Shell",  "ac"],
+            [" All Payloads",   "ap"],
+
+
+
+
+
+
+
+
+
+
         ),
 
         "ab": tuple(
@@ -4002,7 +4061,7 @@ class DisposableMenu:
 
     def _inject_favorites(self):
         """Read favorites.json and inject payloads into main menu 'a' with their original icon."""
-        fav_file = "/root/Raspyjack/loot/Favorites/favorites.json"
+        fav_file = "/root/DaRkb0x/loot/Favorites/favorites.json"
         try:
             with open(fav_file, "r") as f:
                 favs = json.load(f).get("favorites", [])
@@ -4052,122 +4111,113 @@ class DisposableMenu:
 
     # Génération à chaud du sous-menu Payload -------------------------------
     def _build_payload_menu(self):
-        """Crée (ou rafraîchit) le menu 'ap' par catégories."""
+        """Crée (ou rafraîchit) le menu 'ap' par catégories imbriquées."""
         self.menu_parent = {}
-        category_order = [
-            "reconnaissance",
-            "wifi",
-            "network",
-            "credentials",
-            "bluetooth",
-            "usb",
-            "exfiltration",
-            "evasion",
-            "remote_access",
-            "nfc_rfid",
-            "sdr",
-            "utilities",
-            "hardware",
-            "games",
-            "examples",
-        ]
+        
+        # Meta-categories for better organization
+        meta_mapping = {
+            " Wireless": ["wifi", "bluetooth", "nfc_rfid", "sdr"],
+            " Networking": ["reconnaissance", "network", "remote_access"],
+            " Exploits": ["credentials", "usb", "exfiltration", "evasion"],
+            " System": ["utilities", "hardware"],
+            " Games": ["games"],
+            " Misc": ["examples", "general"]
+        }
 
-        _CATEGORY_LABELS = {"nfc_rfid": "NFC/RFID", "sdr": "SDR/Radio", "remote_access": "Remote Access"}
+        _CATEGORY_LABELS = {
+            "nfc_rfid": "NFC/RFID", 
+            "sdr": "SDR/Radio", 
+            "remote_access": "Remote Access",
+            "wifi": "WiFi",
+            "reconnaissance": "Recon"
+        }
 
-        def _label(cat: str) -> str:
+        def _cat_label(cat: str) -> str:
             if cat in _CATEGORY_LABELS:
                 return f" {_CATEGORY_LABELS[cat]}"
             return f" {cat.replace('_', ' ').title()}"
 
         categories = list_payloads_by_category()
-        menu_items = []
+        meta_menu_items = [
+            [" Reverse Shell", "ac"]
+        ]
 
-        for cat in category_order:
-            scripts = categories.get(cat, [])
-            if not scripts:
+        # Track used categories to add any "orphans" to Misc
+        used_cats = set()
+
+        for meta_label, sub_cats in meta_mapping.items():
+            meta_sub_menu = []
+            for cat in sub_cats:
+                scripts = categories.get(cat, [])
+                if not scripts:
+                    continue
+                
+                used_cats.add(cat)
+                
+                # Build the sub-category menu (same logic as before)
+                cat_items = []
+                root_files = []
+                subdirs = {}
+                for path in scripts:
+                    parts = path.split('/')
+                    if len(parts) > 2 and parts[0] == cat:
+                        subdir = parts[1]
+                        if subdir not in subdirs:
+                            subdirs[subdir] = []
+                        subdirs[subdir].append(path)
+                    else:
+                        root_files.append(path)
+
+                for p in root_files:
+                    cat_items.append([f" {os.path.splitext(os.path.basename(p))[0]}", partial(exec_payload, p)])
+
+                for subdir in sorted(subdirs.keys()):
+                    subdir_paths = subdirs[subdir]
+                    subkey = f"ap_{cat}_{subdir}"
+                    self.menu[subkey] = tuple(
+                        [f" {os.path.splitext(os.path.basename(p))[0]}", partial(exec_payload, p)]
+                        for p in subdir_paths
+                    )
+                    self.menu_parent[subkey] = f"ap_{cat}"
+                    cat_items.append([f" 📁 {subdir}", subkey])
+
+                if cat_items:
+                    key = f"ap_{cat}"
+                    self.menu[key] = tuple(cat_items)
+                    self.menu_parent[key] = f"ap_meta_{meta_label.strip()}"
+                    meta_sub_menu.append([_cat_label(cat), key])
+            
+            if meta_sub_menu:
+                meta_key = f"ap_meta_{meta_label.strip()}"
+                self.menu[meta_key] = tuple(meta_sub_menu)
+                self.menu_parent[meta_key] = "ap"
+                meta_menu_items.append([meta_label, meta_key])
+
+        # Handle any orphan categories
+        orphan_items = []
+        for cat, scripts in categories.items():
+            if cat in used_cats:
                 continue
-
-            # Separate root-level files from subdirectory files
-            root_files = []
-            subdirs = {}
-            for path in scripts:
-                parts = path.split('/')
-                if len(parts) > 2 and parts[0] == cat:
-                    subdir = parts[1]
-                    if subdir not in subdirs:
-                        subdirs[subdir] = []
-                    subdirs[subdir].append(path)
-                else:
-                    # Root-level file (in category root or general)
-                    root_files.append(path)
-
-            # Build category menu - root files listed directly, subdirs as folders
+            
             cat_items = []
-
-            # Add root files directly to category menu
-            for p in root_files:
+            for p in scripts:
                 cat_items.append([f" {os.path.splitext(os.path.basename(p))[0]}", partial(exec_payload, p)])
-
-            # Add subdirectories as expandable folders
-            for subdir in sorted(subdirs.keys()):
-                subdir_paths = subdirs[subdir]
-                subkey = f"ap_{cat}_{subdir}"
-                self.menu[subkey] = tuple(
-                    [f" {os.path.splitext(os.path.basename(p))[0]}", partial(exec_payload, p)]
-                    for p in subdir_paths
-                )
-                self.menu_parent[subkey] = f"ap_{cat}"
-                cat_items.append([f" 📁 {subdir}", subkey])
-
-            # Only create category menu if there are items
+            
             if cat_items:
                 key = f"ap_{cat}"
                 self.menu[key] = tuple(cat_items)
                 self.menu_parent[key] = "ap"
-                menu_items.append([_label(cat), key])
+                orphan_items.append([_cat_label(cat), key])
+        
+        if orphan_items:
+            # Add to Misc if it exists, otherwise add to main payload menu
+            misc_key = "ap_meta_Misc"
+            if misc_key in self.menu:
+                self.menu[misc_key] = tuple(list(self.menu[misc_key]) + orphan_items)
+            else:
+                meta_menu_items.extend(orphan_items)
 
-        # Add any unexpected categories at the end
-        for cat in sorted(categories.keys()):
-            if cat in category_order:
-                continue
-            scripts = categories[cat]
-
-            root_files = []
-            subdirs = {}
-            for path in scripts:
-                parts = path.split('/')
-                if len(parts) > 2:
-                    subdir = parts[0]
-                    if subdir not in subdirs:
-                        subdirs[subdir] = []
-                    subdirs[subdir].append(path)
-                else:
-                    root_files.append(path)
-
-            cat_items = []
-
-            # Add root files directly
-            for p in root_files:
-                cat_items.append([f" {os.path.splitext(os.path.basename(p))[0]}", partial(exec_payload, p)])
-
-            # Add subdirectories as folders
-            for subdir in sorted(subdirs.keys()):
-                subdir_paths = subdirs[subdir]
-                subkey = f"ap_{cat}_{subdir}"
-                self.menu[subkey] = tuple(
-                    [f" {os.path.splitext(os.path.basename(p))[0]}", partial(exec_payload, p)]
-                    for p in subdir_paths
-                )
-                self.menu_parent[subkey] = f"ap_{cat}"
-                cat_items.append([f" 📁 {subdir}", subkey])
-
-            if cat_items:
-                key = f"ap_{cat}"
-                self.menu[key] = tuple(cat_items)
-                self.menu_parent[key] = "ap"
-                menu_items.append([_label(cat), key])
-
-        self.menu["ap"] = tuple(menu_items) or ([" <vide>", lambda: None],)
+        self.menu["ap"] = tuple(meta_menu_items) or ([" <vide>", lambda: None],)
 
     def __init__(self):
         # cette fois, `default` est déjà instancié → pas d'erreur
@@ -4377,7 +4427,7 @@ def GetMenuGrid(inlist, duplicates=False):
                 txt = item if not duplicates else item.split('#', 1)[1]
                 icon = ""
 
-                if icon:
+                if False:
                     # Draw icon
                     draw.text((x + 2, y), icon, font=icon_font, fill=fill_color)
                     # Draw short text label
@@ -4441,7 +4491,7 @@ def boot_health_check():
         ip, _ = _get_interface_ipv4(routed_iface) if routed_iface else (None, None)
         msg = (
             "[HEALTH] "
-            f"Temp: {temp():.0f}C | "
+            f"Temp: {temp():.0f}F | "
             f"Routed: {routed_iface or 'None'} | "
             f"IP: {ip or 'None'}"
         )
@@ -4454,7 +4504,7 @@ def _check_payload_request():
     """
     Check for a WebUI payload request file and return a payload path if present.
     """
-    request_path = "/dev/shm/rj_payload_request.json"
+    request_path = "/dev/shm/db_payload_request.json"
     try:
         if not os.path.isfile(request_path):
             return None
@@ -4521,6 +4571,7 @@ def main():
             if isinstance(m.menu[m.which][m.select][1], str):
                 # Entering submenu: save position, reset to 0
                 m._select_stack.append(m.select)
+                m._which_stack.append(m.which)
                 m.which = m.menu[m.which][m.select][1]
                 m.select = 0
             elif isinstance(m.menu[m.which][m.select][1], list):
@@ -4534,16 +4585,14 @@ def main():
                 m.select = 0
                 m.menu[m.which][_saved_select][1]()
                 m.select = _saved_select
-        elif len(m.which) > 1:
-            # Going back: restore parent position
-            if m._select_stack:
-                m.select = m._select_stack.pop()
-            else:
-                m.select = 0
-            if m.which.startswith("ap_"):
-                m.which = getattr(m, "menu_parent", {}).get(m.which, "ap")
-            else:
-                m.which = m.which[:-1]
+        elif m._which_stack:
+            # Going back: restore parent position and menu key
+            m.select = m._select_stack.pop()
+            m.which = m._which_stack.pop()
+        else:
+            # Already at root menu
+            m.select = 0
+            m.which = "a"
 
 
 ### Default values + LCD init ###
@@ -4563,7 +4612,7 @@ LCD.LCD_ShowImage(image, 0, 0)
 # Create draw objects BEFORE main() so color functions can use them
 image = Image.new("RGB", (LCD.width, LCD.height), "WHITE")
 draw = ImageDraw.Draw(image)
-text_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', S(10))
+text_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', S(10))
 icon_font = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(13))
 font = text_font  # Keep backward compatibility
 
@@ -4582,7 +4631,7 @@ LoadConfig()
 m = DisposableMenu()
 
 ### Info ###
-print("I'm running on " + str(temp()).split('.')[0] + " °C.")
+print("I'm running on " + str(temp()).split('.')[0] + " °F.")
 print(time.strftime("%H:%M:%S"))
 
 # Delay for logo

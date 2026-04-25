@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# RaspyJack installation / bootstrap script
+# DaRkb0x installation / bootstrap script
 # ------------------------------------------------------------
 # * Idempotent   – safe to run multiple times
 # * Bookworm‑ready – handles /boot/firmware/config.txt move
@@ -45,7 +45,7 @@ if [[ $UPDATE_MODE -eq 1 ]]; then
   DISPLAY_TYPE=$(python3 -c "
 import json
 try:
-    with open('/root/Raspyjack/gui_conf.json') as f:
+    with open('/root/DaRkb0x/gui_conf.json') as f:
         print(json.load(f).get('DISPLAY',{}).get('type','ST7735_128'))
 except: print('ST7735_128')
 " 2>/dev/null)
@@ -67,12 +67,12 @@ fi
 info "Selected display: $DISPLAY_TYPE"
 
 # Write DISPLAY type into gui_conf.json (preserve ALL existing settings: flip, colors, pins, etc.)
-GUI_CONF="/root/Raspyjack/gui_conf.json"
+GUI_CONF="/root/DaRkb0x/gui_conf.json"
 if [ -f "$GUI_CONF" ]; then
   python3 - "$DISPLAY_TYPE" <<'PY'
 import json, sys
 dtype = sys.argv[1]
-with open("/root/Raspyjack/gui_conf.json") as f:
+with open("/root/DaRkb0x/gui_conf.json") as f:
     data = json.load(f)
 # Preserve existing DISPLAY settings (flip, etc.), only update type
 if "DISPLAY" not in data:
@@ -81,7 +81,7 @@ data["DISPLAY"]["type"] = dtype
 data["DISPLAY"]["supported_types"] = ["ST7735_128", "ST7789_240"]
 # Preserve flip if it exists
 # (flip key is NOT overwritten, it stays as-is)
-with open("/root/Raspyjack/gui_conf.json", "w") as f:
+with open("/root/DaRkb0x/gui_conf.json", "w") as f:
     json.dump(data, f, indent=4)
 flip_status = data["DISPLAY"].get("flip", False)
 print(f"[OK] gui_conf.json: type={dtype}, flip={flip_status}")
@@ -95,9 +95,9 @@ step "Creating payload config directories …"
 for d in ad_recon auto_loot_exfil bt_audio cctv_scanner cctv_viewer dns_tunnel \
          exfil_ftp exfil_smb http_exfil reverse_ssh rtsp_viewer scheduler \
          ssid_pool timer tripwire usb_gadget wifi_alert; do
-  mkdir -p "/root/Raspyjack/config/$d"
+  mkdir -p "/root/DaRkb0x/config/$d"
 done
-mkdir -p /root/Raspyjack/loot/wordlists
+mkdir -p /root/DaRkb0x/loot/wordlists
 
 # ───── 2 ▸ install / upgrade required APT packages ───────────
 PACKAGES=(
@@ -210,12 +210,12 @@ except ImportError:
 PY
 
 # ───── 2‑c ▸ Navarro (vendored in repo) ─────────────────────────
-NAVARRO_PATH="/root/Raspyjack/Navarro/navarro.py"
+NAVARRO_PATH="/root/DaRkb0x/Navarro/navarro.py"
 if [ -f "$NAVARRO_PATH" ]; then
   chmod +x "$NAVARRO_PATH"
   info "Navarro found: $NAVARRO_PATH"
 else
-  warn "Navarro not found at $NAVARRO_PATH – add Navarro/ to your Raspyjack repo for OSINT payload"
+  warn "Navarro not found at $NAVARRO_PATH – add Navarro/ to your DaRkb0x repo for OSINT payload"
 fi
 
 # FontAwesome font (skip if already present)
@@ -300,13 +300,13 @@ LINK
   fi
 
   # Method 2: udev rule (fallback for older systems without systemd-networkd)
-  sudo tee /etc/udev/rules.d/70-raspyjack-wifi.rules >/dev/null <<UDEV
-# RaspyJack: pin WiFi interfaces by MAC
+  sudo tee /etc/udev/rules.d/70-darkbox-wifi.rules >/dev/null <<UDEV
+# DaRkb0x: pin WiFi interfaces by MAC
 # Onboard WiFi (SDIO) -> wlan0
 SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="$ONBOARD_MAC", NAME="wlan0"
 UDEV
   if [ -n "$USB_MAC" ]; then
-    echo "SUBSYSTEM==\"net\", ACTION==\"add\", ATTR{address}==\"$USB_MAC\", NAME=\"wlan1\"" | sudo tee -a /etc/udev/rules.d/70-raspyjack-wifi.rules >/dev/null
+    echo "SUBSYSTEM==\"net\", ACTION==\"add\", ATTR{address}==\"$USB_MAC\", NAME=\"wlan1\"" | sudo tee -a /etc/udev/rules.d/70-darkbox-wifi.rules >/dev/null
   fi
 
   sudo udevadm control --reload-rules
@@ -321,11 +321,11 @@ else
 fi
 fi  # end WiFi pinning check
 
-sudo mkdir -p /root/Raspyjack/wifi/profiles
-sudo chown root:root /root/Raspyjack/wifi/profiles
-sudo chmod 755 /root/Raspyjack/wifi/profiles
+sudo mkdir -p /root/DaRkb0x/wifi/profiles
+sudo chown root:root /root/DaRkb0x/wifi/profiles
+sudo chmod 755 /root/DaRkb0x/wifi/profiles
 
-sudo tee /root/Raspyjack/wifi/profiles/sample.json >/dev/null <<'PROFILE'
+sudo tee /root/DaRkb0x/wifi/profiles/sample.json >/dev/null <<'PROFILE'
 {
   "ssid": "YourWiFiNetwork",
   "password": "your_password_here",
@@ -360,44 +360,44 @@ else
 fi
 
 # Hard fallback: force WiFi naming at boot before NetworkManager
-if systemctl is-enabled raspyjack-pin-wifi.service >/dev/null 2>&1; then
+if systemctl is-enabled darkbox-pin-wifi.service >/dev/null 2>&1; then
   info "WiFi name pinning service already installed"
 else
   step "Installing boot-time WiFi name pinning service …"
-  sudo install -m 0755 /root/Raspyjack/scripts/pin_wifi_names.sh /usr/local/sbin/raspyjack-pin-wifi.sh
-sudo tee /etc/systemd/system/raspyjack-pin-wifi.service >/dev/null <<'UNIT'
+  sudo install -m 0755 /root/DaRkb0x/scripts/pin_wifi_names.sh /usr/local/sbin/darkbox-pin-wifi.sh
+sudo tee /etc/systemd/system/darkbox-pin-wifi.service >/dev/null <<'UNIT'
 [Unit]
-Description=RaspyJack Pin WiFi Interface Names
+Description=DaRkb0x Pin WiFi Interface Names
 After=systemd-udev-settle.service local-fs.target
 Wants=systemd-udev-settle.service
 Before=NetworkManager.service network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/sbin/raspyjack-pin-wifi.sh
+ExecStart=/usr/local/sbin/darkbox-pin-wifi.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
 UNIT
   sudo systemctl daemon-reload
-  sudo systemctl enable raspyjack-pin-wifi.service
+  sudo systemctl enable darkbox-pin-wifi.service
 fi
 
-# ───── 5 ▸ RaspyJack core service ────────────────────────────
-SERVICE=/etc/systemd/system/raspyjack.service
+# ───── 5 ▸ DaRkb0x core service ────────────────────────────
+SERVICE=/etc/systemd/system/darkbox.service
 step "Checking core systemd services …"
 
 sudo tee "$SERVICE" >/dev/null <<'UNIT'
 [Unit]
-Description=RaspyJack UI Service
+Description=DaRkb0x UI Service
 After=network-online.target local-fs.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/root/Raspyjack
-ExecStart=/usr/bin/python3 /root/Raspyjack/raspyjack.py
+WorkingDirectory=/root/DaRkb0x
+ExecStart=/usr/bin/python3 /root/DaRkb0x/darkbox.py
 Restart=on-failure
 User=root
 Environment=PYTHONUNBUFFERED=1
@@ -407,19 +407,19 @@ WantedBy=multi-user.target
 UNIT
 
 sudo systemctl daemon-reload
-sudo systemctl enable --now raspyjack.service
+sudo systemctl enable --now darkbox.service
 
 # ───── 5‑b ▸ device server & WebUI split services ───────────
 # Shared WebUI token (used by both HTTP + WS servers)
-WEBUI_TOKEN_FILE=/root/Raspyjack/.webui_token
-WEBUI_AUTH_SECRET_FILE=/root/Raspyjack/.webui_session_secret
+WEBUI_TOKEN_FILE=/root/DaRkb0x/.webui_token
+WEBUI_AUTH_SECRET_FILE=/root/DaRkb0x/.webui_session_secret
 step "Configuring shared WebUI token at $WEBUI_TOKEN_FILE …"
 if ! sudo test -s "$WEBUI_TOKEN_FILE"; then
   sudo python3 - <<'PY'
 from pathlib import Path
 import secrets
 
-path = Path("/root/Raspyjack/.webui_token")
+path = Path("/root/DaRkb0x/.webui_token")
 path.write_text(secrets.token_urlsafe(32) + "\n", encoding="utf-8")
 print(f"[OK] Created {path}")
 PY
@@ -435,7 +435,7 @@ if ! sudo test -s "$WEBUI_AUTH_SECRET_FILE"; then
 from pathlib import Path
 import secrets
 
-path = Path("/root/Raspyjack/.webui_session_secret")
+path = Path("/root/DaRkb0x/.webui_session_secret")
 path.write_text(secrets.token_urlsafe(48) + "\n", encoding="utf-8")
 print(f"[OK] Created {path}")
 PY
@@ -446,60 +446,60 @@ sudo chown root:root "$WEBUI_AUTH_SECRET_FILE"
 sudo chmod 600 "$WEBUI_AUTH_SECRET_FILE"
 
 # Device server
-DEVICE_SERVICE=/etc/systemd/system/raspyjack-device.service
+DEVICE_SERVICE=/etc/systemd/system/darkbox-device.service
 step "Installing device server systemd service $DEVICE_SERVICE …"
 
 sudo tee "$DEVICE_SERVICE" >/dev/null <<'UNIT'
 [Unit]
-Description=RaspyJack Device Server
+Description=DaRkb0x Device Server
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/root/Raspyjack
-ExecStart=/usr/bin/python3 /root/Raspyjack/device_server.py
+WorkingDirectory=/root/DaRkb0x
+ExecStart=/usr/bin/python3 /root/DaRkb0x/device_server.py
 Restart=on-failure
 User=root
 Environment=PYTHONUNBUFFERED=1
-Environment=RJ_WS_TOKEN_FILE=/root/Raspyjack/.webui_token
-Environment=RJ_WEB_AUTH_SECRET_FILE=/root/Raspyjack/.webui_session_secret
-Environment=RJ_WEB_AUTH_FILE=/root/Raspyjack/.webui_auth.json
+Environment=DB_WS_TOKEN_FILE=/root/DaRkb0x/.webui_token
+Environment=DB_WEB_AUTH_SECRET_FILE=/root/DaRkb0x/.webui_session_secret
+Environment=DB_WEB_AUTH_FILE=/root/DaRkb0x/.webui_auth.json
 
 [Install]
 WantedBy=multi-user.target
 UNIT
 
 sudo systemctl daemon-reload
-sudo systemctl enable --now raspyjack-device.service
+sudo systemctl enable --now darkbox-device.service
 
 # WebUI HTTP server
-WEBUI_SERVICE=/etc/systemd/system/raspyjack-webui.service
+WEBUI_SERVICE=/etc/systemd/system/darkbox-webui.service
 step "Installing WebUI systemd service $WEBUI_SERVICE …"
 
 sudo tee "$WEBUI_SERVICE" >/dev/null <<'UNIT'
 [Unit]
-Description=RaspyJack WebUI HTTP Server
-After=raspyjack-device.service
-Requires=raspyjack-device.service
+Description=DaRkb0x WebUI HTTP Server
+After=darkbox-device.service
+Requires=darkbox-device.service
 
 [Service]
 Type=simple
-WorkingDirectory=/root/Raspyjack
-ExecStart=/usr/bin/python3 /root/Raspyjack/web_server.py
+WorkingDirectory=/root/DaRkb0x
+ExecStart=/usr/bin/python3 /root/DaRkb0x/web_server.py
 Restart=on-failure
 User=root
 Environment=PYTHONUNBUFFERED=1
-Environment=RJ_WS_TOKEN_FILE=/root/Raspyjack/.webui_token
-Environment=RJ_WEB_AUTH_SECRET_FILE=/root/Raspyjack/.webui_session_secret
-Environment=RJ_WEB_AUTH_FILE=/root/Raspyjack/.webui_auth.json
+Environment=DB_WS_TOKEN_FILE=/root/DaRkb0x/.webui_token
+Environment=DB_WEB_AUTH_SECRET_FILE=/root/DaRkb0x/.webui_session_secret
+Environment=DB_WEB_AUTH_FILE=/root/DaRkb0x/.webui_auth.json
 
 [Install]
 WantedBy=multi-user.target
 UNIT
 
 sudo systemctl daemon-reload
-sudo systemctl enable --now raspyjack-webui.service
+sudo systemctl enable --now darkbox-webui.service
 
 # ───── 5-c ▸ optional TLS reverse proxy (Caddy) ─────────────
 step "Setting up optional HTTPS reverse proxy with Caddy ..."
@@ -519,20 +519,20 @@ fi
 
 # Install Caddy auto-config service (skip if already present)
 if [ "$TLS_SETUP_OK" -eq 1 ]; then
-  if [[ -f /usr/local/sbin/raspyjack-caddy-autoconfig.sh ]] && systemctl is-enabled raspyjack-caddy-autoconfig.service >/dev/null 2>&1; then
+  if [[ -f /usr/local/sbin/darkbox-caddy-autoconfig.sh ]] && systemctl is-enabled darkbox-caddy-autoconfig.service >/dev/null 2>&1; then
     info "Caddy auto-config service already installed"
   else
     step "Installing Caddy auto-config service …"
 
-  sudo tee /usr/local/sbin/raspyjack-caddy-autoconfig.sh >/dev/null <<'SCRIPT'
+  sudo tee /usr/local/sbin/darkbox-caddy-autoconfig.sh >/dev/null <<'SCRIPT'
 #!/usr/bin/env bash
-# RaspyJack: generate Caddyfile + long-lived self-signed cert
+# DaRkb0x: generate Caddyfile + long-lived self-signed cert
 # Binds on 0.0.0.0 — works on any network without reconfiguration
 set -euo pipefail
 
 CERT_DIR=/etc/caddy/certs
-CERT=$CERT_DIR/raspyjack.crt
-KEY=$CERT_DIR/raspyjack.key
+CERT=$CERT_DIR/darkbox.crt
+KEY=$CERT_DIR/darkbox.key
 
 # Generate 10-year self-signed cert covering all common private IPs
 # Only regenerate if cert doesn't exist or is older than 1 year
@@ -541,7 +541,7 @@ if [ ! -f "$CERT" ] || [ ! -f "$KEY" ] || \
   mkdir -p "$CERT_DIR"
 
   # Collect all current IPs for SAN
-  SAN="IP:127.0.0.1,IP:0.0.0.0,DNS:raspyjack,DNS:raspyjack.local,DNS:localhost"
+  SAN="IP:127.0.0.1,IP:0.0.0.0,DNS:darkbox,DNS:darkbox.local,DNS:localhost"
   for iface in $(ls /sys/class/net/); do
     case "$iface" in lo|docker*|veth*|br-*) continue ;; esac
     IP=$(ip -4 -o addr show "$iface" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)
@@ -550,11 +550,11 @@ if [ ! -f "$CERT" ] || [ ! -f "$KEY" ] || \
 
   openssl req -x509 -nodes -days 3650 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 \
     -keyout "$KEY" -out "$CERT" \
-    -subj "/CN=RaspyJack" \
+    -subj "/CN=DaRkb0x" \
     -addext "subjectAltName=$SAN" 2>/dev/null
 
   chown caddy:caddy "$KEY" 2>/dev/null || true
-  echo "[raspyjack-caddy] Generated new TLS cert with SAN: $SAN"
+  echo "[darkbox-caddy] Generated new TLS cert with SAN: $SAN"
 fi
 
 cat > /etc/caddy/Caddyfile <<EOF
@@ -580,13 +580,13 @@ cat > /etc/caddy/Caddyfile <<EOF
 EOF
 
 systemctl reload caddy 2>/dev/null || systemctl restart caddy
-echo "[raspyjack-caddy] Bound to 0.0.0.0 (all interfaces)"
+echo "[darkbox-caddy] Bound to 0.0.0.0 (all interfaces)"
 SCRIPT
-  sudo chmod +x /usr/local/sbin/raspyjack-caddy-autoconfig.sh
+  sudo chmod +x /usr/local/sbin/darkbox-caddy-autoconfig.sh
 
-  sudo tee /etc/systemd/system/raspyjack-caddy-autoconfig.service >/dev/null <<'UNIT'
+  sudo tee /etc/systemd/system/darkbox-caddy-autoconfig.service >/dev/null <<'UNIT'
 [Unit]
-Description=RaspyJack Caddy auto-config (detect all IPs)
+Description=DaRkb0x Caddy auto-config (detect all IPs)
 After=network-online.target caddy.service
 Wants=network-online.target
 Requires=caddy.service
@@ -594,7 +594,7 @@ Requires=caddy.service
 [Service]
 Type=oneshot
 ExecStartPre=/bin/sleep 5
-ExecStart=/usr/local/sbin/raspyjack-caddy-autoconfig.sh
+ExecStart=/usr/local/sbin/darkbox-caddy-autoconfig.sh
 RemainAfterExit=yes
 
 [Install]
@@ -602,9 +602,9 @@ WantedBy=multi-user.target
 UNIT
 
     sudo systemctl daemon-reload
-    sudo systemctl enable raspyjack-caddy-autoconfig.service
+    sudo systemctl enable darkbox-caddy-autoconfig.service
     # Run it now to generate the initial Caddyfile
-    sudo /usr/local/sbin/raspyjack-caddy-autoconfig.sh
+    sudo /usr/local/sbin/darkbox-caddy-autoconfig.sh
   fi
 fi
 
@@ -675,9 +675,9 @@ PY
 python3 - <<'WIFI_TEST' || warn "WiFi integration test failed - check wifi/ folder"
 import sys
 import os
-sys.path.append('/root/Raspyjack/wifi/')
+sys.path.append('/root/DaRkb0x/wifi/')
 try:
-    from wifi.raspyjack_integration import get_available_interfaces
+    from wifi.darkbox_integration import get_available_interfaces
     interfaces = get_available_interfaces()
     print(f"[OK] WiFi integration working - found {len(interfaces)} interfaces")
 except Exception as e:
@@ -687,9 +687,9 @@ WIFI_TEST
 
 # 7 ▸ set permissions for binaries
 step "Setting executable permissions for binaries in bin/... "
-if [ -d "/root/Raspyjack/bin" ]; then
-    sudo chmod +x /root/Raspyjack/bin/*
-    info "Permissions set for files in /root/Raspyjack/bin/"
+if [ -d "/root/DaRkb0x/bin" ]; then
+    sudo chmod +x /root/DaRkb0x/bin/*
+    info "Permissions set for files in /root/DaRkb0x/bin/"
 fi
 
 step "Installation finished successfully!"

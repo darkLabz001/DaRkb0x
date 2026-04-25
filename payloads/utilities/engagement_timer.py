@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Engagement Timer
+DaRkb0x Payload -- Engagement Timer
 ======================================
 Author: 7h30th3r0n3
 
@@ -16,7 +16,7 @@ Controls:
   KEY2         -- Add 30 minutes
   KEY3         -- Exit
 
-Config: /root/Raspyjack/config/timer.json (for Discord webhook)
+Config: /root/DaRkb0x/config/timer.json (for Discord webhook)
 """
 
 import os
@@ -54,7 +54,7 @@ PHASE_COLORS = {
     "Cleanup": "#AAAAAA",
 }
 
-CONFIG_PATH = "/root/Raspyjack/config/timer.json"
+CONFIG_PATH = "/root/DaRkb0x/config/timer.json"
 
 # ---------------------------------------------------------------------------
 # Shared state

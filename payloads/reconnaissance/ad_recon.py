@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Active Directory Reconnaissance
+DaRkb0x Payload -- Active Directory Reconnaissance
 ======================================================
 Author: 7h30th3r0n3
 
@@ -63,8 +63,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/ADRecon"
-CONFIG_DIR = "/root/Raspyjack/config/ad_recon"
+LOOT_DIR = "/root/DaRkb0x/loot/ADRecon"
+CONFIG_DIR = "/root/DaRkb0x/config/ad_recon"
 os.makedirs(LOOT_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 

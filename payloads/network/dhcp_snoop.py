@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- DHCP Snoop
+DaRkb0x Payload -- DHCP Snoop
 =================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2      -- Export data
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/DHCPSnoop/
+Loot: /root/DaRkb0x/loot/DHCPSnoop/
 
 Setup: Passive, no special requirements.
 """
@@ -65,7 +65,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/DHCPSnoop"
+LOOT_DIR = "/root/DaRkb0x/loot/DHCPSnoop"
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROWS_VISIBLE = 6
 

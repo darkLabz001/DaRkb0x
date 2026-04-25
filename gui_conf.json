@@ -6,12 +6,12 @@
     },
     "COLORS": {
         "BACKGROUND": "#000000",
-        "BORDER": "#05ff00",
-        "GAMEPAD": "#141494",
-        "GAMEPAD_FILL": "#eeeeee",
-        "SELECTED_TEXT": "#00ff55",
-        "SELECTED_TEXT_BACKGROUND": "#2d0fff",
-        "TEXT": "#05ff00"
+        "BORDER": "#FFFFFF",
+        "GAMEPAD": "#FFFFFF",
+        "GAMEPAD_FILL": "#FFFFFF",
+        "SELECTED_TEXT": "#000000",
+        "SELECTED_TEXT_BACKGROUND": "#FFFFFF",
+        "TEXT": "#FFFFFF"
     },
     "LOCK": {
         "auto_lock_seconds": 0,
@@ -22,8 +22,8 @@
         "sequence_length": 6
     },
     "PATHS": {
-        "IMAGEBROWSER_START": "/root/Raspyjack/img/",
-        "SCREENSAVER_GIF": "/root/Raspyjack/img/screensaver/default.gif"
+        "IMAGEBROWSER_START": "/root/DaRkb0x/img/",
+        "SCREENSAVER_GIF": "/root/DaRkb0x/img/screensaver/default.gif"
     },
     "PINS": {
         "KEY1_PIN": 21,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Notification Center
+DaRkb0x Payload -- Notification Center
 ==========================================
 Author: 7h30th3r0n3
 
@@ -10,10 +10,10 @@ append JSON-line events.
 
 Setup / Prerequisites
 ---------------------
-- RaspyJack base system with LCD hat.
-- Payloads append events to /root/Raspyjack/loot/.notifications.jsonl
+- DaRkb0x base system with LCD hat.
+- Payloads append events to /root/DaRkb0x/loot/.notifications.jsonl
   Format: {"timestamp": ..., "source": ..., "message": ..., "severity": ...}
-- Discord webhook URL in /root/Raspyjack/discord_webhook.txt (optional).
+- Discord webhook URL in /root/DaRkb0x/discord_webhook.txt (optional).
 
 Controls
 --------
@@ -55,9 +55,9 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_ROOT = "/root/Raspyjack/loot"
+LOOT_ROOT = "/root/DaRkb0x/loot"
 NOTIF_FILE = os.path.join(LOOT_ROOT, ".notifications.jsonl")
-WEBHOOK_FILE = "/root/Raspyjack/discord_webhook.txt"
+WEBHOOK_FILE = "/root/DaRkb0x/discord_webhook.txt"
 CHANNELS_DIR = os.path.join(LOOT_ROOT, "Notifications")
 CHANNELS_FILE = os.path.join(CHANNELS_DIR, "channels.json")
 POLL_INTERVAL = 10
@@ -185,7 +185,7 @@ def _push_discord(items):
         lines.append(f"[{sev}] {src}: {msg}")
 
     payload = json.dumps({
-        "content": f"**RaspyJack Notifications** ({len(items)} unread)\n```\n"
+        "content": f"**DaRkb0x Notifications** ({len(items)} unread)\n```\n"
                    + "\n".join(lines) + "\n```"
     }).encode("utf-8")
 
@@ -257,7 +257,7 @@ def _push_slack(items, url):
         msg = item.get("message", "")[:60]
         lines.append(f"[{sev}] {src}: {msg}")
     payload = json.dumps({
-        "text": f"*RaspyJack Notifications* ({len(items)} unread)\n```\n"
+        "text": f"*DaRkb0x Notifications* ({len(items)} unread)\n```\n"
                 + "\n".join(lines) + "\n```"
     }).encode("utf-8")
     req = urllib.request.Request(
@@ -276,7 +276,7 @@ def _push_slack(items, url):
 def _push_http_post(items, url):
     """Send notification summaries to a generic HTTP POST endpoint."""
     payload = json.dumps({
-        "source": "raspyjack",
+        "source": "darkbox",
         "count": len(items),
         "notifications": [
             {

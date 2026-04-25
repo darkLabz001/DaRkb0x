@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload - WebUI Info & Control
+DaRkb0x payload - WebUI Info & Control
 =========================================
 Author: 7h30th3r0n3
 
 Displays WebUI URLs for all network interfaces, service status,
-and allows restarting raspyjack-webui.service.
+and allows restarting darkbox-webui.service.
 
 Controls:
   UP / DOWN  Scroll interface list
-  KEY1       Restart raspyjack-webui.service
-  KEY3/LEFT  Back to RaspyJack
+  KEY1       Restart darkbox-webui.service
+  KEY3/LEFT  Back to DaRkb0x
 """
 
 import os
@@ -99,7 +99,7 @@ def _get_service_status():
     """Return service status string."""
     try:
         r = subprocess.run(
-            ["systemctl", "is-active", "raspyjack-webui"],
+            ["systemctl", "is-active", "darkbox-webui"],
             capture_output=True, text=True, timeout=3,
         )
         return r.stdout.strip()
@@ -111,7 +111,7 @@ def _restart_service():
     """Restart the webui service."""
     try:
         subprocess.run(
-            ["sudo", "systemctl", "restart", "raspyjack-webui.service"],
+            ["sudo", "systemctl", "restart", "darkbox-webui.service"],
             capture_output=True, timeout=15,
         )
     except Exception:

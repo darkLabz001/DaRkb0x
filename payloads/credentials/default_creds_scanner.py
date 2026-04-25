@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Default Credentials Scanner
+DaRkb0x Payload -- Default Credentials Scanner
 =================================================
 Author: 7h30th3r0n3
 
@@ -13,7 +13,7 @@ Controls:
   OK    -- Start scan       KEY1 -- Toggle view (progress/results)
   UP/DN -- Scroll results   KEY3 -- Exit
 
-Loot: /root/Raspyjack/loot/DefaultCreds/creds_TIMESTAMP.json
+Loot: /root/DaRkb0x/loot/DefaultCreds/creds_TIMESTAMP.json
 """
 
 import os, sys, json, time, socket, ftplib, threading, subprocess, ipaddress
@@ -40,7 +40,7 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/DefaultCreds"
+LOOT_DIR = "/root/DaRkb0x/loot/DefaultCreds"
 RATE_LIMIT = 1.0
 ROWS_VISIBLE = 7
 CONN_TIMEOUT = 3

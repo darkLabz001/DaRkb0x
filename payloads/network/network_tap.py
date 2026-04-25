@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Network Tap
+DaRkb0x Payload -- Network Tap
 ==================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2       -- Export stats snapshot
   KEY3       -- Exit + cleanup bridge
 
-Loot: /root/Raspyjack/loot/NetworkTap/
+Loot: /root/DaRkb0x/loot/NetworkTap/
 
 Setup: Requires 2 Ethernet interfaces (eth0 + eth1), bridge-utils.
 """
@@ -61,7 +61,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/NetworkTap"
+LOOT_DIR = "/root/DaRkb0x/loot/NetworkTap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROWS_VISIBLE = 6
 IFACE_A = "eth0"

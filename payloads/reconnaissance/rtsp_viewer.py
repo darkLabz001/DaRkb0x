@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- RTSP Live Viewer
+DaRkb0x Payload -- RTSP Live Viewer
 ======================================
 Author: 7h30th3r0n3
 
 Streams RTSP (H.264/H.265) video feeds to the LCD using OpenCV.
 
 Loads cameras from:
-  ``/root/Raspyjack/loot/CCTV/cctv_live.txt``        (scanner output)
-  ``/root/Raspyjack/config/rtsp_viewer/manual_urls.txt``  (manual)
+  ``/root/DaRkb0x/loot/CCTV/cctv_live.txt``        (scanner output)
+  ``/root/DaRkb0x/config/rtsp_viewer/manual_urls.txt``  (manual)
 
 URL format: ``Name | rtsp://...`` or ``Name | rtsp://... | user:pass``
 
@@ -83,10 +83,10 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 # -- Paths ---------------------------------------------------------------------
-LIVE_FILE = "/root/Raspyjack/loot/CCTV/cctv_live.txt"
-CONFIG_DIR = "/root/Raspyjack/config/rtsp_viewer"
-SCREENSHOT_DIR = "/root/Raspyjack/loot/CCTV/screenshots"
-RECORDING_DIR = "/root/Raspyjack/loot/CCTV/recordings"
+LIVE_FILE = "/root/DaRkb0x/loot/CCTV/cctv_live.txt"
+CONFIG_DIR = "/root/DaRkb0x/config/rtsp_viewer"
+SCREENSHOT_DIR = "/root/DaRkb0x/loot/CCTV/screenshots"
+RECORDING_DIR = "/root/DaRkb0x/loot/CCTV/recordings"
 MANUAL_URLS_FILE = os.path.join(CONFIG_DIR, "manual_urls.txt")
 for d in (CONFIG_DIR, SCREENSHOT_DIR, RECORDING_DIR):
     os.makedirs(d, exist_ok=True)

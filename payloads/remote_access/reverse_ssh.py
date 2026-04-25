@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Persistent Reverse SSH Tunnel
+DaRkb0x Payload -- Persistent Reverse SSH Tunnel
 ===================================================
 Author: 7h30th3r0n3
 
@@ -9,7 +9,7 @@ automatic reconnection. Config stored in JSON.
 
 Setup / Prerequisites:
   - Requires autossh: apt install autossh
-  - Edit config at /root/Raspyjack/config/reverse_ssh/config.json with
+  - Edit config at /root/DaRkb0x/config/reverse_ssh/config.json with
     remote_host, remote_user.
   - Generate SSH key with KEY2, then add the public key to the
     remote server's authorized_keys.
@@ -22,7 +22,7 @@ Controls:
   KEY2       -- Generate SSH keypair
   KEY3       -- Exit
 
-Config: /root/Raspyjack/config/reverse_ssh/config.json
+Config: /root/DaRkb0x/config/reverse_ssh/config.json
   Fields: remote_host, remote_port, remote_user, ssh_key_path,
           local_forward_port
 """
@@ -61,8 +61,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/ReverseSSH"
-CONFIG_DIR = "/root/Raspyjack/config/reverse_ssh"
+LOOT_DIR = "/root/DaRkb0x/loot/ReverseSSH"
+CONFIG_DIR = "/root/DaRkb0x/config/reverse_ssh"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 KEY_DIR = os.path.join(CONFIG_DIR, "keys")
 DEBOUNCE = 0.25
@@ -204,7 +204,7 @@ def _generate_keypair():
                 "-b", "4096",
                 "-f", key_path,
                 "-N", "",  # no passphrase
-                "-C", "raspyjack-tunnel",
+                "-C", "darkbox-tunnel",
             ],
             capture_output=True, text=True, timeout=30,
         )

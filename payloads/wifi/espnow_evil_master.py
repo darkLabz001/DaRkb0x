@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- ESP-NOW Receiver (Monitor Mode)
+DaRkb0x Payload -- ESP-NOW Receiver (Monitor Mode)
 =====================================================
 Author: 7h30th3r0n3
 
@@ -120,7 +120,7 @@ PINS = {
     "UP": 6, "DOWN": 19, "LEFT": 5, "RIGHT": 26,
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
-LOOT_DIR = "/root/Raspyjack/loot/ESPNow"
+LOOT_DIR = "/root/DaRkb0x/loot/ESPNow"
 PCAP_DIR = os.path.join(LOOT_DIR, "handshakes")
 ESPNOW_CHANNEL = 1
 ESPNOW_ELEMENT = b"\x18\xfe\x34\x04"
@@ -262,7 +262,7 @@ def parse_fragment(data):
 # ---------------------------------------------------------------------------
 
 class WardLogger:
-    WIGLE_HEADER = "WigleWifi-1.4,appRelease=RaspyJack,model=RPi,release=1.0,device=ESPNow,display=LCD,board=RPi,brand=RaspyJack"
+    WIGLE_HEADER = "WigleWifi-1.4,appRelease=DaRkb0x,model=RPi,release=1.0,device=ESPNow,display=LCD,board=RPi,brand=DaRkb0x"
     COLUMNS = ["MAC", "SSID", "AuthMode", "FirstSeen", "Channel", "RSSI",
                "CurrentLatitude", "CurrentLongitude", "AltitudeMeters",
                "AccuracyMeters", "Type"]

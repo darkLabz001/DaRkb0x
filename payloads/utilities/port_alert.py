@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- New Port Alert Monitor
+DaRkb0x Payload -- New Port Alert Monitor
 =============================================
 Author: 7h30th3r0n3
 
@@ -42,7 +42,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 DEBOUNCE = 0.22
-LOOT_DIR = "/root/Raspyjack/loot/PortAlert"
+LOOT_DIR = "/root/DaRkb0x/loot/PortAlert"
 BASELINE_PATH = os.path.join(LOOT_DIR, "baseline.json")
 SCAN_INTERVAL = 120  # seconds between auto-scans
 

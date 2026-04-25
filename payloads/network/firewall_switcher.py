@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Firewall Preset Switcher
+DaRkb0x Payload -- Firewall Preset Switcher
 ===============================================
 Author: 7h30th3r0n3
 
@@ -22,7 +22,7 @@ Controls
   KEY2       -- Save current rules as custom preset
   KEY3       -- Exit
 
-Config: /root/Raspyjack/loot/Firewall/presets.json
+Config: /root/DaRkb0x/loot/Firewall/presets.json
 """
 
 import os
@@ -59,7 +59,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/Firewall"
+LOOT_DIR = "/root/DaRkb0x/loot/Firewall"
 CONFIG_PATH = os.path.join(LOOT_DIR, "presets.json")
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROW_H = 12

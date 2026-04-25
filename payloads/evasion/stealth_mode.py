@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Stealth Mode Toggle
+DaRkb0x Payload -- Stealth Mode Toggle
 ==========================================
 Author: 7h30th3r0n3
 

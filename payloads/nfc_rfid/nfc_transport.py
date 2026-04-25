@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Transport Card Reader
+DaRkb0x Payload -- Transport Card Reader
 =============================================
 Read transit cards (Calypso/Navigo, MIFARE DESFire-based transport).
 Extracts: card type, environment, contracts, counters, last events.
@@ -23,7 +23,7 @@ from payloads.nfc_rfid._nfc_driver import auto_detect
 
 PINS = {"UP":6,"DOWN":19,"LEFT":5,"RIGHT":26,"OK":13,"KEY1":21,"KEY2":20,"KEY3":16}
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-LOOT_DIR = "/root/Raspyjack/loot/NFC/transport"
+LOOT_DIR = "/root/DaRkb0x/loot/NFC/transport"
 DEBOUNCE = 0.18
 _last_btn = 0
 

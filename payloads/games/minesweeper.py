@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Minesweeper
+DaRkb0x Payload -- Minesweeper
 =================================
 Author: 7h30th3r0n3
 

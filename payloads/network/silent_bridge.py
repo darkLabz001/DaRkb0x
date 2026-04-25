@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload – Stealth Bridge MITM 
+DaRkb0x Payload – Stealth Bridge MITM 
 ---------------------------------------------------------
 - Auto-detects 2 active interfaces (carrier=1)
 - Creates a transparent bridge (br0) with NO IP (stealth)
@@ -17,7 +17,7 @@ import subprocess
 from datetime import datetime
 import threading
 
-# Ensure RaspyJack modules are importable
+# Ensure DaRkb0x modules are importable
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
 
 import RPi.GPIO as GPIO  # type: ignore
@@ -210,7 +210,7 @@ def setup_bridge(if1, if2):
 
 
 def start_sniffer():
-    loot_dir = "/root/Raspyjack/loot/MITM"
+    loot_dir = "/root/DaRkb0x/loot/MITM"
     os.makedirs(loot_dir, exist_ok=True)
     ts = datetime.now().strftime("%Y-%m-%d_%H%M%S")
     pcap_file = f"{loot_dir}/stealth_bridge_{ts}.pcap"

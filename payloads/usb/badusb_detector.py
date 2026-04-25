@@ -12,7 +12,7 @@ import sys
 import time
 import threading
 
-# Ensure RaspyJack modules are importable when launched directly
+# Ensure DaRkb0x modules are importable when launched directly
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
 
 import LCD_1in44, LCD_Config  # type: ignore

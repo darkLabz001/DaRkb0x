@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Loot Browser
+DaRkb0x Payload -- Loot Browser
 ----------------------------------
 Author: 7h30th3r0n3
 Fixed: Hosseios
 
-Browse /root/Raspyjack/loot/ on the LCD.
+Browse /root/DaRkb0x/loot/ on the LCD.
 
 Controls:
   UP/DOWN  = navigate files/dirs or scroll preview
@@ -42,7 +42,7 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_ROOT = "/root/Raspyjack/loot"
+LOOT_ROOT = "/root/DaRkb0x/loot"
 DEBOUNCE = 0.25
 
 # Chars per line depends on screen resolution

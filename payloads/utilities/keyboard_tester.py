@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack *payload* – **Show USB Keyboard Key**
+DaRkb0x *payload* – **Show USB Keyboard Key**
 ==============================================
 Displays the name of the key pressed on a USB keyboard connected to the
 Raspberry Pi. It listens to the first detected *evdev* keyboard device and
@@ -10,7 +10,7 @@ The script exits cleanly when:
 * **ESC** is pressed on the keyboard;
 * **KEY3** (bottom‑right button) is pressed on the HAT;
 * the user hits *Ctrl‑C* in the terminal;
-* RaspyJack UI sends a *SIGTERM* signal.
+* DaRkb0x UI sends a *SIGTERM* signal.
 
 Make sure the runtime dependency is installed:
 
@@ -20,7 +20,7 @@ sudo apt install python3-evdev
 """
 
 # ---------------------------------------------------------------------------
-# 0) Ensure we can import RaspyJack helpers when launched directly
+# 0) Ensure we can import DaRkb0x helpers when launched directly
 # ---------------------------------------------------------------------------
 import os, sys, time, signal, select, fcntl
 sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', '..')))

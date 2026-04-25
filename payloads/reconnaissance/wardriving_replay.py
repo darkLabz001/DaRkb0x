@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Wardriving Replay
+DaRkb0x Payload -- Wardriving Replay
 =======================================
 Replay wardriving sessions on the LCD screen.
 Shows AP positions on a mini-map with OSM tile background.
@@ -47,8 +47,8 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-SESSION_DIR = "/root/Raspyjack/loot/wardriving/sessions"
-LOOT_DIR = "/root/Raspyjack/loot/wardriving"
+SESSION_DIR = "/root/DaRkb0x/loot/wardriving/sessions"
+LOOT_DIR = "/root/DaRkb0x/loot/wardriving"
 
 SEC_COLORS = {
     "WPA3": "#00ff88",
@@ -73,7 +73,7 @@ def _debounced_btn():
     if btn:
         _last_btn_time = now
     return btn
-TILE_CACHE = "/root/Raspyjack/loot/wardriving/.tilecache"
+TILE_CACHE = "/root/DaRkb0x/loot/wardriving/.tilecache"
 TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 TILE_SIZE = 256
 MAX_TILE_DOWNLOADS = 20
@@ -198,7 +198,7 @@ def _fetch_tile(z, x, y):
         return None
     url = TILE_URL.format(z=z, x=x, y=y)
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "RaspyJack/1.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "DaRkb0x/1.0"})
         with urllib.request.urlopen(req, timeout=8) as resp:
             data = resp.read()
         with open(cache_path, "wb") as f:

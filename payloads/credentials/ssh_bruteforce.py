@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SSH Credential Spray
+DaRkb0x Payload -- SSH Credential Spray
 ==========================================
 Author: 7h30th3r0n3
 
@@ -18,7 +18,7 @@ Controls:
   KEY2       -- Export results to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/SSH/ssh_creds_YYYYMMDD_HHMMSS.json
+Loot: /root/DaRkb0x/loot/SSH/ssh_creds_YYYYMMDD_HHMMSS.json
 """
 
 import os
@@ -46,8 +46,8 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 5
-LOOT_DIR = "/root/Raspyjack/loot/SSH"
-NMAP_LOOT = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot/SSH"
+NMAP_LOOT = "/root/DaRkb0x/loot"
 RATE_LIMIT = 1.0
 
 # ---------------------------------------------------------------------------

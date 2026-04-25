@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Payload Scheduler
+DaRkb0x Payload -- Payload Scheduler
 =======================================
 Author: 7h30th3r0n3
 
@@ -10,8 +10,8 @@ schedule in a JSON file and launches payloads as subprocesses.
 
 Setup / Prerequisites
 ---------------------
-- RaspyJack base system with LCD hat.
-- Payloads located under /root/Raspyjack/payloads/.
+- DaRkb0x base system with LCD hat.
+- Payloads located under /root/DaRkb0x/payloads/.
 
 Controls
 --------
@@ -52,9 +52,9 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-SCHEDULE_DIR = "/root/Raspyjack/config/scheduler"
+SCHEDULE_DIR = "/root/DaRkb0x/config/scheduler"
 SCHEDULE_FILE = os.path.join(SCHEDULE_DIR, "schedule.json")
-PAYLOADS_ROOT = "/root/Raspyjack/payloads"
+PAYLOADS_ROOT = "/root/DaRkb0x/payloads"
 CHECK_INTERVAL = 30
 DEBOUNCE = 0.22
 

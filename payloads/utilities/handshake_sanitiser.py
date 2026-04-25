@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Handshake File Sanitizer
+DaRkb0x Payload -- Handshake File Sanitizer
 ================================================
 Author: 7h30th3r0n3
 
@@ -16,8 +16,8 @@ Controls
   KEY1       -- Batch process all files
   KEY3       -- Exit
 
-Input:  /root/Raspyjack/loot/ (recursive .cap/.pcap/.pcapng)
-Output: /root/Raspyjack/loot/Handshakes_Clean/
+Input:  /root/DaRkb0x/loot/ (recursive .cap/.pcap/.pcapng)
+Output: /root/DaRkb0x/loot/Handshakes_Clean/
 """
 
 import os
@@ -53,7 +53,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot"
 OUTPUT_DIR = os.path.join(LOOT_DIR, "Handshakes_Clean")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 EXTENSIONS = (".cap", ".pcap", ".pcapng")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC Card Formatter
+DaRkb0x Payload -- NFC Card Formatter
 =========================================
 Erase/format NFC cards. Reset data, keys, or NDEF.
 

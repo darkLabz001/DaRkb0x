@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SSID Pool (Beacon Flood)
+DaRkb0x Payload -- SSID Pool (Beacon Flood)
 ==============================================
 Author: 7h30th3r0n3
 
@@ -65,7 +65,7 @@ WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
 # ── Constants ────────────────────────────────────────────────────────────────
-CONFIG_FILE = "/root/Raspyjack/config/ssid_pool/ssids.json"
+CONFIG_FILE = "/root/DaRkb0x/config/ssid_pool/ssids.json"
 DEFAULT_SSIDS = [
     "Free WiFi", "Hotel_Guest", "Airport_WiFi", "Corporate_Net",
     "Starbucks_Free", "xfinitywifi", "Google_Starbucks",
@@ -97,7 +97,7 @@ add_char_idx = 0
 chaos_mode = False
 chaos_proc = None
 
-CHAOS_SSID_FILE = "/tmp/rj_ssid_chaos.txt"
+CHAOS_SSID_FILE = "/tmp/db_ssid_chaos.txt"
 CHAOS_SSIDS = [
     "FBI Surveillance Van #7",
     "NSA_PRISM_Node_42",

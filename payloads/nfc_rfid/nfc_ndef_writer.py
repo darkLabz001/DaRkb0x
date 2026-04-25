@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC NDEF Writer
+DaRkb0x Payload -- NFC NDEF Writer
 =======================================
 Write NDEF records (URL, text, WiFi config) to Ultralight/NTAG tags.
 Useful for demos, rickrolls, and WiFi config sharing.

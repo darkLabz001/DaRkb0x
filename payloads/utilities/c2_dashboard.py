@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- C2 Dashboard
+DaRkb0x Payload -- C2 Dashboard
 ==================================
 Author: 7h30th3r0n3
 
@@ -10,9 +10,9 @@ multi-view layout with auto-refresh.
 
 Setup / Prerequisites
 ---------------------
-- RaspyJack base system with LCD hat.
-- systemd services: raspyjack, raspyjack-device, raspyjack-webui, caddy.
-- Discord webhook URL in /root/Raspyjack/discord_webhook.txt (optional).
+- DaRkb0x base system with LCD hat.
+- systemd services: darkbox, darkbox-device, darkbox-webui, caddy.
+- Discord webhook URL in /root/DaRkb0x/discord_webhook.txt (optional).
 
 Controls
 --------
@@ -52,9 +52,9 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_ROOT = "/root/Raspyjack/loot"
-WEBHOOK_FILE = "/root/Raspyjack/discord_webhook.txt"
-SERVICES = ["raspyjack", "raspyjack-device", "raspyjack-webui", "caddy"]
+LOOT_ROOT = "/root/DaRkb0x/loot"
+WEBHOOK_FILE = "/root/DaRkb0x/discord_webhook.txt"
+SERVICES = ["darkbox", "darkbox-device", "darkbox-webui", "caddy"]
 VIEWS = ["Overview", "Payloads", "Loot", "Network"]
 REFRESH_INTERVAL = 5.0
 DEBOUNCE = 0.22
@@ -246,7 +246,7 @@ def _draw_overview(lcd, snap):
     d.text((2, y), "Services:", font=font, fill="#aaa"); y += 12
     for svc, st in snap.services.items():
         color = "#00ff00" if st == "active" else "#ff4444"
-        short = svc.replace("raspyjack-", "rj-")[:12]
+        short = svc.replace("darkbox-", "rj-")[:12]
         d.text((2, y), f" {short}: {st}", font=font, fill=color); y += 11
         if y > 112:
             break

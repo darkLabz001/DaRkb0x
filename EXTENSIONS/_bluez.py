@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Shared BlueZ-backed helpers for RaspyJack extensions.
+Shared BlueZ-backed helpers for DaRkb0x extensions.
 Author: m0usem0use
 """
 

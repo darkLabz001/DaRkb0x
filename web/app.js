@@ -876,7 +876,7 @@
       if (fitAddon){
         try { fitAddon.fit(); } catch {}
       }
-      term.write('RaspyJack shell ready.\\r\\n');
+      term.write('DaRkb0x shell ready.\\r\\n');
     }
     return term;
   }
@@ -970,13 +970,12 @@
 
       if (sysCpuValue) sysCpuValue.textContent = `${cpu.toFixed(1)}%`;
       if (sysTempValue) {
-        if (data.temp_c === null || data.temp_c === undefined){
-          sysTempValue.textContent = '--.- C';
-        } else {
-          sysTempValue.textContent = `${Number(data.temp_c).toFixed(1)} C`;
-        }
-      }
-      bar(sysCpuBar, cpu);
+       if (data.temp_f === null || data.temp_f === undefined){
+         sysTempValue.textContent = '--.- F';
+       } else {
+         sysTempValue.textContent = `${Number(data.temp_f).toFixed(1)} F`;
+       }
+      }      bar(sysCpuBar, cpu);
 
       if (sysMemValue) sysMemValue.textContent = `${memPct.toFixed(1)}%`;
       if (sysMemMeta) sysMemMeta.textContent = `${formatBytes(memUsed)} / ${formatBytes(memTotal)}`;
@@ -2046,7 +2045,7 @@
   });
 
   const startAfterAuth = () => {
-    ensureAuthenticated('Log in to access RaspyJack WebUI.').then((ok) => {
+    ensureAuthenticated('Log in to access DaRkb0x WebUI.').then((ok) => {
       if (!ok){
         setTimeout(startAfterAuth, 0);
         return;

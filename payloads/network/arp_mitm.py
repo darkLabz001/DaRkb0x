@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- ARP MITM
+DaRkb0x Payload -- ARP MITM
 ===============================
 Author: 7h30th3r0n3
 
@@ -23,7 +23,7 @@ Controls:
   KEY2      -- Export connection log
   KEY3      -- Exit + restore ARP tables
 
-Loot: /root/Raspyjack/loot/ArpMitm/
+Loot: /root/DaRkb0x/loot/ArpMitm/
 """
 
 import os
@@ -61,7 +61,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/ArpMitm"
+LOOT_DIR = "/root/DaRkb0x/loot/ArpMitm"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 ROWS_VISIBLE = 6

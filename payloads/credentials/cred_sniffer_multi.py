@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Multi-Protocol Credential Sniffer
+DaRkb0x Payload -- Multi-Protocol Credential Sniffer
 =======================================================
 Author: 7h30th3r0n3
 
@@ -17,7 +17,7 @@ Controls:
   KEY2      -- Export to loot
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/CredSniff/
+Loot: /root/DaRkb0x/loot/CredSniff/
 """
 
 import os
@@ -56,7 +56,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/CredSniff"
+LOOT_DIR = "/root/DaRkb0x/loot/CredSniff"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 PROTOCOLS = ["FTP", "Telnet", "SMTP", "HTTP", "Kerberos",

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- GPS Configuration
+DaRkb0x Payload -- GPS Configuration
 =========================================
 Author: 7h30th3r0n3
 

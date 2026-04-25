@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- ICMP Ping Alert Monitor
+DaRkb0x Payload -- ICMP Ping Alert Monitor
 ==============================================
 Author: 7h30th3r0n3
 
@@ -41,7 +41,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 DEBOUNCE = 0.22
-LOOT_DIR = "/root/Raspyjack/loot/ICMPAlert"
+LOOT_DIR = "/root/DaRkb0x/loot/ICMPAlert"
 
 # ---------------------------------------------------------------------------
 # State

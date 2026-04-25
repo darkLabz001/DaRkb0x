@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 """
-RaspyJack Payload – 2048 (4x4)
+DaRkb0x Payload – 2048 (4x4)
 ------------------------------
 Controls:
 - UP/DOWN/LEFT/RIGHT: move

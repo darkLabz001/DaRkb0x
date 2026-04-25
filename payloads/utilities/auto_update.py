@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload - Auto-Update (LCD-friendly)
+DaRkb0x payload - Auto-Update (LCD-friendly)
 ================================================
 Author: 7h30th3r0n3
 
@@ -13,7 +13,7 @@ Controls
   KEY2  Rollback to previous backup
   KEY3  Exit
 
-After update runs install_raspyjack.sh then reboots.
+After update runs install_darkbox.sh then reboots.
 """
 
 import os
@@ -44,12 +44,12 @@ from payloads._input_helper import get_button
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-RASPYJACK_DIR = "/root/Raspyjack"
-BACKUP_ROOT = "/root/raspyjack_backups"
-SERVICE_NAME = "raspyjack"
+RASPYJACK_DIR = "/root/DaRkb0x"
+BACKUP_ROOT = "/root/darkbox_backups"
+SERVICE_NAME = "darkbox"
 GIT_REMOTE = "origin"
 GIT_BRANCH = "main"
-INSTALL_SCRIPT = "/root/Raspyjack/install_raspyjack.sh"
+INSTALL_SCRIPT = "/root/DaRkb0x/install_darkbox.sh"
 
 CONFIG_FILES = [
     "gui_conf.json",

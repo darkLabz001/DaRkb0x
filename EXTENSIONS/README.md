@@ -1,12 +1,12 @@
-# RaspyJack Extensions
+# DaRkb0x Extensions
 
 Author: m0usem0use
 
 This directory holds shared helpers that payloads can import when they need a reusable gate or action.
 
-The current focus is BLE-driven workflow control. Instead of embedding the same wait logic in multiple payloads, RaspyJack exposes a small extension API that any payload can call.
+The current focus is BLE-driven workflow control. Instead of embedding the same wait logic in multiple payloads, DaRkb0x exposes a small extension API that any payload can call.
 
-On RaspyJack, the BLE path uses the Pi's onboard Bluetooth through BlueZ and `bluetoothctl`. It does not depend on a separate UART BLE module.
+On DaRkb0x, the BLE path uses the Pi's onboard Bluetooth through BlueZ and `bluetoothctl`. It does not depend on a separate UART BLE module.
 
 ## What is here
 
@@ -35,19 +35,19 @@ These imports are regular Python functions. There is no extra payload language o
 Wait until a known BLE advertiser is present, then continue:
 
 ```bash
-python3 /root/Raspyjack/EXTENSIONS/wait_for_present.py --name TestRJ --timeout-seconds 30
+python3 /root/DaRkb0x/EXTENSIONS/wait_for_present.py --name TestRJ --timeout-seconds 30
 ```
 
 Require a dependency before the payload continues:
 
 ```bash
-python3 /root/Raspyjack/EXTENSIONS/require_capability.py binary bluetoothctl
+python3 /root/DaRkb0x/EXTENSIONS/require_capability.py binary bluetoothctl
 ```
 
 Run another payload by relative path:
 
 ```bash
-python3 /root/Raspyjack/EXTENSIONS/run_payload.py utilities/trigger_marker.py test_run
+python3 /root/DaRkb0x/EXTENSIONS/run_payload.py utilities/trigger_marker.py test_run
 ```
 
 ## Notes for payload authors

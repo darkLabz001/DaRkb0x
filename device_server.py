@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack – WebSocket device server
+DaRkb0x – WebSocket device server
 Compatible websockets v11+ / v12+ /
 """
 
@@ -27,37 +27,37 @@ import websockets
 
 
 # ------------------------------ Config ---------------------------------------
-FRAME_PATH = Path(os.environ.get("RJ_FRAME_PATH", "/dev/shm/raspyjack_last.jpg"))
-CARDPUTER_FRAME_PATH = Path(os.environ.get("RJ_CARDPUTER_FRAME_PATH", "/dev/shm/raspyjack_cardputer.jpg"))
-CARDPUTER_FRAME_WIDTH = int(os.environ.get("RJ_CARDPUTER_FRAME_WIDTH", "240"))
-CARDPUTER_FRAME_HEIGHT = int(os.environ.get("RJ_CARDPUTER_FRAME_HEIGHT", "135"))
-HOST = os.environ.get("RJ_WS_HOST", "0.0.0.0")
-PORT = int(os.environ.get("RJ_WS_PORT", "8765"))
-FPS = float(os.environ.get("RJ_FPS", "10"))
-CARDPUTER_FPS = float(os.environ.get("RJ_CARDPUTER_FPS", "6"))
-TOKEN_FILE = Path(os.environ.get("RJ_WS_TOKEN_FILE", "/root/Raspyjack/.webui_token"))
-AUTH_FILE = Path(os.environ.get("RJ_WEB_AUTH_FILE", "/root/Raspyjack/.webui_auth.json"))
-AUTH_SECRET_FILE = Path(os.environ.get("RJ_WEB_AUTH_SECRET_FILE", "/root/Raspyjack/.webui_session_secret"))
-SESSION_COOKIE_NAME = os.environ.get("RJ_WEB_SESSION_COOKIE", "rj_session")
-INPUT_SOCK = os.environ.get("RJ_INPUT_SOCK", "/dev/shm/rj_input.sock")
-TEXT_SESSION_FILE = Path(os.environ.get("RJ_TEXT_SESSION_FILE", "/dev/shm/rj_text_session.json"))
-SHELL_CMD = os.environ.get("RJ_SHELL_CMD", "/bin/bash")
-SHELL_CWD = os.environ.get("RJ_SHELL_CWD", "/")
-STATS_LOG_INTERVAL = max(5.0, float(os.environ.get("RJ_WS_STATS_INTERVAL", "15")))
+FRAME_PATH = Path(os.environ.get("DB_FRAME_PATH", "/dev/shm/darkbox_last.jpg"))
+CARDPUTER_FRAME_PATH = Path(os.environ.get("DB_CARDPUTER_FRAME_PATH", "/dev/shm/darkbox_cardputer.jpg"))
+CARDPUTER_FRAME_WIDTH = int(os.environ.get("DB_CARDPUTER_FRAME_WIDTH", "240"))
+CARDPUTER_FRAME_HEIGHT = int(os.environ.get("DB_CARDPUTER_FRAME_HEIGHT", "135"))
+HOST = os.environ.get("DB_WS_HOST", "0.0.0.0")
+PORT = int(os.environ.get("DB_WS_PORT", "8765"))
+FPS = float(os.environ.get("DB_FPS", "10"))
+CARDPUTER_FPS = float(os.environ.get("DB_CARDPUTER_FPS", "6"))
+TOKEN_FILE = Path(os.environ.get("DB_WS_TOKEN_FILE", "/root/DaRkb0x/.webui_token"))
+AUTH_FILE = Path(os.environ.get("DB_WEB_AUTH_FILE", "/root/DaRkb0x/.webui_auth.json"))
+AUTH_SECRET_FILE = Path(os.environ.get("DB_WEB_AUTH_SECRET_FILE", "/root/DaRkb0x/.webui_session_secret"))
+SESSION_COOKIE_NAME = os.environ.get("DB_WEB_SESSION_COOKIE", "db_session")
+INPUT_SOCK = os.environ.get("DB_INPUT_SOCK", "/dev/shm/db_input.sock")
+TEXT_SESSION_FILE = Path(os.environ.get("DB_TEXT_SESSION_FILE", "/dev/shm/db_text_session.json"))
+SHELL_CMD = os.environ.get("DB_SHELL_CMD", "/bin/bash")
+SHELL_CWD = os.environ.get("DB_SHELL_CWD", "/")
+STATS_LOG_INTERVAL = max(5.0, float(os.environ.get("DB_WS_STATS_INTERVAL", "15")))
 
 SEND_TIMEOUT = 0.5
 PING_INTERVAL = 15
-VERBOSE_INPUT_LOGS = os.environ.get("RJ_WS_VERBOSE_INPUT", "0") == "1"
+VERBOSE_INPUT_LOGS = os.environ.get("DB_WS_VERBOSE_INPUT", "0") == "1"
 
 # WebSocket server only listens on these interfaces — wlan1+ are for attacks
-# Override via RJ_WEBUI_INTERFACES env var (comma-separated)
-_env_ifaces = os.environ.get("RJ_WEBUI_INTERFACES", "").strip()
+# Override via DB_WEBUI_INTERFACES env var (comma-separated)
+_env_ifaces = os.environ.get("DB_WEBUI_INTERFACES", "").strip()
 WEBUI_INTERFACES = [i.strip() for i in _env_ifaces.split(",") if i.strip()] if _env_ifaces else ["eth0", "eth1", "wlan0", "tailscale0"]
 
 
 def _load_shared_token():
     """Load auth token from env first, then token file."""
-    env_token = str(os.environ.get("RJ_WS_TOKEN", "")).strip()
+    env_token = str(os.environ.get("DB_WS_TOKEN", "")).strip()
     if env_token:
         return env_token
     try:
@@ -169,7 +169,7 @@ log = logging.getLogger("rj-ws")
 if TOKEN:
     log.info("WebSocket token auth enabled")
 else:
-    log.warning("WebSocket token auth disabled (set RJ_WS_TOKEN or token file)")
+    log.warning("WebSocket token auth disabled (set DB_WS_TOKEN or token file)")
 if AUTH_SECRET:
     log.info("WebSocket session-ticket auth enabled")
 else:

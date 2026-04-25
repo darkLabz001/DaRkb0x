@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- LCD Image Viewer
+DaRkb0x Payload -- LCD Image Viewer
 =======================================
 Author: 7h30th3r0n3
 
@@ -39,7 +39,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 DEBOUNCE = 0.22
-START_DIR = "/root/Raspyjack"
+START_DIR = "/root/DaRkb0x"
 SCREENSAVER_DIR = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "..", "img", "screensaver"
 )

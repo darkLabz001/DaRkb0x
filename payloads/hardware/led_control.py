@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- LED Controller
+DaRkb0x Payload -- LED Controller
 =====================================
 Author: 7h30th3r0n3
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload – Navarro username checker
+DaRkb0x payload – Navarro username checker
 =============================================================================
 This payload prompts for a username, runs Navarro, saves JSON results under
 loot/OSINT/, and shows found profile URLs on the 128×128 LCD.
@@ -10,7 +10,7 @@ loot/OSINT/, and shows found profile URLs on the 128×128 LCD.
 requirements
 -----------
   • python3
-  • Navarro present at /home/raspyjack/Navarro/navarro.py
+  • Navarro present at /home/darkbox/Navarro/navarro.py
   • qrcode sudo apt install -y python3-qrcode python3-pil
 
 Controls
@@ -63,11 +63,11 @@ FONT_SMALL_SIZE = int(9 * _S)
 FONT_BIG_SIZE = int(11 * _S)
 
 NAVARRO_PATHS = [
-    "/root/Raspyjack/Navarro/navarro.py",
-    "/home/raspyjack/Navarro/navarro.py",
+    "/root/DaRkb0x/Navarro/navarro.py",
+    "/home/darkbox/Navarro/navarro.py",
 ]
 NAVARRO_PATH = next((p for p in NAVARRO_PATHS if os.path.exists(p)), NAVARRO_PATHS[0])
-LOOT_BASE = "/root/Raspyjack/loot/OSINT"
+LOOT_BASE = "/root/DaRkb0x/loot/OSINT"
 os.makedirs(LOOT_BASE, exist_ok=True)
 APP_RUNNING = True
 

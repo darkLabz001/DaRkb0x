@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Alarm Clock
+DaRkb0x Payload -- Alarm Clock
 ==================================
 Author: 7h30th3r0n3
 
@@ -14,7 +14,7 @@ Controls:
   KEY2         -- Toggle 12h / 24h format
   KEY3         -- Exit
 
-Config: /root/Raspyjack/loot/Alarm/config.json
+Config: /root/DaRkb0x/loot/Alarm/config.json
 """
 
 import os
@@ -42,7 +42,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
-CONFIG_DIR = "/root/Raspyjack/loot/Alarm"
+CONFIG_DIR = "/root/DaRkb0x/loot/Alarm"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 
 # ---------------------------------------------------------------------------

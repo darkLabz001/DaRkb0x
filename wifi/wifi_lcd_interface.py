@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-RaspyJack WiFi LCD Interface
+DaRkb0x WiFi LCD Interface
 ===========================
-LCD-based WiFi management interface for RaspyJack
+LCD-based WiFi management interface for DaRkb0x
 
 Features:
 - Network scanning and selection
@@ -22,7 +22,7 @@ Button Layout:
 import sys
 import time
 import threading
-sys.path.append('/root/Raspyjack/')
+sys.path.append('/root/DaRkb0x/')
 
 try:
     import LCD_1in44, LCD_Config

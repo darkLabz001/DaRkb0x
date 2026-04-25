@@ -2,6 +2,7 @@
         "_comment": "FontAwesome 6 Solid icons - Browse: https://fontawesome.com/v6/search?o=r&s=solid",
         "_howto": "Add icon: \" payload_name\": \"\\uXXXX\" (FA unicode codepoint)",
         "main_menu": {
+                " WARDRIVING": "📡",
                 " Scan Nmap": "",
                 " Reverse Shell": "",
                 " Responder": "",
@@ -92,6 +93,12 @@
                 " Random screensaver: OFF": ""
         },
         "categories": {
+                " Wireless": "",
+                " Networking": "",
+                " Exploits": "",
+                " System": "",
+                " Games": "",
+                " Misc": "",
                 " Reconnaissance": "",
                 " Wifi": "",
                 " Network": "",
@@ -103,7 +110,6 @@
                 " Remote Access": "",
                 " Utilities": "",
                 " Hardware": "",
-                " Games": "",
                 " Examples": "",
                 " NFC/RFID": "",
                 " Nfc Rfid": ""

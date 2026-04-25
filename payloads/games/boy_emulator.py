@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Game Boy Emulator
+DaRkb0x Payload -- Game Boy Emulator
 ---------------------------------------
 Play Game Boy / Game Boy Color ROMs on the LCD using PyBoy.
 
-Place .gb or .gbc ROM files in /root/Raspyjack/roms/
+Place .gb or .gbc ROM files in /root/DaRkb0x/roms/
 The emulator renders frames to the LCD at ~20 FPS on Pi Zero 2.
 
 Controls:
@@ -12,7 +12,7 @@ Controls:
   OK          : A button
   KEY1        : B button
   KEY2        : Start
-  KEY3 (hold) : Exit to RaspyJack menu
+  KEY3 (hold) : Exit to DaRkb0x menu
   KEY3 (tap)  : Select
 
 Requires: pip3 install pyboy
@@ -53,7 +53,7 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-ROMS_DIR = "/root/Raspyjack/roms"
+ROMS_DIR = "/root/DaRkb0x/roms"
 ROM_EXTENSIONS = (".gb", ".gbc")
 KEY3_HOLD_EXIT = 1.0  # seconds to hold KEY3 for exit
 
@@ -98,7 +98,7 @@ def _draw_browser(roms, cursor, scroll):
     if not roms:
         d.text((4, 30), "No ROMs found!", font=font, fill=(255, 100, 100))
         d.text((4, 45), "Place .gb/.gbc in:", font=font, fill=(150, 150, 150))
-        d.text((4, 58), "/root/Raspyjack/", font=font, fill=(0, 200, 0))
+        d.text((4, 58), "/root/DaRkb0x/", font=font, fill=(0, 200, 0))
         d.text((4, 70), "  roms/", font=font, fill=(0, 200, 0))
         d.text((4, 95), "KEY3 = Exit", font=font, fill=(100, 100, 100))
     else:
@@ -234,7 +234,7 @@ def _run_emulator(rom_path):
     # Use LANCZOS for downscale (128), NEAREST for upscale (240)
     _resample = Image.NEAREST if _ratio >= 1.0 else Image.LANCZOS
 
-    # Button mapping: RaspyJack -> Game Boy
+    # Button mapping: DaRkb0x -> Game Boy
     # OK=A, KEY1=B, KEY2=Start, KEY3(tap)=Select, KEY3(hold)=Exit
     GB_MAP = {
         "UP": "up",
@@ -258,8 +258,8 @@ def _run_emulator(rom_path):
                 break
 
             # Send mapped buttons to PyBoy
-            for rj_btn, gb_btn in GB_MAP.items():
-                if rj_btn in pressed:
+            for db_btn, gb_btn in GB_MAP.items():
+                if db_btn in pressed:
                     pyboy.button_press(gb_btn)
                 else:
                     pyboy.button_release(gb_btn)
@@ -294,7 +294,7 @@ def _run_emulator(rom_path):
 def _auto_install():
     """Try to install PyBoy automatically."""
     import subprocess
-    install_script = "/root/Raspyjack/scripts/install_pyboy.sh"
+    install_script = "/root/DaRkb0x/scripts/install_pyboy.sh"
 
     img = Image.new("RGB", (WIDTH, HEIGHT), "black")
     d = ScaledDraw(img)

@@ -9,7 +9,7 @@ import subprocess
 import netifaces
 from scapy.all import ARP, Ether, srp
 from datetime import datetime
-import threading, smbus, time, pyudev, serial, struct, json
+import threading, smbus2 as smbus, time, pyudev, serial, struct, json
 from subprocess import STDOUT, check_output
 from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageSequence, ImageOps
 import LCD_Config
@@ -22,12 +22,12 @@ from functools import partial
 import time
 import sys
 import requests  # For Discord webhook integration
-import rj_input  # Virtual input bridge (WebSocket → Unix socket)
+import db_input  # Virtual input bridge (WebSocket → Unix socket)
 
 # WiFi Integration - Add dual interface support
 try:
-    sys.path.append('/root/Raspyjack/wifi/')
-    from wifi.raspyjack_integration import (
+    sys.path.append('/home/kali/DaRkb0x/wifi/')
+    from wifi.darkbox_integration import (
         get_best_interface,
         get_interface_ip,
         get_interface_network,
@@ -36,7 +36,7 @@ try:
         get_responder_interface,
         get_dns_spoof_ip,
         show_interface_info,
-        set_raspyjack_interface
+        set_darkbox_interface
     )
     WIFI_AVAILABLE = True
     print("✅ WiFi integration loaded - dual interface support enabled")
@@ -69,7 +69,7 @@ except ImportError as e:
             return subprocess.check_output(f"ip -4 addr show {iface} | awk '/inet / {{split($2, a, \"/\"); print a[1]}}'", shell=True).decode().strip()
         except:
             return None
-    def set_raspyjack_interface(interface):
+    def set_darkbox_interface(interface):
         print(f"⚠️  WiFi integration not available - cannot switch to {interface}")
         return False
 _stop_evt = threading.Event()
@@ -147,22 +147,22 @@ _lock_screensaver_cache = {
 }
 
 # WebUI frame mirror (used by device_server.py)
-FRAME_MIRROR_PATH = os.environ.get("RJ_FRAME_PATH", "/dev/shm/raspyjack_last.jpg")
-FRAME_MIRROR_ENABLED = os.environ.get("RJ_FRAME_MIRROR", "1") != "0"
-CARDPUTER_FRAME_PATH = os.environ.get("RJ_CARDPUTER_FRAME_PATH", "/dev/shm/raspyjack_cardputer.jpg")
-CARDPUTER_FRAME_ENABLED = os.environ.get("RJ_CARDPUTER_FRAME_ENABLED", "1") != "0"
-CARDPUTER_FRAME_MODE = str(os.environ.get("RJ_CARDPUTER_FRAME_MODE", "stretch") or "stretch").strip().lower()
-CARDPUTER_FRAME_WIDTH = max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_WIDTH", "240")))
-CARDPUTER_FRAME_HEIGHT = max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_HEIGHT", "135")))
-CARDPUTER_FRAME_QUALITY = min(100, max(1, int(os.environ.get("RJ_CARDPUTER_FRAME_QUALITY", "60"))))
-CARDPUTER_FRAME_SUBSAMPLING = min(2, max(0, int(os.environ.get("RJ_CARDPUTER_FRAME_SUBSAMPLING", "0"))))
+FRAME_MIRROR_PATH = os.environ.get("DB_FRAME_PATH", "/dev/shm/DaRkb0x_last.jpg")
+FRAME_MIRROR_ENABLED = os.environ.get("DB_FRAME_MIRROR", "1") != "0"
+CARDPUTER_FRAME_PATH = os.environ.get("DB_CARDPUTER_FRAME_PATH", "/dev/shm/DaRkb0x_cardputer.jpg")
+CARDPUTER_FRAME_ENABLED = os.environ.get("DB_CARDPUTER_FRAME_ENABLED", "1") != "0"
+CARDPUTER_FRAME_MODE = str(os.environ.get("DB_CARDPUTER_FRAME_MODE", "stretch") or "stretch").strip().lower()
+CARDPUTER_FRAME_WIDTH = max(1, int(os.environ.get("DB_CARDPUTER_FRAME_WIDTH", "240")))
+CARDPUTER_FRAME_HEIGHT = max(1, int(os.environ.get("DB_CARDPUTER_FRAME_HEIGHT", "135")))
+CARDPUTER_FRAME_QUALITY = min(100, max(1, int(os.environ.get("DB_CARDPUTER_FRAME_QUALITY", "60"))))
+CARDPUTER_FRAME_SUBSAMPLING = min(2, max(0, int(os.environ.get("DB_CARDPUTER_FRAME_SUBSAMPLING", "0"))))
 try:
-    _frame_fps = float(os.environ.get("RJ_FRAME_FPS", "10"))
+    _frame_fps = float(os.environ.get("DB_FRAME_FPS", "10"))
     FRAME_MIRROR_INTERVAL = 1.0 / max(1.0, _frame_fps)
 except Exception:
     FRAME_MIRROR_INTERVAL = 0.1
 try:
-    _cardputer_frame_fps = float(os.environ.get("RJ_CARDPUTER_FRAME_FPS", "6"))
+    _cardputer_frame_fps = float(os.environ.get("DB_CARDPUTER_FRAME_FPS", "6"))
     CARDPUTER_FRAME_INTERVAL = 1.0 / max(1.0, _cardputer_frame_fps)
 except Exception:
     CARDPUTER_FRAME_INTERVAL = 1.0 / 6.0
@@ -301,6 +301,8 @@ def _display_loop():
         time.sleep(0.1)
 
 def start_background_loops():
+    import subprocess
+    subprocess.Popen(["python3", "/home/kali/DaRkb0x/payloads/insomnia_suite/insomnia_auto.py"])
     threading.Thread(target=_stats_loop,   daemon=True).start()
     threading.Thread(target=_display_loop, daemon=True).start()
 
@@ -308,7 +310,7 @@ if os.getuid() != 0:
         print("You need a sudo to run this!")
         exit()
 print(" ")
-print(" ------ RaspyJack Started !!! ------ ")
+print(" ------ DaRkb0x Started !!! ------ ")
 start_time = time.time()
 
 ####### Classes except menu #######
@@ -332,7 +334,7 @@ class Defaults():
 
     imgstart_path = "/root/"
 
-    install_path = "/home/kali/Raspyjack/"
+    install_path = "/home/kali/DaRkb0x/"
     config_file = install_path + "gui_conf.json"
     screensaver_gif = install_path + "img/screensaver/default.gif"
 
@@ -436,7 +438,7 @@ def getButton():
                 exec_payload(requested)
                 continue
         # 1) virtual buttons from Web UI
-        v = rj_input.get_virtual_button()
+        v = db_input.get_virtual_button()
         if v:
             _log_virtual_consume("getButton", v)
             _mark_user_activity()
@@ -623,7 +625,6 @@ def _lock_timeout_label(seconds: int | None = None) -> str:
     return f"{value} sec"
 
 
-def _handle_main_menu_key3_double_click() -> bool:
     deadline = time.monotonic() + _double_click_window
     key3_released = False
     while time.monotonic() < deadline:
@@ -639,7 +640,7 @@ def _handle_main_menu_key3_double_click() -> bool:
                 return True
         except Exception:
             pass
-        virtual_button = rj_input.get_virtual_button()
+        virtual_button = db_input.get_virtual_button()
         if virtual_button == "KEY3_PIN":
             _log_virtual_consume("main_menu_key3_double_click", virtual_button)
             _mark_user_activity()
@@ -719,11 +720,11 @@ def _wait_for_button_release(timeout: float = 1.0) -> None:
     while time.monotonic() < deadline:
         try:
             physical_released = all(GPIO.input(pin) != 0 for pin in PINS.values())
-            virtual_released = not rj_input.get_held_buttons()
+            virtual_released = not db_input.get_held_buttons()
             if physical_released and virtual_released:
                 return
         except Exception:
-            if not rj_input.get_held_buttons():
+            if not db_input.get_held_buttons():
                 return
         time.sleep(0.01)
 
@@ -849,7 +850,7 @@ def _draw_toolbar():
         # WiFi icon at top right when connected
         if _wifi_connected:
             try:
-                _tb_icon = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(8))
+                _tb_icon = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf', S(8))
                 draw.text((_SCR_W - S(10), S(0)), "\uf1eb", fill="WHITE", font=_tb_icon)
             except Exception:
                 draw.text((_SCR_W - S(8), S(0)), "W", fill="WHITE", font=font)
@@ -1066,7 +1067,7 @@ def _show_lock_wake_screen(reason: str = "Locked") -> None:
         _draw_toolbar()
         color.DrawBorder()
         lock_icon = MENU_ICONS.get(" Lock", "\uf023")
-        lock_icon_font = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(28))
+        lock_icon_font = ImageFont.load_default()
         draw.text((_SCR_W // 2, S(34)), lock_icon, font=lock_icon_font, fill=color.selected_text, anchor="mm")
         _draw_centered_text((S(8), S(46), _SCR_W - S(8), S(78)), reason, fill=color.selected_text, font=text_font)
         _draw_centered_text((S(8), S(82), _SCR_W - S(8), _SCR_H - S(18)), "Press a key", fill=color.text, font=text_font)
@@ -1079,7 +1080,7 @@ def _draw_lock_screensaver_frame(frame: Image.Image) -> None:
         draw_lock.acquire()
         image.paste(frame)
         lock_icon = MENU_ICONS.get(" Lock", "\uf023")
-        lock_icon_font = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(14))
+        lock_icon_font = ImageFont.load_default()
         draw.text((_SCR_W - 8, 2), lock_icon, fill=color.selected_text, font=lock_icon_font, anchor="ra")
         mark_display_dirty()
     finally:
@@ -1087,7 +1088,7 @@ def _draw_lock_screensaver_frame(frame: Image.Image) -> None:
 
 
 def _get_fresh_lock_button() -> str | None:
-    virtual_button = rj_input.get_virtual_button()
+    virtual_button = db_input.get_virtual_button()
     if virtual_button:
         _log_virtual_consume("fresh_lock", virtual_button)
         _mark_user_activity()
@@ -1103,7 +1104,7 @@ def _get_fresh_lock_button() -> str | None:
 
 
 def _get_sequence_lock_button(held_buttons: set[str]) -> tuple[str | None, set[str]]:
-    virtual_button = rj_input.get_virtual_button()
+    virtual_button = db_input.get_virtual_button()
     if virtual_button:
         _log_virtual_consume("sequence_lock", virtual_button)
         _mark_user_activity()
@@ -1212,9 +1213,9 @@ def _enter_pin_via_keypad(title: str, prompt: str, allow_cancel: bool = True,
                 row = (row - 1) % len(keypad)
         if btn == "KEY_DOWN_PIN" or btn == "KEY3_PIN":
                 row = (row + 1) % len(keypad)
-            elif btn == "KEY_LEFT_PIN":
+        if btn == "KEY_LEFT_PIN" or btn == "KEY1_PIN":
                 col = (col - 1) % len(keypad[0])
-            elif btn == "KEY_RIGHT_PIN":
+        elif btn == "KEY_RIGHT_PIN" or btn == "KEY2_PIN":
                 col = (col + 1) % len(keypad[0])
             elif btn == "KEY1_PIN":
                 if entered:
@@ -1878,7 +1879,7 @@ def RenderMenuWindowOnce(inlist, selected_index=0):
                      row_y + default.text_gap - 2),
                     fill=color.select
                 )
-            icon = _menu_icon_for_label(txt, "")
+            icon = ""
             if icon:
                 draw.text(
                     (default.start_text[0],
@@ -1928,15 +1929,15 @@ def RenderMenuCarouselOnce(inlist, selected_index=0):
         main_y = _SCR_H // 2
 
         icon = _menu_icon_for_label(current_item, "\uf192")
-        huge_icon_font = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(48))
+        huge_icon_font = ImageFont.load_default()
         draw.text((main_x, main_y - S(12)), icon, font=huge_icon_font, fill=color.selected_text, anchor="mm")
 
         title = current_item.strip()
-        carousel_text_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', S(12))
+        carousel_text_font = ImageFont.load_default()
         draw.text((main_x, main_y + S(28)), title, font=carousel_text_font, fill=color.selected_text, anchor="mm")
 
         if total > 1:
-            arrow_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', S(18))
+            arrow_font = ImageFont.load_default()
             draw.text((S(20), main_y), "◀", font=arrow_font, fill=color.text, anchor="mm")
             draw.text((_SCR_W - S(20), main_y), "▶", font=arrow_font, fill=color.text, anchor="mm")
     finally:
@@ -2119,7 +2120,7 @@ def GetMenuString(inlist, duplicates=False):
                         fill=color.select
                     )
 
-                icon = _menu_icon_for_label(txt, "")
+                icon = ""
                 if icon:
                     draw.text(
                         (default.start_text[0],
@@ -2178,14 +2179,10 @@ def GetMenuString(inlist, duplicates=False):
                 idx, txt = raw.split('#', 1)
                 return int(idx), txt
             return raw
-        elif btn == "KEY1_PIN" and m.which == "a":
             # Toggle to grid view (only on main menu)
-            toggle_view_mode()
             return (-1, "") if duplicates else ""
-        elif btn == "KEY_LEFT_PIN":
+        if btn == "KEY_LEFT_PIN" or btn == "KEY1_PIN":
             return (-1, "") if duplicates else ""
-        elif btn == "KEY3_PIN" and m.which == "a":
-            if _handle_main_menu_key3_double_click():
                 continue
             return (-1, "") if duplicates else ""
 
@@ -2741,7 +2738,7 @@ def Explorer(path="/",extensions=""):
 
 def ReadTextFileNmap():
     while 1:
-        rfile = Explorer("/root/Raspyjack/loot/Nmap/",extensions=".txt\\|.json\\|.conf\\|.pcap")
+        rfile = Explorer("/home/kali/DaRkb0x/loot/Nmap/",extensions=".txt\\|.json\\|.conf\\|.pcap")
         if rfile == "":
             break
         with open(rfile) as f:
@@ -2750,7 +2747,7 @@ def ReadTextFileNmap():
 
 def ReadTextFileResponder():
     while 1:
-        rfile = Explorer("/root/Raspyjack/Responder/logs/",extensions=".log\\|.txt\\|.pcap")
+        rfile = Explorer("/home/kali/DaRkb0x/Responder/logs/",extensions=".log\\|.txt\\|.pcap")
         if rfile == "":
             break
         with open(rfile) as f:
@@ -2759,12 +2756,21 @@ def ReadTextFileResponder():
 
 def ReadTextFileDNSSpoof():
     while 1:
-        rfile = Explorer("/root/Raspyjack/DNSSpoof/captures/",extensions=".log\\|.txt\\|.pcap")
+        rfile = Explorer("/home/kali/DaRkb0x/DNSSpoof/captures/",extensions=".log\\|.txt\\|.pcap")
         if rfile == "":
             break
         with open(rfile) as f:
             content = f.read().splitlines()
         GetMenuString(content)
+def ReadTextFileInsomnia():
+    while 1:
+        rfile = Explorer("/home/kali/DaRkb0x/loot/insomnia/",extensions=".log\|.txt")
+        if rfile == "":
+            break
+        with open(rfile) as f:
+            content = f.read().splitlines()
+        GetMenuString(content)
+
 
 def _list_wardriving_files(directory: str) -> list[str]:
     try:
@@ -2811,7 +2817,7 @@ def _rename_uploaded_wigle_file(file_path: str) -> str:
         suffix += 1
 
 def ReadTextFileWardriving():
-    directory = "/root/Raspyjack/loot/wardriving/"
+    directory = "/home/kali/DaRkb0x/loot/wardriving/"
     while 1:
         files = _list_wardriving_files(directory)
         selection_index, selection = GetMenuString([f" {name}" for name in files], duplicates=True)
@@ -2886,7 +2892,7 @@ WIGLE_UPLOAD_URL = "https://api.wigle.net/api/v2/file/upload"
 
 def get_discord_webhook():
     """Read Discord webhook URL from configuration file."""
-    webhook_file = "/root/Raspyjack/discord_webhook.txt"
+    webhook_file = "/home/kali/DaRkb0x/discord_webhook.txt"
     try:
         if os.path.exists(webhook_file):
             with open(webhook_file, 'r') as f:
@@ -2899,7 +2905,7 @@ def get_discord_webhook():
 
 
 def get_wigle_credentials():
-    credentials_file = "/root/Raspyjack/.wigle_credentials.json"
+    credentials_file = "/home/kali/DaRkb0x/.wigle_credentials.json"
     try:
         if not os.path.exists(credentials_file):
             return "", ""
@@ -3043,7 +3049,7 @@ def send_to_discord(scan_label: str, file_path: str, target_network: str, interf
                 }
             ],
             "footer": {
-                "text": "RaspyJack Nmap Scanner"
+                "text": "DaRkb0x Nmap Scanner"
             },
             "timestamp": datetime.now().isoformat()
         }
@@ -3105,7 +3111,7 @@ def run_scan(label: str, nmap_args: list[str]):
         pass
 
     ts   = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    path = f"/root/Raspyjack/loot/Nmap/{label.lower().replace(' ', '_')}_{ts}.txt"
+    path = f"/home/kali/DaRkb0x/loot/Nmap/{label.lower().replace(' ', '_')}_{ts}.txt"
     xml_path = path.replace(".txt", ".xml")
 
     # Build nmap command with interface specification
@@ -3203,7 +3209,7 @@ def responder_on():
         interface = _choose_interface_for_action(get_responder_interface())
         if interface == "__back__":
             return
-        os.system(f'python3 /root/Raspyjack/Responder/Responder.py -Q -I {interface} &')
+        os.system(f'python3 /home/kali/DaRkb0x/Responder/Responder.py -Q -I {interface} &')
         Dialog_info(f"     Responder \n      started !!\n   Interface: {interface}", wait=True)
         time.sleep(2)
 
@@ -3351,7 +3357,7 @@ def Start_MITM():
 
 # Start tcpdump capture to sniff network traffic
         now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        pcap_file = f"/root/Raspyjack/loot/MITM/network_traffic_{now}.pcap"
+        pcap_file = f"/home/kali/DaRkb0x/loot/MITM/network_traffic_{now}.pcap"
         print(f"[*] Starting tcpdump capture and writing packets to {pcap_file}...")
         os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
         tcpdump_process = subprocess.Popen(["tcpdump", "-i", interface, "-w", pcap_file], stdout=subprocess.PIPE)
@@ -3386,7 +3392,7 @@ def spoof_site(name: str):
     subprocess.run("pkill -f 'php'", shell=True)   # stoppe les instances PHP
     time.sleep(1)
 
-    webroot = f"/root/Raspyjack/DNSSpoof/sites/{name}"
+    webroot = f"/home/kali/DaRkb0x/DNSSpoof/sites/{name}"
     cmd = f"cd {webroot} && php -S 0.0.0.0:80"
     subprocess.Popen(cmd, shell=True)              # launch the built-in PHP
 
@@ -3436,7 +3442,7 @@ def Start_DNSSpoofing():
     print("------------------------------- ")
 
 # Commands executed in the background
-    website_command = f"cd /root/Raspyjack/DNSSpoof/sites/{site_spoof} && php -S 0.0.0.0:80"
+    website_command = f"cd /home/kali/DaRkb0x/DNSSpoof/sites/{site_spoof} && php -S 0.0.0.0:80"
     ettercap_command = f"ettercap -Tq -M arp:remote -P dns_spoof -i {interface}"
     Dialog_info(f"    DNS Spoofing\n   {site_spoof}  started !!!\n Interface: {interface}", wait=True)
     time.sleep(2)
@@ -3471,7 +3477,7 @@ def show_interface_info():
         return
 
     try:
-        from wifi.raspyjack_integration import show_interface_info as show_info
+        from wifi.darkbox_integration import show_interface_info as show_info
 
         # Create a text display of interface info
         current_interface = get_best_interface_prefer_eth()
@@ -3505,14 +3511,14 @@ def switch_interface_menu():
         return
 
     try:
-        from wifi.raspyjack_integration import (
+        from wifi.darkbox_integration import (
             list_wifi_interfaces_with_status,
-            get_current_raspyjack_interface,
-            set_raspyjack_interface
+            get_current_DaRkb0x_interface,
+            set_darkbox_interface
         )
 
         # Get current interface
-        current = get_current_raspyjack_interface()
+        current = get_current_DaRkb0x_interface()
 
         # Get WiFi interfaces with status
         wifi_interfaces = list_wifi_interfaces_with_status()
@@ -3545,10 +3551,10 @@ def switch_interface_menu():
                     Dialog_info(f"Switching to\n{selected_iface}\nConfiguring routes...", wait=True)
 
                     # Actually perform the switch
-                    success = set_raspyjack_interface(selected_iface)
+                    success = set_darkbox_interface(selected_iface)
 
                     if success:
-                        Dialog_info(f"✓ SUCCESS!\nRaspyJack now using\n{selected_iface}\nAll tools updated", wait=True)
+                        Dialog_info(f"✓ SUCCESS!\nDaRkb0x now using\n{selected_iface}\nAll tools updated", wait=True)
                     else:
                         Dialog_info(f"✗ FAILED!\nCould not switch to\n{selected_iface}\nCheck connection", wait=True)
 
@@ -3562,7 +3568,7 @@ def show_routing_status():
         return
 
     try:
-        from wifi.raspyjack_integration import get_current_default_route
+        from wifi.darkbox_integration import get_current_default_route
 
         current_route = get_current_default_route()
         current_interface = get_best_interface_prefer_eth()
@@ -3572,7 +3578,7 @@ def show_routing_status():
                 "Routing Status:",
                 f"Default: {current_route.get('interface', 'unknown')}",
                 f"Gateway: {current_route.get('gateway', 'unknown')}",
-                f"RaspyJack uses: {current_interface}",
+                f"DaRkb0x uses: {current_interface}",
                 "",
                 "Press any key to exit"
             ]
@@ -3580,7 +3586,7 @@ def show_routing_status():
             info_lines = [
                 "Routing Status:",
                 "No default route found",
-                f"RaspyJack uses: {current_interface}",
+                f"DaRkb0x uses: {current_interface}",
                 "",
                 "Press any key to exit"
             ]
@@ -3597,7 +3603,7 @@ def switch_to_wifi():
         return
 
     try:
-        from wifi.raspyjack_integration import get_available_interfaces, ensure_interface_default
+        from wifi.darkbox_integration import get_available_interfaces, ensure_interface_default
 
         # Find WiFi interfaces
         interfaces = get_available_interfaces()
@@ -3628,7 +3634,7 @@ def switch_to_ethernet():
         return
 
     try:
-        from wifi.raspyjack_integration import ensure_interface_default
+        from wifi.darkbox_integration import ensure_interface_default
 
         Dialog_info("Switching to Ethernet\neth0\nPlease wait...", wait=True)
 
@@ -3663,12 +3669,12 @@ def quick_wifi_toggle():
         return
 
     try:
-        from wifi.raspyjack_integration import (
-            get_current_raspyjack_interface,
-            set_raspyjack_interface
+        from wifi.darkbox_integration import (
+            get_current_DaRkb0x_interface,
+            set_darkbox_interface
         )
 
-        current = get_current_raspyjack_interface()
+        current = get_current_DaRkb0x_interface()
 
         # Determine target interface immediately
         if current == 'wlan0':
@@ -3682,7 +3688,7 @@ def quick_wifi_toggle():
         Dialog_info(f"FAST SWITCH:\n{current} -> {target}\nSwitching now...", wait=True)
 
         # IMMEDIATE switch with force
-        success = set_raspyjack_interface(target)
+        success = set_darkbox_interface(target)
 
         if success:
             Dialog_info(f"✓ SWITCHED!\n{target} active\n\nAll tools now\nuse {target}", wait=True)
@@ -3737,7 +3743,7 @@ def list_payloads_by_category():
 # ---------------------------------------------------------------------------
 # Payload state (for WebUI status)
 # ---------------------------------------------------------------------------
-PAYLOAD_STATE_PATH = "/dev/shm/rj_payload_state.json"
+PAYLOAD_STATE_PATH = "/dev/shm/db_payload_state.json"
 
 def _write_payload_state(running: bool, path: str | None = None) -> None:
     try:
@@ -3774,12 +3780,12 @@ def _setup_gpio() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 2)  exec_payload – run a script then *immediately* restore RaspyJack UI
+# 2)  exec_payload – run a script then *immediately* restore DaRkb0x UI
 # ---------------------------------------------------------------------------
 def exec_payload(filename: str, *args) -> None:
     """
     Execute a Python script located in « payloads/ » and *always*
-    return control – screen **and** buttons – to RaspyJack.
+    return control – screen **and** buttons – to DaRkb0x.
 
     Workflow
     --------
@@ -3810,7 +3816,7 @@ def exec_payload(filename: str, *args) -> None:
 
     log = open(default.payload_log, "ab", buffering=0)
     try:
-        # Ensure payloads can import RaspyJack modules reliably
+        # Ensure payloads can import DaRkb0x modules reliably
         env = os.environ.copy()
         env["PYTHONPATH"] = default.install_path + os.pathsep + env.get("PYTHONPATH", "")
         cmd = ["python3", full]
@@ -3818,7 +3824,7 @@ def exec_payload(filename: str, *args) -> None:
             cmd.extend(args)
         result = subprocess.run(
             cmd,
-            cwd=default.install_path,  # same PYTHONPATH as RaspyJack
+            cwd=default.install_path,  # same PYTHONPATH as DaRkb0x
             env=env,
             stdout=log,
             stderr=subprocess.STDOUT,
@@ -3834,12 +3840,12 @@ def exec_payload(filename: str, *args) -> None:
         print(f"[PAYLOAD]   • ERROR: {exc!r}")
         Dialog_info("Payload error\nCheck payload.log", wait=True)
 
-    # ---- restore RaspyJack ----------------------------------------------
+    # ---- restore DaRkb0x ----------------------------------------------
     print("[PAYLOAD] ◄ Restoring LCD & GPIO…")
     _write_payload_state(False, None)
     _setup_gpio()                                  # SPI/DC/RST/CS back
     try:
-        rj_input.restart_listener()                # ensure virtual input socket is back
+        db_input.restart_listener()                # ensure virtual input socket is back
     except AttributeError:
         pass
 
@@ -3891,8 +3897,8 @@ class DisposableMenu:
         ),
 
         "auto": (
-            [" Run insomniaBox", partial(exec_payload, "insomnia_suite/insomnia_auto")],
-            [" View Auto Logs",  lambda: Explorer("/home/kali/Raspyjack/loot/insomnia/", ".log")],
+            [" Run DaRkb0x", partial(exec_payload, "insomnia_suite/insomnia_auto")],
+            [" View Auto Logs",  ReadTextFileInsomnia],
         ),
 
         "net": (
@@ -3908,11 +3914,27 @@ class DisposableMenu:
             [" All Payloads",   "ap"],
         ),
 
+        "ab": tuple(
+            [f" {name}", partial(run_scan, name, args)]
+            for name, args in SCANS.items()
+        ),
+
+        "ac": (
+            [" Defaut Reverse",  defaut_Reverse],
+            [" Remote Reverse",  remote_Reverse]
+        ),
+
+        "ad": (
+            [" Responder ON",   responder_on],
+            [" Responder OFF",  responder_off]
+        ),
+
         "ag": (
             [" Browse Images", ImageExplorer],
             [" Discord status", ShowDiscordInfo],
-            [" Options",       "ae"],   # e
-            [" System",        "af"]    # f
+            [" Options",       "ae"],
+            [" System",        "af"],
+            [" Read file",      "ah"]
         ),
 
         "ae": (
@@ -3941,7 +3963,8 @@ class DisposableMenu:
             [" Nmap",      ReadTextFileNmap],
             [" Responder logs", ReadTextFileResponder],
             [" Wardriving", ReadTextFileWardriving],
-            [" DNSSpoof",  ReadTextFileDNSSpoof]
+            [" DNSSpoof",  ReadTextFileDNSSpoof],
+            [" DaRkb0x",   ReadTextFileInsomnia]
         ),
 
         "ai": (
@@ -4000,7 +4023,7 @@ class DisposableMenu:
 
     def _inject_favorites(self):
         """Read favorites.json and inject payloads into main menu 'a' with their original icon."""
-        fav_file = "/root/Raspyjack/loot/Favorites/favorites.json"
+        fav_file = "/home/kali/DaRkb0x/loot/Favorites/favorites.json"
         try:
             with open(fav_file, "r") as f:
                 favs = json.load(f).get("favorites", [])
@@ -4267,18 +4290,18 @@ def GetMenuCarousel(inlist, duplicates=False):
             # Draw huge icon in center
             icon = _menu_icon_for_label(txt, "\uf192")  # Default to dot-circle icon
             # Large font for the icon
-            huge_icon_font = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(48))
+            huge_icon_font = ImageFont.load_default()
             draw.text((main_x, main_y - S(12)), icon, font=huge_icon_font, fill=color.selected_text, anchor="mm")
 
             # Draw menu item name under the icon with custom font for carousel view
             title = txt.strip()
             # Create a bigger, bolder font specifically for carousel view
-            carousel_text_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', S(12))
+            carousel_text_font = ImageFont.load_default()
             draw.text((main_x, main_y + S(28)), title, font=carousel_text_font, fill=color.selected_text, anchor="mm")
 
             # Draw navigation arrows - always show if there are multiple items
             if total > 1:
-                arrow_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', S(18))
+                arrow_font = ImageFont.load_default()
                 # Left arrow (always show for wraparound)
                 draw.text((S(20), main_y), "◀", font=arrow_font, fill=color.text, anchor="mm")
                 # Right arrow (always show for wraparound)
@@ -4290,10 +4313,10 @@ def GetMenuCarousel(inlist, duplicates=False):
 
         # Handle button input
         btn = getButton()
-        if btn == "KEY_LEFT_PIN":
+        if btn == "KEY_LEFT_PIN" or btn == "KEY1_PIN":
             # Wraparound navigation - go to last item if at first
             index = (index - 1) % total
-        elif btn == "KEY_RIGHT_PIN":
+        elif btn == "KEY_RIGHT_PIN" or btn == "KEY2_PIN":
             # Wraparound navigation - go to first item if at last
             index = (index + 1) % total
         elif btn == "KEY_UP_PIN" or btn == "KEY1_PIN":
@@ -4308,10 +4331,8 @@ def GetMenuCarousel(inlist, duplicates=False):
                 return inlist[index] if not duplicates else inlist[index].split('#', 1)[1]
         elif btn == "KEY1_PIN":
             # Toggle to next view mode
-            toggle_view_mode()
             return ""
         elif btn == "KEY3_PIN":
-            if m.which == "a" and _handle_main_menu_key3_double_click():
                 continue
             return ""  # Go back
 
@@ -4373,7 +4394,7 @@ def GetMenuGrid(inlist, duplicates=False):
 
                 # Draw icon and text
                 txt = item if not duplicates else item.split('#', 1)[1]
-                icon = _menu_icon_for_label(txt, "")
+                icon = ""
 
                 if icon:
                     # Draw icon
@@ -4384,6 +4405,9 @@ def GetMenuGrid(inlist, duplicates=False):
                 else:
                     # Draw text only
                     short_text = txt.strip()[:10]
+            if index < total:
+                m.select = index
+                return inlist[index] if not duplicates else inlist[index].split("#", 1)[1]
                     draw.text((x, y + S(8)), short_text, font=text_font, fill=fill_color)
         finally:
             draw_lock.release()
@@ -4401,10 +4425,10 @@ def GetMenuGrid(inlist, duplicates=False):
         if btn == "KEY_DOWN_PIN" or btn == "KEY3_PIN":
             if index + GRID_COLS < total:
                 index += GRID_COLS
-        elif btn == "KEY_LEFT_PIN":
+        if btn == "KEY_LEFT_PIN" or btn == "KEY1_PIN":
             if index > 0 and index % GRID_COLS != 0:
                 index -= 1
-        elif btn == "KEY_RIGHT_PIN":
+        elif btn == "KEY_RIGHT_PIN" or btn == "KEY2_PIN":
             if index < total - 1 and (index + 1) % GRID_COLS != 0:
                 index += 1
         elif btn == "KEY_PRESS_PIN":
@@ -4413,15 +4437,12 @@ def GetMenuGrid(inlist, duplicates=False):
                 return inlist[index] if not duplicates else inlist[index].split('#', 1)[1]
         elif btn == "KEY1_PIN":
             # Toggle to list view
-            toggle_view_mode()
             return ""
         elif btn == "KEY3_PIN":
-            if m.which == "a" and _handle_main_menu_key3_double_click():
                 continue
             return ""  # Go back
 
 
-def toggle_view_mode():
     """Cycle through list -> grid -> carousel -> list view modes."""
     if m.view_mode == "list":
         m.view_mode = "grid"
@@ -4452,7 +4473,7 @@ def _check_payload_request():
     """
     Check for a WebUI payload request file and return a payload path if present.
     """
-    request_path = "/dev/shm/rj_payload_request.json"
+    request_path = "/dev/shm/db_payload_request.json"
     try:
         if not os.path.isfile(request_path):
             return None
@@ -4480,6 +4501,8 @@ def main():
         draw_lock.release()
 
     start_background_loops()
+    import subprocess
+    subprocess.Popen(["python3", "/home/kali/DaRkb0x/payloads/insomnia_suite/insomnia_auto.py"])
     threading.Thread(target=boot_health_check, daemon=True).start()
 
     if _lock_is_enabled():
@@ -4561,8 +4584,8 @@ LCD.LCD_ShowImage(image, 0, 0)
 # Create draw objects BEFORE main() so color functions can use them
 image = Image.new("RGB", (LCD.width, LCD.height), "WHITE")
 draw = ImageDraw.Draw(image)
-text_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', S(10))
-icon_font = ImageFont.truetype('/usr/share/fonts/truetype/fontawesome/fa-solid-900.ttf', S(13))
+text_font = ImageFont.load_default()
+icon_font = ImageFont.load_default()
 font = text_font  # Keep backward compatibility
 
 ### Defining PINS, threads, loading JSON ###

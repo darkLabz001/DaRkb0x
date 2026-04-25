@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Reverse Shell DuckyScript Generator
+DaRkb0x Payload -- Reverse Shell DuckyScript Generator
 ---------------------------------------------------------
 Author: 7h30th3r0n3
 
 Generate DuckyScript payloads that establish reverse shells on targets.
 Select target OS, shell type, callback IP/port via on-device menus.
-Saves generated scripts to /root/Raspyjack/loot/DuckyPayloads/.
+Saves generated scripts to /root/DaRkb0x/loot/DuckyPayloads/.
 
 Controls:
   UP/DOWN  = navigate menus / scroll preview
@@ -49,7 +49,7 @@ font = scaled_font()
 
 DEBOUNCE = 0.25
 ROW_H = 12
-LOOT_DIR = "/root/Raspyjack/loot/DuckyPayloads"
+LOOT_DIR = "/root/DaRkb0x/loot/DuckyPayloads"
 USB_MOUNT_PATHS = ["/media/usb", "/mnt/usb", "/media/pi"]
 
 TARGET_OS_LIST = ["Windows", "Linux", "Mac"]

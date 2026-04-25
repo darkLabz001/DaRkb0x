@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- GPS Setup & Doctor
+DaRkb0x Payload -- GPS Setup & Doctor
 ========================================
 Author: 7h30th3r0n3 / custom
 
@@ -82,7 +82,7 @@ _scroll_idx   = 0       # scroll offset (review mode)
 _review_mode  = False   # True after completion
 
 TOTAL_STEPS      = 9
-GPS_TRACKER_PATH = "/root/Raspyjack/payloads/hardware/gps_tracker.py"
+GPS_TRACKER_PATH = "/root/DaRkb0x/payloads/hardware/gps_tracker.py"
 GPSD_DEFAULT     = "/etc/default/gpsd"
 
 # ── Display ───────────────────────────────────────────────────────────────────

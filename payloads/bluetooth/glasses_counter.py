@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Smart Glasses Counter-Attack
+DaRkb0x Payload -- Smart Glasses Counter-Attack
 ===================================================
 Author: 7h30th3r0n3
 
@@ -31,7 +31,7 @@ Controls
   UP / DOWN   -- Scroll list or adjust attack speed
   KEY3        -- Exit (or back from sub-screen)
 
-Loot: /root/Raspyjack/loot/GlassesCounter/
+Loot: /root/DaRkb0x/loot/GlassesCounter/
 """
 
 from __future__ import annotations
@@ -88,7 +88,7 @@ WIDTH = LCD_1in44.LCD_WIDTH if LCD_1in44 else 128
 HEIGHT = LCD_1in44.LCD_HEIGHT if LCD_1in44 else 128
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-LOOT_DIR = "/root/Raspyjack/loot/GlassesCounter"
+LOOT_DIR = "/root/DaRkb0x/loot/GlassesCounter"
 
 # ── Smart Glasses BLE Identifiers ────────────────────────────────────────────
 

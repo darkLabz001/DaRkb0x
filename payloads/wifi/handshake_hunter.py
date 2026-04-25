@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WPA2 Handshake Hunter
+DaRkb0x Payload -- WPA2 Handshake Hunter
 ===========================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2       -- Export pcap to loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/Handshakes/hs_YYYYMMDD_HHMMSS.pcap
+Loot: /root/DaRkb0x/loot/Handshakes/hs_YYYYMMDD_HHMMSS.pcap
 """
 
 import os
@@ -62,7 +62,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 6
 ROW_H = 12
-LOOT_DIR = "/root/Raspyjack/loot/Handshakes"
+LOOT_DIR = "/root/DaRkb0x/loot/Handshakes"
 CHANNELS_24 = list(range(1, 14))
 
 # ---------------------------------------------------------------------------
@@ -450,7 +450,7 @@ def _export_loot():
     return os.path.basename(filepath)
 
 
-HASHTOPOLIS_CONFIG = "/root/Raspyjack/loot/Hashtopolis/config.json"
+HASHTOPOLIS_CONFIG = "/root/DaRkb0x/loot/Hashtopolis/config.json"
 
 
 def _hashtopolis_upload(filepath):
@@ -469,7 +469,7 @@ def _hashtopolis_upload(filepath):
             status_msg = "Uploading to Hashtopolis..."
         import urllib.request
         import urllib.error
-        boundary = "----RaspyJackBoundary"
+        boundary = "----DaRkb0xBoundary"
         filename = os.path.basename(filepath)
         with open(filepath, "rb") as f:
             file_data = f.read()

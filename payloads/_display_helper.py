@@ -20,7 +20,7 @@ from PIL import ImageDraw, ImageFont
 _DISPLAY_TYPE = "ST7735_128"
 _CONF_PATHS = [
     os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "gui_conf.json"),
-    "/root/Raspyjack/gui_conf.json",
+    "/root/DaRkb0x/gui_conf.json",
 ]
 for _p in _CONF_PATHS:
     if os.path.isfile(_p):

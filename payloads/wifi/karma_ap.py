@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- KARMA AP
+DaRkb0x Payload -- KARMA AP
 ===============================
 Author: 7h30th3r0n3
 
@@ -27,7 +27,7 @@ Controls:
   KEY2      -- Show connected clients
   KEY3      -- Exit + full cleanup
 
-Loot: /root/Raspyjack/loot/KarmaAP/
+Loot: /root/DaRkb0x/loot/KarmaAP/
 """
 
 import os
@@ -67,11 +67,11 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/KarmaAP"
+LOOT_DIR = "/root/DaRkb0x/loot/KarmaAP"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
-HOSTAPD_CONF = "/tmp/raspyjack_karma_hostapd.conf"
-DNSMASQ_CONF = "/tmp/raspyjack_karma_dnsmasq.conf"
+HOSTAPD_CONF = "/tmp/darkbox_karma_hostapd.conf"
+DNSMASQ_CONF = "/tmp/darkbox_karma_dnsmasq.conf"
 PORTAL_PORT = 80
 GATEWAY_IP = "10.0.77.1"
 DHCP_RANGE_START = "10.0.77.10"
@@ -279,7 +279,7 @@ border-radius:4px;cursor:pointer;font-size:15px}
 <button type="submit">Connect</button>
 </form></div></body></html>"""
 
-PORTAL_SITES_DIR = "/root/Raspyjack/DNSSpoof/sites"
+PORTAL_SITES_DIR = "/root/DaRkb0x/DNSSpoof/sites"
 selected_portal_path = None  # None = use built-in default
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Simon Says memory game
+DaRkb0x Payload -- Simon Says memory game
 ---------------------------------------------
 Author: 7h30th3r0n3
 

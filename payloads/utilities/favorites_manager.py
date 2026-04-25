@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Payload Favorites Manager
+DaRkb0x Payload -- Payload Favorites Manager
 ================================================
 Author: 7h30th3r0n3
 
@@ -40,7 +40,7 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROW_H = 12
 VISIBLE = 7
 PAYLOADS_DIR = os.path.abspath(os.path.join(__file__, "..", ".."))
-LOOT_DIR = "/root/Raspyjack/loot/Favorites"
+LOOT_DIR = "/root/DaRkb0x/loot/Favorites"
 FAVORITES_PATH = os.path.join(LOOT_DIR, "favorites.json")
 
 CATEGORY_ORDER = [

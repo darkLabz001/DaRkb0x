@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Network War Game
+DaRkb0x Payload -- Network War Game
 --------------------------------------
 Author: 7h30th3r0n3
 

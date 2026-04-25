@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- USB Drive Auto-Copy
+DaRkb0x Payload -- USB Drive Auto-Copy
 ==========================================
 Author: 7h30th3r0n3
 
 Monitors for USB mass storage insertion using pyudev (or polling /dev/sd*).
-When detected: mount the drive, copy all of /root/Raspyjack/loot/ to the
+When detected: mount the drive, copy all of /root/DaRkb0x/loot/ to the
 USB under a timestamped folder, then unmount.
 
 Setup / Prerequisites
@@ -55,8 +55,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_ROOT = "/root/Raspyjack/loot"
-MOUNT_POINT = "/mnt/raspyjack_usb"
+LOOT_ROOT = "/root/DaRkb0x/loot"
+MOUNT_POINT = "/mnt/darkbox_usb"
 os.makedirs(MOUNT_POINT, exist_ok=True)
 
 DEBOUNCE = 0.22
@@ -223,7 +223,7 @@ def _do_copy():
 
     # Create timestamped folder
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    dest_dir = os.path.join(MOUNT_POINT, f"RaspyJack_Loot_{ts}")
+    dest_dir = os.path.join(MOUNT_POINT, f"DaRkb0x_Loot_{ts}")
     os.makedirs(dest_dir, exist_ok=True)
 
     total = _count_files()

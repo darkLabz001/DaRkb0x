@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload – Mini Honeypot
+DaRkb0x payload – Mini Honeypot
 =================================
 
 Lightweight, low‑interaction honeypot that listens on multiple TCP ports
@@ -557,13 +557,13 @@ class Honeypot:
                 {"name": "Total", "value": str(total_hits), "inline": True},
                 {"name": "Port Hits", "value": str(port_hits), "inline": True},
             ],
-            "footer": {"text": f"RaspyJack Honeypot • session {self.session_start}"},
+            "footer": {"text": f"DaRkb0x Honeypot • session {self.session_start}"},
         }
         if links:
             embed["fields"].append({"name": "Lookup", "value": links, "inline": False})
 
         payload: Dict[str, object] = {
-            "username": "RaspyJack Honeypot",
+            "username": "DaRkb0x Honeypot",
             "content": "",  # keep content empty; embed carries the data
             "embeds": [embed],
             "allowed_mentions": {"parse": []},
@@ -958,7 +958,7 @@ def parse_ports_arg(ports_arg: str) -> List[Tuple[int, str]]:
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="RaspyJack mini honeypot payload")
+    p = argparse.ArgumentParser(description="DaRkb0x mini honeypot payload")
     p.add_argument("--profile", choices=sorted(DEFAULT_PROFILES.keys()), default="basic", help="Service profile")
     p.add_argument("--ports", default="", help="Comma list of PORT[:service], overrides --profile if set")
     p.add_argument("--bind", default="0.0.0.0", help="Bind address (default: 0.0.0.0)")

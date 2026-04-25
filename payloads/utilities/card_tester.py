@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Card Tester
+DaRkb0x Payload -- Card Tester
 ==================================
 Author: 7h30th3r0n3
 

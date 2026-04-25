@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- IGMP Snoop
+DaRkb0x Payload -- IGMP Snoop
 =================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2      -- Export data
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/IGMPSnoop/
+Loot: /root/DaRkb0x/loot/IGMPSnoop/
 
 Setup: Passive only — no injection.
 """
@@ -66,7 +66,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/IGMPSnoop"
+LOOT_DIR = "/root/DaRkb0x/loot/IGMPSnoop"
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROWS_VISIBLE = 6
 

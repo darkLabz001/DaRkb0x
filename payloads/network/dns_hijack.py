@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- DNS Hijack
+DaRkb0x Payload -- DNS Hijack
 ================================
 Author: 7h30th3r0n3
 
@@ -18,7 +18,7 @@ Controls:
   KEY2       -- Export intercepted log
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/DNSHijack/
+Loot: /root/DaRkb0x/loot/DNSHijack/
 """
 
 import os
@@ -66,7 +66,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/DNSHijack"
+LOOT_DIR = "/root/DaRkb0x/loot/DNSHijack"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 ROWS_VISIBLE = 5

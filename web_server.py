@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack WebUI HTTP server
+DaRkb0x WebUI HTTP server
 ---------------------------
 Serves the static WebUI and exposes a small, read-only API to browse loot/.
 
@@ -15,14 +15,14 @@ Routes:
   /api/auth/*         -> bootstrap/login/session endpoints
 
 Environment:
-  RJ_WEB_HOST  Host to bind (default: 0.0.0.0)
-  RJ_WEB_PORT  Port to bind (default: 8080)
-  RJ_WS_TOKEN  Optional shared token for API access (Bearer header)
-  RJ_WS_TOKEN_FILE Optional token file (default: <repo>/.webui_token)
-  RJ_WEB_AUTH_FILE Auth user storage file (default: /root/Raspyjack/.webui_auth.json)
-  RJ_WEB_AUTH_SECRET_FILE Session signing secret file (default: /root/Raspyjack/.webui_session_secret)
-  RJ_WEB_SESSION_TTL Session lifetime seconds (default: 28800)
-  RJ_WEB_WS_TICKET_TTL WS ticket lifetime seconds (default: 120)
+  DB_WEB_HOST  Host to bind (default: 0.0.0.0)
+  DB_WEB_PORT  Port to bind (default: 8080)
+  DB_WS_TOKEN  Optional shared token for API access (Bearer header)
+  DB_WS_TOKEN_FILE Optional token file (default: <repo>/.webui_token)
+  DB_WEB_AUTH_FILE Auth user storage file (default: /root/DaRkb0x/.webui_auth.json)
+  DB_WEB_AUTH_SECRET_FILE Session signing secret file (default: /root/DaRkb0x/.webui_session_secret)
+  DB_WEB_SESSION_TTL Session lifetime seconds (default: 28800)
+  DB_WEB_WS_TICKET_TTL WS ticket lifetime seconds (default: 120)
 """
 
 from __future__ import annotations
@@ -51,22 +51,22 @@ ROOT_DIR = Path(__file__).resolve().parent
 WEB_DIR = ROOT_DIR / "web"
 LOOT_DIR = ROOT_DIR / "loot"
 PAYLOADS_DIR = ROOT_DIR / "payloads"
-PAYLOAD_STATE_PATH = Path("/dev/shm/rj_payload_state.json")
+PAYLOAD_STATE_PATH = Path("/dev/shm/db_payload_state.json")
 DISCORD_WEBHOOK_PATH = ROOT_DIR / "discord_webhook.txt"
 WIGLE_CREDENTIALS_PATH = ROOT_DIR / ".wigle_credentials.json"
-TOKEN_FILE = Path(os.environ.get("RJ_WS_TOKEN_FILE", str(ROOT_DIR / ".webui_token")))
-AUTH_FILE = Path(os.environ.get("RJ_WEB_AUTH_FILE", "/root/Raspyjack/.webui_auth.json"))
-AUTH_SECRET_FILE = Path(os.environ.get("RJ_WEB_AUTH_SECRET_FILE", "/root/Raspyjack/.webui_session_secret"))
-SESSION_COOKIE_NAME = "rj_session"
-SESSION_TTL_SECONDS = int(os.environ.get("RJ_WEB_SESSION_TTL", str(8 * 60 * 60)))
-WS_TICKET_TTL_SECONDS = int(os.environ.get("RJ_WEB_WS_TICKET_TTL", "120"))
+TOKEN_FILE = Path(os.environ.get("DB_WS_TOKEN_FILE", str(ROOT_DIR / ".webui_token")))
+AUTH_FILE = Path(os.environ.get("DB_WEB_AUTH_FILE", "/root/DaRkb0x/.webui_auth.json"))
+AUTH_SECRET_FILE = Path(os.environ.get("DB_WEB_AUTH_SECRET_FILE", "/root/DaRkb0x/.webui_session_secret"))
+SESSION_COOKIE_NAME = "db_session"
+SESSION_TTL_SECONDS = int(os.environ.get("DB_WEB_SESSION_TTL", str(8 * 60 * 60)))
+WS_TICKET_TTL_SECONDS = int(os.environ.get("DB_WEB_WS_TICKET_TTL", "120"))
 TAILSCALE_KEY_PATH = ROOT_DIR / ".tailscale_auth_key"
-TAILSCALE_STATUS_PATH = Path("/dev/shm/rj_tailscale_status.json")
+TAILSCALE_STATUS_PATH = Path("/dev/shm/db_tailscale_status.json")
 
 
 def _load_shared_token() -> str | None:
     """Load auth token from env first, then token file."""
-    env_token = str(os.environ.get("RJ_WS_TOKEN", "")).strip()
+    env_token = str(os.environ.get("DB_WS_TOKEN", "")).strip()
     if env_token:
         return env_token
     try:
@@ -107,8 +107,8 @@ def _load_or_create_auth_secret() -> str:
         pass
     return generated
 
-HOST = os.environ.get("RJ_WEB_HOST", "0.0.0.0")
-PORT = int(os.environ.get("RJ_WEB_PORT", "8080"))
+HOST = os.environ.get("DB_WEB_HOST", "0.0.0.0")
+PORT = int(os.environ.get("DB_WEB_PORT", "8080"))
 TOKEN = _load_shared_token()
 AUTH_SECRET = _load_or_create_auth_secret()
 
@@ -142,8 +142,8 @@ def _get_webui_bind_addrs() -> list[tuple[str, str]]:
     # Always include localhost for local access
     addrs.append(("127.0.0.1", "lo"))
     return addrs
-PREVIEW_MAX_BYTES = int(os.environ.get("RJ_LOOT_PREVIEW_MAX", str(200 * 1024)))
-PAYLOAD_MAX_BYTES = int(os.environ.get("RJ_PAYLOAD_MAX", str(512 * 1024)))
+PREVIEW_MAX_BYTES = int(os.environ.get("DB_LOOT_PREVIEW_MAX", str(200 * 1024)))
+PAYLOAD_MAX_BYTES = int(os.environ.get("DB_PAYLOAD_MAX", str(512 * 1024)))
 TEXT_EXTS = {
     ".txt", ".log", ".md", ".json", ".csv", ".conf", ".ini", ".yaml", ".yml",
     ".pcapng.txt", ".xml", ".sqlite", ".db", ".out", ".py", ".sh"
@@ -315,7 +315,7 @@ def _tailscale_write_key(key: str) -> tuple[bool, str]:
 def _regenerate_caddyfile_and_reload() -> None:
     """
     Regenerate /etc/caddy/Caddyfile with current IPs (eth0, wlan0, tailscale0)
-    and reload Caddy. Same logic as install_raspyjack.sh so that installing
+    and reload Caddy. Same logic as install_darkbox.sh so that installing
     Tailscale from the WebUI updates HTTPS to listen on the Tailscale IP
     without re-running the install script.
     """
@@ -346,7 +346,7 @@ def _regenerate_caddyfile_and_reload() -> None:
 
     caddy_site_addrs = ", ".join(hosts)
     caddyfile_content = f"""{{
-    # RaspyJack self-signed internal CA (local trust only)
+    # DaRkb0x self-signed internal CA (local trust only)
     auto_https disable_redirects
 }}
 
@@ -366,7 +366,7 @@ def _regenerate_caddyfile_and_reload() -> None:
 }}
 """
 
-    tmp = Path("/dev/shm/rj_caddyfile_tmp")
+    tmp = Path("/dev/shm/db_caddyfile_tmp")
     try:
         tmp.write_text(caddyfile_content, encoding="utf-8")
         subprocess.run(
@@ -599,11 +599,12 @@ def _read_meminfo() -> tuple[int, int]:
         return 0, 0
 
 
-def _read_temp_c() -> float | None:
+def _read_temp_f() -> float | None:
     try:
         raw = Path("/sys/class/thermal/thermal_zone0/temp").read_text(encoding="utf-8").strip()
         val = float(raw)
-        return val / 1000.0 if val > 1000 else val
+        c = val / 1000.0 if val > 1000 else val
+        return (c * 9/5) + 32
     except Exception:
         return None
 
@@ -881,7 +882,7 @@ def _is_text_file(path: Path) -> bool:
     return False
 
 
-class RaspyJackHandler(SimpleHTTPRequestHandler):
+class DaRkb0xHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(WEB_DIR), **kwargs)
 
@@ -1194,7 +1195,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
             return
 
         try:
-            request_path = Path("/dev/shm/rj_payload_request.json")
+            request_path = Path("/dev/shm/db_payload_request.json")
             request_path.write_text(json.dumps({
                 "action": "start",
                 "path": rel_path,
@@ -1494,8 +1495,8 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
     # ── Wardriving API ────────────────────────────────────────────
     def _handle_wardriving_sessions(self) -> None:
         """List all wardriving session files."""
-        sessions_dir = "/root/Raspyjack/loot/wardriving/sessions"
-        loot_dir = "/root/Raspyjack/loot/wardriving"
+        sessions_dir = "/root/DaRkb0x/loot/wardriving/sessions"
+        loot_dir = "/root/DaRkb0x/loot/wardriving"
         result = []
         # Session files
         if os.path.isdir(sessions_dir):
@@ -1518,7 +1519,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
 
     def _handle_wardriving_live(self) -> None:
         """Serve the live wardriving CSV."""
-        path = "/root/Raspyjack/loot/wardriving/wardriving_live.csv"
+        path = "/root/DaRkb0x/loot/wardriving/wardriving_live.csv"
         if os.path.isfile(path):
             self.send_response(200)
             self.send_header("Content-Type", "text/csv")
@@ -1533,7 +1534,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
         """Serve a specific session CSV file."""
         path = query.get("path", [""])[0]
         # Security: only allow files in the wardriving loot dir
-        if not path or not path.startswith("/root/Raspyjack/loot/wardriving/"):
+        if not path or not path.startswith("/root/DaRkb0x/loot/wardriving/"):
             self.send_response(403)
             self.end_headers()
             return
@@ -1556,7 +1557,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
                 if pdata.get("running"):
                     _json_response(self, {"ok": True, "status": "already_running", "path": pdata.get("path")})
                     return
-            request_path = Path("/dev/shm/rj_payload_request.json")
+            request_path = Path("/dev/shm/db_payload_request.json")
             request_path.write_text(json.dumps({
                 "action": "start",
                 "path": "reconnaissance/wardriving.py",
@@ -1567,9 +1568,9 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
             _json_response(self, {"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def _handle_wardriving_stop(self) -> None:
-        """Stop the currently running payload by sending KEY3 via rj_input socket."""
+        """Stop the currently running payload by sending KEY3 via db_input socket."""
         try:
-            sock_path = "/dev/shm/rj_input.sock"
+            sock_path = "/dev/shm/db_input.sock"
             if not os.path.exists(sock_path):
                 _json_response(self, {"ok": False, "error": "input socket not found"})
                 return
@@ -1589,7 +1590,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
             cpu = _read_cpu_percent()
             mem_used, mem_total = _read_meminfo()
             du = shutil.disk_usage("/")
-            temp_c = _read_temp_c()
+            temp_f = _read_temp_f()
             uptime_s = _read_uptime_seconds()
             ifaces = _read_ipv4_interfaces()
             load1, load5, load15 = os.getloadavg()
@@ -1610,7 +1611,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
                 "mem_total": mem_total,
                 "disk_used": int(du.used),
                 "disk_total": int(du.total),
-                "temp_c": (round(temp_c, 1) if temp_c is not None else None),
+                "temp_f": (round(temp_f, 1) if temp_f is not None else None),
                 "uptime_s": uptime_s,
                 "load": [round(load1, 2), round(load5, 2), round(load15, 2)],
                 "interfaces": ifaces,
@@ -1623,7 +1624,7 @@ class RaspyJackHandler(SimpleHTTPRequestHandler):
     def _handle_system_restart_ui(self) -> None:
         try:
             subprocess.run(
-                ["systemctl", "restart", "raspyjack.service"],
+                ["systemctl", "restart", "darkbox.service"],
                 check=True,
                 capture_output=True,
                 text=True,
@@ -1839,11 +1840,11 @@ def main() -> None:
     if TOKEN:
         print("[WebUI] Token auth enabled")
     else:
-        print("[WebUI] WARNING: Token auth disabled (set RJ_WS_TOKEN or token file)")
+        print("[WebUI] WARNING: Token auth disabled (set DB_WS_TOKEN or token file)")
 
     # If a specific host was set via env var, honour it as-is (single bind)
     if HOST != "0.0.0.0":
-        server = ThreadingHTTPServer((HOST, PORT), RaspyJackHandler)
+        server = ThreadingHTTPServer((HOST, PORT), DaRkb0xHandler)
         print(f"[WebUI] Serving on http://{HOST}:{PORT}")
         try:
             server.serve_forever()
@@ -1859,7 +1860,7 @@ def main() -> None:
 
     for addr, iface in bind_addrs:
         try:
-            srv = ThreadingHTTPServer((addr, PORT), RaspyJackHandler)
+            srv = ThreadingHTTPServer((addr, PORT), DaRkb0xHandler)
             servers.append(srv)
             threading.Thread(target=srv.serve_forever, daemon=True).start()
             print(f"[WebUI] Serving on http://{addr}:{PORT} ({iface})")
@@ -1869,7 +1870,7 @@ def main() -> None:
     if not servers:
         # Last resort — fall back to all interfaces so the WebUI is not dead
         print("[WebUI] WARNING: No WebUI interfaces available, falling back to 0.0.0.0")
-        srv = ThreadingHTTPServer(("0.0.0.0", PORT), RaspyJackHandler)
+        srv = ThreadingHTTPServer(("0.0.0.0", PORT), DaRkb0xHandler)
         print(f"[WebUI] Serving on http://0.0.0.0:{PORT}")
         try:
             srv.serve_forever()

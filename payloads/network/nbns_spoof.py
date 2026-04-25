@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NBNS Spoof
+DaRkb0x Payload -- NBNS Spoof
 =================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2      -- Export captured data
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/NBNSSpoof/
+Loot: /root/DaRkb0x/loot/NBNSSpoof/
 
 Setup: No special requirements. Complements Responder.
 """
@@ -76,7 +76,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/NBNSSpoof"
+LOOT_DIR = "/root/DaRkb0x/loot/NBNSSpoof"
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROWS_VISIBLE = 6
 NBNS_PORT = 137

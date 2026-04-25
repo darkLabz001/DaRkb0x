@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Pac-Man
+DaRkb0x Payload -- Pac-Man
 -----------------------------
 Author: 7h30th3r0n3
 

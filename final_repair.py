@@ -1,6 +1,6 @@
 import os
 
-with open('raspyjack_fixed_v2.py', 'r') as f:
+with open('darkbox_fixed_v2.py', 'r') as f:
     lines = f.readlines()
 
 new_lines = []
@@ -12,6 +12,6 @@ for line in lines:
     else:
         new_lines.append(line)
 
-with open('raspyjack_final.py', 'w') as f:
+with open('darkbox_final.py', 'w') as f:
     f.writelines(new_lines)
 print("Final repair complete.")

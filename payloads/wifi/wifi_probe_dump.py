@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WiFi Probe Request Dump
+DaRkb0x Payload -- WiFi Probe Request Dump
 =============================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2       -- Export to JSON loot
   KEY3       -- Exit
 
-Loot: /root/Raspyjack/loot/ProbesDump/probes_YYYYMMDD_HHMMSS.json
+Loot: /root/DaRkb0x/loot/ProbesDump/probes_YYYYMMDD_HHMMSS.json
 """
 
 import os
@@ -59,7 +59,7 @@ WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 7
 ROW_H = 12
 
-LOOT_DIR = "/root/Raspyjack/loot/ProbesDump"
+LOOT_DIR = "/root/DaRkb0x/loot/ProbesDump"
 
 # Channels to hop through (2.4 GHz)
 CHANNELS_24 = list(range(1, 14))

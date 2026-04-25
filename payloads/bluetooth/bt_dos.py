@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Bluetooth L2CAP Ping Flood
+DaRkb0x Payload -- Bluetooth L2CAP Ping Flood
 ================================================
 Author: 7h30th3r0n3
 

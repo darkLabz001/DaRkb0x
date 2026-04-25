@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Process Manager / Killer
+DaRkb0x Payload -- Process Manager / Killer
 ===============================================
 Author: 7h30th3r0n3
 

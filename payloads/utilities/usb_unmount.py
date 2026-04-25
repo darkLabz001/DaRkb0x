@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- USB Safe Unmount
+DaRkb0x Payload -- USB Safe Unmount
 ======================================
 Author: 7h30th3r0n3
 

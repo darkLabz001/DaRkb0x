@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WiFi Antenna Diagnostics
+DaRkb0x Payload -- WiFi Antenna Diagnostics
 ================================================
 Author: 7h30th3r0n3
 

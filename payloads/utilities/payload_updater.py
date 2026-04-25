@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Payload Updater
+DaRkb0x Payload -- Payload Updater
 ======================================
 Author: 7h30th3r0n3
 
@@ -45,7 +45,7 @@ PINS = {
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 
-RASPYJACK_DIR = "/root/Raspyjack"
+RASPYJACK_DIR = "/root/DaRkb0x"
 GIT_REMOTE = "origin"
 GIT_BRANCH = "main"
 

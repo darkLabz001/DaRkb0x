@@ -1,5 +1,5 @@
 """
-Shared input helper for RaspyJack payloads.
+Shared input helper for DaRkb0x payloads.
 Checks WebUI virtual input first, then falls back to GPIO.
 Reads flip setting from gui_conf.json to swap controls when flipped.
 """
@@ -10,9 +10,9 @@ import time
 import uuid
 
 try:
-    import rj_input
+    import db_input
 except Exception:
-    rj_input = None
+    db_input = None
 
 _VIRTUAL_TO_BTN = {
     "KEY_UP_PIN": "UP",
@@ -39,10 +39,10 @@ _flip_enabled = None  # None = not yet loaded, lazy init on first use
 
 _CONF_PATHS = [
     os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "gui_conf.json"),
-    "/root/Raspyjack/gui_conf.json",
+    "/root/DaRkb0x/gui_conf.json",
 ]
-_TEXT_SESSION_FILE = os.environ.get("RJ_TEXT_SESSION_FILE", "/dev/shm/rj_text_session.json")
-_TEXT_SESSION_TIMEOUT = float(os.environ.get("RJ_TEXT_SESSION_TIMEOUT", "30"))
+_TEXT_SESSION_FILE = os.environ.get("DB_TEXT_SESSION_FILE", "/dev/shm/db_text_session.json")
+_TEXT_SESSION_TIMEOUT = float(os.environ.get("DB_TEXT_SESSION_TIMEOUT", "30"))
 
 
 def _is_flip_enabled():
@@ -71,10 +71,10 @@ def _flip(btn):
 
 def get_virtual_button():
     """Return a WebUI virtual button name or None."""
-    if rj_input is None:
+    if db_input is None:
         return None
     try:
-        name = rj_input.get_virtual_button()
+        name = db_input.get_virtual_button()
     except Exception:
         return None
     if not name:
@@ -98,10 +98,10 @@ def get_button(pins, gpio):
 
 def get_held_buttons():
     """Return set of currently held WebUI button names (for continuous input like games)."""
-    if rj_input is None:
+    if db_input is None:
         return set()
     try:
-        held = rj_input.get_held_buttons()
+        held = db_input.get_held_buttons()
     except Exception:
         return set()
     mapped = {_VIRTUAL_TO_BTN.get(b, b) for b in held if b in _VIRTUAL_TO_BTN}
@@ -133,9 +133,9 @@ def open_remote_text_session(title="Input", default="", charset="full", max_len=
         "timeout": _TEXT_SESSION_TIMEOUT,
     }
     _write_text_session(payload)
-    if rj_input is not None:
+    if db_input is not None:
         try:
-            rj_input.flush_text_events()
+            db_input.flush_text_events()
         except Exception:
             pass
     return session_id
@@ -163,11 +163,11 @@ def close_remote_text_session(session_id=None):
 
 
 def get_remote_text_event(session_id=None):
-    if rj_input is None:
+    if db_input is None:
         return None
     for _ in range(4):
         try:
-            event = rj_input.get_text_event()
+            event = db_input.get_text_event()
         except Exception:
             return None
         if not event:
@@ -183,8 +183,8 @@ def get_remote_text_event(session_id=None):
 
 def flush_input():
     """Clear all queued and held button state."""
-    if rj_input is not None:
+    if db_input is not None:
         try:
-            rj_input.flush()
+            db_input.flush()
         except Exception:
             pass

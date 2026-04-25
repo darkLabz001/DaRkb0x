@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack payload -- Asteroids
+DaRkb0x payload -- Asteroids
 ==============================
 Author: 7h30th3r0n3
 

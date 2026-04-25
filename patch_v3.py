@@ -2,15 +2,15 @@ import sys
 import os
 
 def patch_clean():
-    with open('raspyjack_clean.py', 'r') as f:
+    with open('darkbox_clean.py', 'r') as f:
         lines = f.readlines()
     
     new_lines = []
     skip_menu = False
     for line in lines:
         # 1. Branding
-        if 'install_path = "/root/Raspyjack/"' in line:
-            new_lines.append('    install_path = "/home/kali/Raspyjack/"\n')
+        if 'install_path = "/root/DaRkb0x/"' in line:
+            new_lines.append('    install_path = "/home/kali/DaRkb0x/"\n')
             continue
         
         # 2. Main Menu Restructure
@@ -25,8 +25,8 @@ def patch_clean():
             new_lines.append('            [" Lock",           OpenLockMenu],\n')
             new_lines.append('        ),\n\n')
             new_lines.append('        "auto": (\n')
-            new_lines.append('            [" Run insomniaBox", partial(exec_payload, "insomnia_suite/insomnia_auto")],\n')
-            new_lines.append('            [" View Auto Logs",  lambda: Explorer("/home/kali/Raspyjack/loot/insomnia/", ".log")],\n')
+            new_lines.append('            [" Run DaRkb0x", partial(exec_payload, "insomnia_suite/insomnia_auto")],\n')
+            new_lines.append('            [" View Auto Logs",  lambda: Explorer("/home/kali/DaRkb0x/loot/insomnia/", ".log")],\n')
             new_lines.append('        ),\n\n')
             new_lines.append('        "net": (\n')
             new_lines.append('            [" Scan Nmap",      "ab"],\n')
@@ -61,7 +61,7 @@ def patch_clean():
             
         new_lines.append(line)
         
-    with open('raspyjack_final_v3.py', 'w') as f:
+    with open('darkbox_final_v3.py', 'w') as f:
         f.writelines(new_lines)
     print("Patch V3 applied.")
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack LiveCam Detector
+DaRkb0x LiveCam Detector
 ================================
 Standalone camera detection + live‑view monitoring.
 Based on wardriving engine with camera‑specific detection and activity alerts.
@@ -30,7 +30,7 @@ from datetime import datetime
 
 # Add root directory to path
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..")))
-sys.path.append('/root/Raspyjack/wifi/')
+sys.path.append('/root/DaRkb0x/wifi/')
 
 # Import wardriving engine (not cam_finder)
 try:
@@ -1141,7 +1141,7 @@ class LiveCamDetector(WardrivingScanner):
     def run_interactive(self):
         """Run interactive LiveCam Detector session."""
         try:
-            print("RaspyJack LiveCam Detector")
+            print("DaRkb0x LiveCam Detector")
             print("===============================")
             print("Detects security cameras and live viewing activity.")
             print("Use hardware buttons (LCD) or console commands.\n")

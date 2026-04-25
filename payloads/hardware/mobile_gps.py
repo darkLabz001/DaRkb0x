@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Mobile GPS Receiver
+DaRkb0x Payload -- Mobile GPS Receiver
 ==========================================
 Author: 7h30th3r0n3
 
@@ -20,7 +20,7 @@ Controls
   UP / DOWN   -- Scroll log entries
   KEY3        -- Exit
 
-Loot: /root/Raspyjack/loot/GPS/
+Loot: /root/DaRkb0x/loot/GPS/
 """
 
 import os
@@ -57,7 +57,7 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_DIR = "/root/Raspyjack/loot/GPS"
+LOOT_DIR = "/root/DaRkb0x/loot/GPS"
 os.makedirs(LOOT_DIR, exist_ok=True)
 HTTPS_PORT = 4443
 DEBOUNCE = 0.20
@@ -82,11 +82,11 @@ _status_msg = "Server stopped"
 
 HTML_PAGE = """<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>RaspyJack GPS</title>
+<title>DaRkb0x GPS</title>
 <style>body{font-family:sans-serif;background:#111;color:#0f0;padding:20px;text-align:center}
 h2{color:#0cf}#st{color:#fa0}button{font-size:18px;padding:10px 20px;margin:10px}</style>
 </head><body>
-<h2>RaspyJack GPS</h2><p id="st">Waiting...</p><p id="co"></p>
+<h2>DaRkb0x GPS</h2><p id="st">Waiting...</p><p id="co"></p>
 <script>
 var iv=null;
 function send(p){
@@ -182,7 +182,7 @@ def _ensure_self_signed_cert():
                 "openssl", "req", "-x509", "-newkey", "rsa:2048",
                 "-keyout", _KEY_FILE, "-out", _CERT_FILE,
                 "-days", "365", "-nodes",
-                "-subj", "/CN=RaspyJack GPS",
+                "-subj", "/CN=DaRkb0x GPS",
             ],
             capture_output=True, timeout=30,
             check=True,

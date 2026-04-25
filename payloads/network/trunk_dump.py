@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Trunk Dump
+DaRkb0x Payload -- Trunk Dump
 =================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2      -- Export data
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/TrunkDump/
+Loot: /root/DaRkb0x/loot/TrunkDump/
 
 Setup: Switch must support DTP (Cisco default on many switches).
 """
@@ -70,7 +70,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/TrunkDump"
+LOOT_DIR = "/root/DaRkb0x/loot/TrunkDump"
 os.makedirs(LOOT_DIR, exist_ok=True)
 ROWS_VISIBLE = 6
 

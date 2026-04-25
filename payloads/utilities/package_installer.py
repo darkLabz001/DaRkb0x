@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Package Installer
+DaRkb0x Payload -- Package Installer
 ========================================
 Author: 7h30th3r0n3
 

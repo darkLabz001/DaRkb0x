@@ -3,8 +3,8 @@ import os
 
 def build_insomnia_box():
     # 1. Start from a clean slate
-    os.system('git checkout raspyjack.py')
-    with open('raspyjack.py', 'r') as f:
+    os.system('git checkout darkbox.py')
+    with open('darkbox.py', 'r') as f:
         content = f.read()
     
     # --- MONKEYPATCH FONT & DISABLE ICONS ---
@@ -20,8 +20,8 @@ PIL.ImageFont.truetype = lambda *a, **k: PIL.ImageFont.load_default()
     content = content.replace('if icon:', 'if False:')
     
     # --- BRANDING & PATHS ---
-    content = content.replace('install_path = "/root/Raspyjack/"', 'install_path = "/home/kali/Raspyjack/"')
-    content = content.replace('RaspyJack', 'insomniaBox')
+    content = content.replace('install_path = "/root/DaRkb0x/"', 'install_path = "/home/kali/DaRkb0x/"')
+    content = content.replace('DaRkb0x', 'DaRkb0x')
     
     # --- STABILITY ---
     # Be VERY precise with the replace to avoid duplicate fragments
@@ -47,7 +47,7 @@ PIL.ImageFont.truetype = lambda *a, **k: PIL.ImageFont.load_default()
         ),
 
         "auto": (
-            [" Run insomniaBox", partial(exec_payload, "insomnia_suite/insomnia_auto")],
+            [" Run DaRkb0x", partial(exec_payload, "insomnia_suite/insomnia_auto")],
             [" View Auto Logs",  lambda: ReadTextFileInsomnia()],
         ),
 
@@ -71,13 +71,13 @@ PIL.ImageFont.truetype = lambda *a, **k: PIL.ImageFont.load_default()
     content = re.sub(r'menu = \{\s+"a": \([^)]+\),', new_menu_content, content, flags=re.DOTALL)
     
     # Add Log Viewer Menu Entry
-    content = content.replace('[" Nmap",      ReadTextFileNmap],', '[" Nmap",      ReadTextFileNmap],\n            [" insomniaBox",   ReadTextFileInsomnia],')
+    content = content.replace('[" Nmap",      ReadTextFileNmap],', '[" Nmap",      ReadTextFileNmap],\n            [" DaRkb0x",   ReadTextFileInsomnia],')
 
     # --- INJECT FUNCTIONS ---
     log_viewer_func = """
 def ReadTextFileInsomnia():
     while 1:
-        rfile = Explorer("/home/kali/Raspyjack/loot/insomnia/", extensions=".log")
+        rfile = Explorer("/home/kali/DaRkb0x/loot/insomnia/", extensions=".log")
         if rfile == "": break
         with open(rfile) as f:
             content = f.read().splitlines()
@@ -86,9 +86,9 @@ def ReadTextFileInsomnia():
 def ReadTextFileNmap():"""
     content = content.replace('def ReadTextFileNmap():', log_viewer_func)
 
-    with open('raspyjack_master_v3.py', 'w') as f:
+    with open('darkbox_master_v3.py', 'w') as f:
         f.write(content)
-    print("Master insomniaBox file (v3) created.")
+    print("Master DaRkb0x file (v3) created.")
 
 if __name__ == '__main__':
     build_insomnia_box()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- HSRP Takeover
+DaRkb0x Payload -- HSRP Takeover
 =====================================
 Author: 7h30th3r0n3
 
@@ -21,7 +21,7 @@ Controls:
   KEY2      -- Export data
   KEY3      -- Exit + stop
 
-Loot: /root/Raspyjack/loot/HSRPTakeover/
+Loot: /root/DaRkb0x/loot/HSRPTakeover/
 
 Setup: Target network must use HSRP. Requires IP forwarding.
 """
@@ -70,7 +70,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/HSRPTakeover"
+LOOT_DIR = "/root/DaRkb0x/loot/HSRPTakeover"
 os.makedirs(LOOT_DIR, exist_ok=True)
 HSRP_PORT = 1985
 HSRP_MCAST = "224.0.0.2"

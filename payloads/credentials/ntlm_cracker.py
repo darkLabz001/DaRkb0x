@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NTLM Hash Cracker
+DaRkb0x Payload -- NTLM Hash Cracker
 =======================================
 Author: 7h30th3r0n3
 
@@ -19,7 +19,7 @@ Controls:
   KEY2       -- Export cracked passwords to loot
   KEY3       -- Exit (kills john process)
 
-Loot: /root/Raspyjack/loot/CrackedNTLM/
+Loot: /root/DaRkb0x/loot/CrackedNTLM/
 """
 
 import os
@@ -58,10 +58,10 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 JOHN_BIN = "/usr/sbin/john"
 DEFAULT_WORDLIST = "/usr/share/john/password.lst"
-WORDLIST_DIR = "/root/Raspyjack/loot/wordlists"
-RESPONDER_LOG_DIR = "/root/Raspyjack/Responder/logs"
-RELAY_LOOT_DIR = "/root/Raspyjack/loot/NTLMRelay"
-LOOT_DIR = "/root/Raspyjack/loot/CrackedNTLM"
+WORDLIST_DIR = "/root/DaRkb0x/loot/wordlists"
+RESPONDER_LOG_DIR = "/root/DaRkb0x/Responder/logs"
+RELAY_LOOT_DIR = "/root/DaRkb0x/loot/NTLMRelay"
+LOOT_DIR = "/root/DaRkb0x/loot/CrackedNTLM"
 ROWS_VISIBLE = 6
 ROW_H = 12
 

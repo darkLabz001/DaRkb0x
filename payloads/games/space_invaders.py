@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Space Invaders
+DaRkb0x Payload -- Space Invaders
 =====================================
 Author: 7h30th3r0n3
 

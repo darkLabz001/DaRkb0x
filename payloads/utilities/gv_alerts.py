@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Webhook Notification Alerts
+DaRkb0x Payload -- Webhook Notification Alerts
 ==================================================
 Author: 7h30th3r0n3
 
@@ -39,9 +39,9 @@ PINS = {
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
 WIDTH, HEIGHT = LCD_1in44.LCD_WIDTH, LCD_1in44.LCD_HEIGHT
-CONFIG_DIR = "/root/Raspyjack/loot/Alerts"
+CONFIG_DIR = "/root/DaRkb0x/loot/Alerts"
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
-LOOT_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot"
 DEBOUNCE = 0.25
 MAX_LOG = 50
 
@@ -128,7 +128,7 @@ def _send_webhook(config, message):
     elif wh_type == "discord":
         payload = {"content": message}
     else:
-        payload = {"message": message, "source": "raspyjack", "timestamp": datetime.now().isoformat()}
+        payload = {"message": message, "source": "darkbox", "timestamp": datetime.now().isoformat()}
 
     try:
         data = json.dumps(payload).encode("utf-8")
@@ -198,7 +198,7 @@ def _monitor_worker(config):
         if new_files:
             count = len(new_files)
             names = [os.path.basename(p) for p, _ in list(new_files)[:3]]
-            msg = f"RaspyJack: {count} new loot file(s): {', '.join(names)}"
+            msg = f"DaRkb0x: {count} new loot file(s): {', '.join(names)}"
             _add_log(f"New: {count} file(s)")
             _send_webhook(config, msg)
 
@@ -307,7 +307,7 @@ def main():
             elif btn == "KEY2":
                 config = _load_config()
                 _add_log("Sending test...")
-                ok = _send_webhook(config, "RaspyJack test alert - webhook configured successfully.")
+                ok = _send_webhook(config, "DaRkb0x test alert - webhook configured successfully.")
                 status_msg = "Test OK" if ok else "Test failed"
 
         _render(scroll_pos, status_msg)

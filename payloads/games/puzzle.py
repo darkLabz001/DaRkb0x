@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Sliding Puzzle (15-puzzle)
+DaRkb0x Payload -- Sliding Puzzle (15-puzzle)
 -------------------------------------------------
 Author: 7h30th3r0n3
 

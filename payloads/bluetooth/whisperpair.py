@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- WhisperPair (CVE-2025-36911)
+DaRkb0x Payload -- WhisperPair (CVE-2025-36911)
 ====================================================
 Author: 7h30th3r0n3
 
@@ -59,7 +59,7 @@ FP_KEYPAIR_UUID = "fe2c1234-8366-4814-8eb0-01de32100bea"
 FP_ACCOUNT_KEY_UUID = "fe2c1235-8366-4814-8eb0-01de32100bea"
 
 # Audio GATT (A2DP/HFP over BLE)
-LOOT_DIR = "/root/Raspyjack/loot/WhisperPair"
+LOOT_DIR = "/root/DaRkb0x/loot/WhisperPair"
 
 # Known Fast Pair device name keywords
 FP_KEYWORDS = [

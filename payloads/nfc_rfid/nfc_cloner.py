@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- NFC Cloner
+DaRkb0x Payload -- NFC Cloner
 =================================
 Clone NFC cards: load a saved dump and write it to a new card.
 Supports MIFARE Classic and Ultralight/NTAG.

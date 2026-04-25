@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Hashtopolis Uploader
+DaRkb0x Payload -- Hashtopolis Uploader
 ==========================================
 Author: 7h30th3r0n3
 
@@ -15,8 +15,8 @@ Controls
   KEY2       -- Configure server URL & API key (character picker)
   KEY3       -- Exit
 
-Config: /root/Raspyjack/loot/Hashtopolis/config.json
-Input:  /root/Raspyjack/loot/ (recursive .hc22000/.hccapx)
+Config: /root/DaRkb0x/loot/Hashtopolis/config.json
+Input:  /root/DaRkb0x/loot/ (recursive .hc22000/.hccapx)
 """
 
 import os
@@ -56,7 +56,7 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot"
+LOOT_DIR = "/root/DaRkb0x/loot"
 CONFIG_DIR = os.path.join(LOOT_DIR, "Hashtopolis")
 CONFIG_PATH = os.path.join(CONFIG_DIR, "config.json")
 os.makedirs(CONFIG_DIR, exist_ok=True)
@@ -176,7 +176,7 @@ def _upload_file(filepath, url, key):
     hash_count = _count_lines(filepath)
 
     # Build multipart/form-data manually
-    boundary = "----RaspyJackBoundary"
+    boundary = "----DaRkb0xBoundary"
     body_parts = []
 
     # API key field

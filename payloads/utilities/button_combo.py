@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- Button Combo Actions
+DaRkb0x Payload -- Button Combo Actions
 ===========================================
 Author: 7h30th3r0n3
 
@@ -9,7 +9,7 @@ button presses and triggers assigned shell commands.
 
 Setup / Prerequisites
 ---------------------
-- RaspyJack base system with LCD hat.
+- DaRkb0x base system with LCD hat.
 
 Controls
 --------
@@ -19,7 +19,7 @@ Controls
   KEY2        -- Confirm edit / toggle monitoring
   KEY3        -- Exit / Back
 
-Config: /root/Raspyjack/loot/ButtonCombo/config.json
+Config: /root/DaRkb0x/loot/ButtonCombo/config.json
 """
 
 import os
@@ -52,14 +52,14 @@ LCD.LCD_Init(LCD_1in44.SCAN_DIR_DFT)
 WIDTH, HEIGHT = LCD.width, LCD.height
 font = scaled_font()
 
-LOOT_DIR = "/root/Raspyjack/loot/ButtonCombo"
+LOOT_DIR = "/root/DaRkb0x/loot/ButtonCombo"
 CONFIG_PATH = os.path.join(LOOT_DIR, "config.json")
 DEBOUNCE = 0.22
 ROW_H = 12
 CHARSET = list("abcdefghijklmnopqrstuvwxyz0123456789 -_./|&;")
 
 DEFAULT_COMBOS = [
-    {"combo": "KEY1+KEY2", "action": "scrot /tmp/rj_screenshot.png"},
+    {"combo": "KEY1+KEY2", "action": "scrot /tmp/db_screenshot.png"},
     {"combo": "KEY1+UP", "action": "airmon-ng check kill"},
     {"combo": "KEY2+DOWN", "action": "nmap -sn 192.168.1.0/24"},
 ]

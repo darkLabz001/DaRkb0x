@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GPIO Pin Configuration Manager for Raspyjack
+GPIO Pin Configuration Manager for DaRkb0x
 """
 
 import json
@@ -12,13 +12,13 @@ class GPIOConfig:
     def __init__(self, config_path: Optional[str] = None):
         # Default to local gui_conf.json if no path specified
         if config_path is None:
-            # Try local directory first, then fallback to /root/Raspyjack/
+            # Try local directory first, then fallback to /root/DaRkb0x/
             import os
             local_config = os.path.join(os.path.dirname(__file__), "gui_conf.json")
             if os.path.exists(local_config):
                 self.config_path = local_config
             else:
-                self.config_path = "/root/Raspyjack/gui_conf.json"
+                self.config_path = "/root/DaRkb0x/gui_conf.json"
         else:
             self.config_path = config_path
         self._config_data = None

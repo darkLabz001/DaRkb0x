@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload -- TLS Certificate Scanner
+DaRkb0x Payload -- TLS Certificate Scanner
 ==============================================
 Author: 7h30th3r0n3
 
@@ -18,7 +18,7 @@ Controls:
   KEY2      -- Export JSON to loot
   KEY3      -- Exit
 
-Loot: /root/Raspyjack/loot/Certs/<timestamp>.json
+Loot: /root/DaRkb0x/loot/Certs/<timestamp>.json
 """
 
 import os
@@ -56,8 +56,8 @@ font = scaled_font()
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-LOOT_DIR = "/root/Raspyjack/loot/Certs"
-NMAP_LOOT = "/root/Raspyjack/loot/Nmap"
+LOOT_DIR = "/root/DaRkb0x/loot/Certs"
+NMAP_LOOT = "/root/DaRkb0x/loot/Nmap"
 os.makedirs(LOOT_DIR, exist_ok=True)
 
 TLS_PORTS = [443, 8443, 993, 995, 465, 636]

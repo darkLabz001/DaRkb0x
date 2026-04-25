@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RaspyJack Payload – Universal WiFi Adapter Installer
+DaRkb0x Payload – Universal WiFi Adapter Installer
 ======================================================
 Plug in your dongle, press KEY1, done.
 
@@ -407,7 +407,7 @@ PINS = {
     "UP": 6, "DOWN": 19, "LEFT": 5, "RIGHT": 26,
     "OK": 13, "KEY1": 21, "KEY2": 20, "KEY3": 16,
 }
-LOG_FILE = "/root/Raspyjack/loot/network/wifi_installer.log"
+LOG_FILE = "/root/DaRkb0x/loot/network/wifi_installer.log"
 ONBOARD_DRIVERS = {"brcmfmac", "brcmsmac", "b43", "b43legacy"}
 
 GPIO.setmode(GPIO.BCM)
@@ -720,7 +720,7 @@ class Installer:
                 return
         log(f"modprobe {driver} OK")
         # Persist across reboots
-        conf_file = f"/etc/modules-load.d/rj_{driver}.conf"
+        conf_file = f"/etc/modules-load.d/db_{driver}.conf"
         try:
             with open(conf_file, "w") as f:
                 f.write(f"{driver}\n")
@@ -763,7 +763,7 @@ class Installer:
             log(f"Kali repo error: {e}")
 
     def _build_github(self, repo_url: str, driver: str) -> bool:
-        build_dir = f"/tmp/rj_drv_{driver}"
+        build_dir = f"/tmp/db_drv_{driver}"
         self._cmd(["rm", "-rf", build_dir], timeout=10, ok_err=True)
         self._p(40, "git clone...")
         ok, _ = self._cmd(["git", "clone", "--depth=1", repo_url, build_dir],

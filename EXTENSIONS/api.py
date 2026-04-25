@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Public extension API for RaspyJack payloads. Author: m0usem0use"""
+"""Public extension API for DaRkb0x payloads. Author: m0usem0use"""
 from __future__ import annotations
 
 try:
