@@ -3994,6 +3994,7 @@ class DisposableMenu:
         ),
 
         "af": (
+            [" Update DaRkb0x",  check_for_updates],
             [" Shutdown system", [Leave, True]],
             [" Restart UI",      Restart]
         ),
